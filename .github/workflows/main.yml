@@ -14,4 +14,4 @@ jobs:
       - name: Initialize Bit
         uses: bit-tasks/init@main
         with:
-          ws-dir: 'tests'
+          ws-dir: 'testws'
