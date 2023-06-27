@@ -1,5 +1,5 @@
-# Bit Tasks for Git CI/CD Pipelines
-Bit tasks for Github Actions, AzureDevOps, GitLab and other CI/CD platforms.
+# Initialize Bit for CI/CD Pipelines
+Initialize Bit for CI/CD Pipelines
 
 # GitHub Actions
 
