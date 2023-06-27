@@ -3943,8 +3943,11 @@ const path = __nccwpck_require__(17);
 async function run(exec, wsdir) {
     // get bit version to install
     const wsDir = path.resolve(wsdir);
+    console.log(wsDir)
     const wsFile = path.join(wsDir, 'workspace.jsonc');
+    console.log(wsFile)
     const workspace = fs.readFileSync(wsFile).toString();
+    console.log(workspace)
     const bitEngineVersion = /"engine": "(.*)"/.exec(workspace)[1];
 
     // install bvm globally
@@ -4132,8 +4135,6 @@ const run = __nccwpck_require__(73);
 
 try {
   const wsDir = core.getInput('ws-dir');
-  console.log("#####");
-  console.log(wsDir)
   run(exec, wsDir);
 } catch (error) {
   core.setFailed(error.message);

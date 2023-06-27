@@ -4,8 +4,11 @@ const path = require('path');
 async function run(exec, wsdir) {
     // get bit version to install
     const wsDir = path.resolve(wsdir);
+    console.log(wsDir)
     const wsFile = path.join(wsDir, 'workspace.jsonc');
+    console.log(wsFile)
     const workspace = fs.readFileSync(wsFile).toString();
+    console.log(workspace)
     const bitEngineVersion = /"engine": "(.*)"/.exec(workspace)[1];
 
     // install bvm globally
