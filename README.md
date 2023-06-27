@@ -16,9 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Initialize Bit
-        uses: bit-tasks/init@v1.1
+        uses: bit-tasks/init@v1
         with:
-          ws-dir: './tests'
+          ws-dir: '<workspace-directory-path>'
 ```
 
 # Contributor Guide
