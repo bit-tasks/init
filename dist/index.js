@@ -3943,12 +3943,10 @@ const path = __nccwpck_require__(17);
 async function run(exec, wsdir) {
     // get bit version to install
     const wsDir = path.resolve(wsdir);
-    console.log(wsDir)
     const wsFile = path.join(wsDir, 'workspace.jsonc');
-    console.log(wsFile)
     const workspace = fs.readFileSync(wsFile).toString();
-    console.log(workspace)
-    const bitEngineVersion = /"engine": "(.*)"/.exec(workspace)[1] || '';
+    const match = /"engine": "(.*)"/.exec(workspace);
+    const bitEngineVersion = match ? match[1] : '';
 
     // install bvm globally
     await exec('npm i -g @teambit/bvm');
