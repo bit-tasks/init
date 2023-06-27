@@ -30,8 +30,7 @@ async function run(exec, wsdir) {
   await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
 
   // bit install dependencies
-  await exec(`cd tests && ls`);
-  await exec(`cd tests && bit install`);
+  await exec('npm install', [], { cwd: 'tests' });
 }
 
 module.exports = run;
