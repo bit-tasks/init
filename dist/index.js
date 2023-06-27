@@ -3942,8 +3942,8 @@ const path = __nccwpck_require__(17);
 
 async function run(exec, wsdir) {
     // get bit version to install
-    const wsDir = path.resolve(wsdir);
-    const wsFile = path.join(wsDir, 'workspace.jsonc');
+    const wsDirPath = path.resolve(wsdir);
+    const wsFile = path.join(wsDirPath, 'workspace.jsonc');
     const workspace = fs.readFileSync(wsFile).toString();
     const match = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = match ? match[1] : '';
@@ -3967,7 +3967,7 @@ async function run(exec, wsdir) {
     await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
 
     // bit install dependencies
-    await exec(`cd ${wsDir}`);
+    await exec(`cd ${wsdir}`);
     await exec('bit install');
 }
 
