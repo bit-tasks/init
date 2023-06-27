@@ -3,6 +3,12 @@ Initialize Bit for CI/CD Pipelines
 
 # GitHub Actions
 
+## Inputs
+
+### `ws-dir`
+
+**Optional** The workspace directory path from the root. Default `"./"`.
+
 ## Example usage
 
 ```yaml
