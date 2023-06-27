@@ -28,6 +28,7 @@ async function run(exec, wsdir) {
     await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
 
     // bit install dependencies
+    await exec(`cd ${wsDir}`);
     await exec('bit install');
 }
 
