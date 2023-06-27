@@ -8,4 +8,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Initialize Bit
-        uses: bit-tasks/init@main
+        uses: bit-tasks/init@v1.1
