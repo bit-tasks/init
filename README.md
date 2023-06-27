@@ -23,7 +23,8 @@ Go to the GithHub action task directory and build using NCC compiler. For exampl
 cd github/init-bit;
 ncc build index.js --license licenses.txt
 git commit -m "Update task"
-git push
+git tag -a -m "action release" v1.1
+git push --follow-tags
 ```
 
 For more information refer [Create a javascript action](https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action)
