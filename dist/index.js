@@ -3969,7 +3969,7 @@ async function run(exec, wsdir) {
   await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
 
   // bit install dependencies
-  await exec("pwd", { cwd: wsDirPath });
+  await exec("cwd", { cwd: wsDirPath });
   console.log(wsDirPath);
   await exec("ls", { cwd: wsDirPath });
   await exec("bit install", { cwd: wsDirPath });
