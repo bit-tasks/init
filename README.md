@@ -6,9 +6,19 @@ Bit tasks for Github Actions, AzureDevOps, GitLab and other CI/CD platforms.
 ## Example usage
 
 ```yaml
-- name: Initialize Bit
-  uses: bit-tasks/init
-
+name: Test Bit Init
+on:
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize Bit
+        uses: bit-tasks/init@v1.1
+        with:
+          ws-dir: './tests'
 ```
 
 # Contributor Guide
