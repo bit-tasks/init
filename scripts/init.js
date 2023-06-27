@@ -9,7 +9,7 @@ async function run(exec, wsdir) {
     console.log(wsFile)
     const workspace = fs.readFileSync(wsFile).toString();
     console.log(workspace)
-    const bitEngineVersion = /"engine": "(.*)"/.exec(workspace)[1];
+    const bitEngineVersion = /"engine": "(.*)"/.exec(workspace)[1] || '';
 
     // install bvm globally
     await exec('npm i -g @teambit/bvm');
