@@ -15,8 +15,11 @@ async function run(exec, wsdir) {
   await exec(`bvm install ${bitEngineVersion} --use-system-node`);
   // set path
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH; // sets path for current step
-  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`); // sets path for subsequent steps
 
+  // sets path for subsequent steps
+  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
+  fs.appendFileSync(process.env.GITHUB_ENV, `PATH=${process.env.PATH}\n`);
+  
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
@@ -30,7 +33,7 @@ async function run(exec, wsdir) {
   await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
 
   // bit install dependencies
-  await exec('npm install', [], { cwd: wsdir });
+  await exec('bit install', [], { cwd: wsdir });
 }
 
 module.exports = run;
