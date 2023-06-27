@@ -3,6 +3,8 @@ Initialize Bit for CI/CD Pipelines
 
 # GitHub Actions
 
+This CI Task, install bit in the CI and executs `bit install` inside the workspace directory.
+
 ## Inputs
 
 ### `ws-dir`
