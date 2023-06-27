@@ -15,3 +15,5 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: 'testws'
+      - name: Bit version test
+        run: bit -v
