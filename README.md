@@ -34,7 +34,7 @@ npm i -g @vercel/ncc
 npm install
 ncc build index.js --license licenses.txt
 git commit -m "Update task"
-git tag -a -m "action release" v1.1
+git tag -a -m "action release" v1
 git push --follow-tags
 ```
 
