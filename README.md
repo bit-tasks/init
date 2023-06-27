@@ -31,6 +31,7 @@ Go to the GithHub action task directory and build using NCC compiler. For exampl
 
 ```
 npm i -g @vercel/ncc
+npm install
 ncc build index.js --license licenses.txt
 git commit -m "Update task"
 git tag -a -m "action release" v1.1
