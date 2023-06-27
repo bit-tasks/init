@@ -1,0 +1,10 @@
+{
+    "name": "tests",
+    "remotes": {},
+    "version": "1.0.512",
+    "lanes": {
+        "current": "main",
+        "tracking": [],
+        "new": []
+    }
+}

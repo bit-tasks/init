@@ -20,7 +20,7 @@ Steps to create custom tasks in different CI/CD platforms.
 Go to the GithHub action task directory and build using NCC compiler. For example;
 
 ```
-cd github/init-bit;
+npm i -g @vercel/ncc
 ncc build index.js --license licenses.txt
 git commit -m "Update task"
 git tag -a -m "action release" v1.1
