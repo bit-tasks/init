@@ -3969,12 +3969,14 @@ async function run(exec, wsdir) {
     await exec('which bit', [], options);
     bitPath = bitPath.trim();
     console.log("Bit Path:", bitPath);
+     // Add Bit binary directory to the path
+     await exec(`echo "${bitPath}" >> $GITHUB_PATH`);
   } catch (error) {
     console.error('Error finding Bit path:', error);
   }
 
 
-  
+
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
