@@ -1,7 +1,7 @@
 const fs = require("fs");
 const core = require("@actions/core");
 const exec = require("@actions/exec").exec;
-const run = require("./scripts/core");
+const run = require("./scripts/init");
 
 try {
   const wsDir = core.getInput("ws-dir");
