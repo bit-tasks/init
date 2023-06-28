@@ -4052,7 +4052,7 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     yield exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
     yield exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
     // bit install dependencies
-    yield exec("bit install --add-missing-deps", { cwd: wsdir });
+    yield exec("bit install", { cwd: wsdir });
 });
 exports["default"] = run;
 

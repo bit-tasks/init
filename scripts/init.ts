@@ -32,7 +32,7 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   await exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
 
   // bit install dependencies
-  await exec("bit install --add-missing-deps", { cwd: wsdir });
+  await exec("bit install", { cwd: wsdir });
 }
 
 export default run;
