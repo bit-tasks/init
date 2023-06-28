@@ -3955,31 +3955,6 @@ async function run(exec, wsdir) {
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
-  // Find path of Bit binary
-  let bitPath = "";
-  const options = {
-    listeners: {
-      stdout: (data) => {
-        bitPath += data.toString();
-      },
-    },
-  };
-
-  try {
-    await exec("which bit", [], options);
-    bitPath = bitPath.trim();
-    console.log("Bit Path:", bitPath);
-    // Extract directory from full path
-    const bitDir = path.dirname(bitPath);
-    console.log("Bit Directory:", bitDir);
-
-    // Add Bit binary directory to the path
-    //await exec(`echo "${bitDir}" >> $GITHUB_PATH`);
-    fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
-  } catch (error) {
-    console.error("Error finding Bit path:", error);
-  }
-
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
@@ -4154,6 +4129,7 @@ module.exports = require("util");
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
+const fs = __nccwpck_require__(147);
 const core = __nccwpck_require__(508);
 const exec = (__nccwpck_require__(362).exec);
 const run = __nccwpck_require__(188);
@@ -4161,8 +4137,8 @@ const run = __nccwpck_require__(188);
 try {
   const wsDir = core.getInput('ws-dir');
   run(exec, wsDir).then(()=>{
-
-    
+    // Set Bit path for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
   });
 } catch (error) {
   core.setFailed(error.message);

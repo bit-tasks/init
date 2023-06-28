@@ -16,31 +16,6 @@ async function run(exec, wsdir) {
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
-  // Find path of Bit binary
-  let bitPath = "";
-  const options = {
-    listeners: {
-      stdout: (data) => {
-        bitPath += data.toString();
-      },
-    },
-  };
-
-  try {
-    await exec("which bit", [], options);
-    bitPath = bitPath.trim();
-    console.log("Bit Path:", bitPath);
-    // Extract directory from full path
-    const bitDir = path.dirname(bitPath);
-    console.log("Bit Directory:", bitDir);
-
-    // Add Bit binary directory to the path
-    //await exec(`echo "${bitDir}" >> $GITHUB_PATH`);
-    fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
-  } catch (error) {
-    console.error("Error finding Bit path:", error);
-  }
-
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
