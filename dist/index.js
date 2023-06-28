@@ -2807,9 +2807,14 @@ const run = (wsdir) => {
     (0, child_process_1.execSync)("bit config set analytics_reporting false", { stdio: "inherit" });
     (0, child_process_1.execSync)("bit config set anonymous_reporting false", { stdio: "inherit" });
     (0, child_process_1.execSync)("bit config set user.token $BIT_TOKEN", { stdio: "inherit" });
-    (0, child_process_1.execSync)(`npm config set always-auth true`, { stdio: 'inherit' });
-    (0, child_process_1.execSync)(`npm config set @teambit:registry https://node-registry.bit.cloud`, { stdio: 'inherit' });
-    (0, child_process_1.execSync)(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`, { stdio: 'inherit' });
+    // set your npmrc
+    (0, child_process_1.execSync)(`npm config set always-auth true`, { stdio: "inherit" });
+    (0, child_process_1.execSync)(`npm config set @teambit:registry https://node-registry.bit.cloud`, {
+        stdio: "inherit",
+    });
+    (0, child_process_1.execSync)(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`, {
+        stdio: "inherit",
+    });
     // bit install dependencies
     (0, child_process_1.execSync)("bit install --add-missing-deps", { stdio: "inherit", cwd: wsdir });
 };
