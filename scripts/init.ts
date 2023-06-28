@@ -28,7 +28,8 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   await exec("bit config set user.token $BIT_TOKEN");
   // await exec("npm config set always-auth true");
   //TODO: move these back to "node.bit.cloud" once that promotion occurs
-  await exec("RUN npm config set '@teambit:registry' https://node-registry.bit.cloud");
+  await exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
+  await exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
 
   // bit install dependencies
   await exec("bit install --add-missing-deps", { cwd: wsdir });
