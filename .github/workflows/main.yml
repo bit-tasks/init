@@ -17,5 +17,4 @@ jobs:
           ws-dir: 'test-data'
       - name: Bit version test
         run: |
-          ls $HOME/bin
           bit -v
