@@ -17,7 +17,7 @@ async function run(exec, wsdir) {
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
   // sets path for subsequent steps
-  await exec(`echo "$HOME/.bvm/bin" >> $GITHUB_PATH`);
+  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
 
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
