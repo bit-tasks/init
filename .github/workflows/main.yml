@@ -18,4 +18,4 @@ jobs:
       - name: Bit version test
         run: |
           ls $HOME/bin
-          $HOME/bin/bit -v
+          bit -v

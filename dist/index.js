@@ -3974,7 +3974,8 @@ async function run(exec, wsdir) {
     console.log("Bit Directory:", bitDir);
 
     // Add Bit binary directory to the path
-    await exec(`echo "${bitDir}" >> $GITHUB_PATH`);
+    //await exec(`echo "${bitDir}" >> $GITHUB_PATH`);
+    fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
   } catch (error) {
     console.error("Error finding Bit path:", error);
   }
