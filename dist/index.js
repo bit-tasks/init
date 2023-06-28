@@ -4051,6 +4051,7 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     //TODO: move these back to "node.bit.cloud" once that promotion occurs
     yield exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
     yield exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
+    yield exec("npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN");
     // bit install dependencies
     yield exec("bit install", { cwd: wsdir });
 });

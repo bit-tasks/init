@@ -30,6 +30,7 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   //TODO: move these back to "node.bit.cloud" once that promotion occurs
   await exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
   await exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
+  await exec("npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN");
 
   // bit install dependencies
   await exec("bit install", { cwd: wsdir });
