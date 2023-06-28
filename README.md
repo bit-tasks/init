@@ -41,7 +41,7 @@ Go to the GithHub action task directory and build using NCC compiler. For exampl
 npm install
 npm run build
 git commit -m "Update task"
-git tag -a -m "action release" v1
+git tag -a -m "action release" v1 --force
 git push --follow-tags
 ```
 
