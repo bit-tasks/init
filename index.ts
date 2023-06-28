@@ -5,6 +5,8 @@ import run, { ExecFunction } from './scripts/init';
 
 try {
   const wsDir: string = core.getInput('ws-dir');
+  console.log(wsDir);
+  console.log("####")
   const stdExec: ExecFunction = (command: string, options?: {cwd: string}): Promise<number> => exec(command, [], options);
   run(stdExec, wsDir).then((): void => {
     // Set wsDir path for subsequent steps in GitHub Actions

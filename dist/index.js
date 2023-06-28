@@ -3972,6 +3972,8 @@ const exec_1 = __nccwpck_require__(514);
 const init_1 = __importDefault(__nccwpck_require__(154));
 try {
     const wsDir = core.getInput('ws-dir');
+    console.log(wsDir);
+    console.log("####");
     const stdExec = (command, options) => (0, exec_1.exec)(command, [], options);
     (0, init_1.default)(stdExec, wsDir).then(() => {
         // Set wsDir path for subsequent steps in GitHub Actions
