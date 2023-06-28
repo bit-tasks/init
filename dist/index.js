@@ -3956,14 +3956,25 @@ async function run(exec, wsdir) {
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
   // Find path of Bit binary
-  let bitPath;
+  let bitPath = '';
+  const options = {
+    listeners: {
+      stdout: (data) => {
+        bitPath += data.toString();
+      },
+    },
+  };
+
   try {
-    bitPath = (await exec("which bit")).trim();
+    await exec('which bit', [], options);
+    bitPath = bitPath.trim();
     console.log("Bit Path:", bitPath);
   } catch (error) {
-    console.error("Error finding Bit path:", error);
+    console.error('Error finding Bit path:', error);
   }
 
+
+  
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
