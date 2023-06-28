@@ -22,7 +22,7 @@ importers:
         version: 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)
       '@teambit/defender.jest-tester':
         specifier: 0.0.10
-        version: 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@12.20.4)
+        version: 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@16.18.37)
       '@teambit/defender.prettier-formatter':
         specifier: 0.0.6
         version: 0.0.6(@teambit/legacy@node_modules+@teambit+legacy)
@@ -43,7 +43,7 @@ importers:
         version: 0.0.10
       '@teambit/react.react-env':
         specifier: ^0.0.68
-        version: 0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: 0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@teambit/typescript.typescript-compiler':
         specifier: 0.0.0-f236a8833a0038e3956090f2282a672c96eb90f3
         version: 0.0.0-f236a8833a0038e3956090f2282a672c96eb90f3(@teambit/legacy@node_modules+@teambit+legacy)
@@ -79,7 +79,7 @@ importers:
         version: 14.7.0
       jest:
         specifier: 29.3.1
-        version: 29.3.1(@types/node@12.20.4)
+        version: 29.3.1(@types/node@16.18.37)
       react:
         specifier: '>=18.0.0 <19.0.0'
         version: 18.2.0
@@ -95,10 +95,10 @@ importers:
     devDependencies:
       '@learnbit/hello-world.envs.my-react-env':
         specifier: 0.0.3
-        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@teambit/node.node':
         specifier: 0.0.38
-        version: 0.0.38(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)(graphql@14.7.0)
+        version: 0.0.38(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)(graphql@14.7.0)
       '@testing-library/react':
         specifier: ^13.4.0
         version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -106,8 +106,8 @@ importers:
         specifier: '>=29.2.2 <30.0.0'
         version: 29.5.2
       '@types/node':
-        specifier: 12.20.4
-        version: 12.20.4
+        specifier: '>=16.18.11 <17.0.0'
+        version: 16.18.37
       '@types/react':
         specifier: '>=18.0.0 <19.0.0'
         version: 18.2.14
@@ -122,13 +122,13 @@ importers:
     dependencies:
       '@learnbit/hello-world.envs.my-react-env':
         specifier: 0.0.3
-        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@mdx-js/react':
         specifier: 1.6.22
         version: 1.6.22(react@18.2.0)
       '@org/scope-name.envs.my-react-env':
         specifier: workspace:*
-        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@org/scope-name.get-hello-world':
         specifier: workspace:*
         version: file:scope-name/get-hello-world
@@ -146,7 +146,7 @@ importers:
         version: 14.7.0
       jest:
         specifier: 29.3.1
-        version: 29.3.1(@types/node@12.20.4)
+        version: 29.3.1(@types/node@16.18.37)
       react:
         specifier: ^18.0.0
         version: 18.2.0
@@ -173,7 +173,7 @@ importers:
         version: 1.6.22(react@18.2.0)
       '@org/scope-name.envs.my-react-env':
         specifier: workspace:*
-        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@org/scope-name.get-hello-world':
         specifier: workspace:*
         version: file:scope-name/get-hello-world
@@ -191,7 +191,7 @@ importers:
         version: 14.7.0
       jest:
         specifier: 29.3.1
-        version: 29.3.1(@types/node@12.20.4)
+        version: 29.3.1(@types/node@16.18.37)
       react:
         specifier: ^18.0.0
         version: 18.2.0
@@ -204,7 +204,7 @@ importers:
     devDependencies:
       '@learnbit/hello-world.envs.my-react-env':
         specifier: 0.0.3
-        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@types/jest':
         specifier: ^29.2.2
         version: 29.5.2
@@ -228,7 +228,7 @@ importers:
     dependencies:
       '@org/scope-name.envs.my-react-env':
         specifier: workspace:*
-        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@org/scope-name.get-hello-world':
         specifier: workspace:*
         version: file:scope-name/get-hello-world
@@ -255,7 +255,7 @@ importers:
         version: 1.6.22(react@18.2.0)
       '@org/scope-name.envs.my-react-env':
         specifier: workspace:*
-        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@org/scope-name.get-hello-world':
         specifier: workspace:*
         version: file:scope-name/get-hello-world
@@ -270,10 +270,10 @@ importers:
         version: 0.0.496(react-dom@18.2.0)(react@18.2.0)
       '@teambit/node.node':
         specifier: 0.0.38
-        version: 0.0.38(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)(graphql@14.7.0)
+        version: 0.0.38(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)(graphql@14.7.0)
       jest:
         specifier: 29.3.1
-        version: 29.3.1(@types/node@12.20.4)
+        version: 29.3.1(@types/node@16.18.37)
       react:
         specifier: ^18.0.0
         version: 18.2.0
@@ -401,7 +401,7 @@ importers:
         version: 14.7.0
       jest:
         specifier: 29.3.1
-        version: 29.3.1(@types/node@12.20.4)
+        version: 29.3.1(@types/node@16.18.37)
       react:
         specifier: ^18.0.0
         version: 18.2.0
@@ -414,7 +414,7 @@ importers:
     devDependencies:
       '@learnbit/hello-world.envs.my-react-env':
         specifier: 0.0.3
-        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@types/jest':
         specifier: ^29.2.2
         version: 29.5.2
@@ -438,7 +438,7 @@ importers:
         version: 14.7.0
       jest:
         specifier: 29.3.1
-        version: 29.3.1(@types/node@12.20.4)
+        version: 29.3.1(@types/node@16.18.37)
       react:
         specifier: ^18.0.0
         version: 18.2.0
@@ -451,7 +451,7 @@ importers:
     devDependencies:
       '@learnbit/hello-world.envs.my-react-env':
         specifier: 0.0.3
-        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+        version: 0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@testing-library/react':
         specifier: ^13.4.0
         version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -4146,23 +4146,23 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
-  /@learnbit/hello-world.envs.my-react-env@0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14):
+  /@learnbit/hello-world.envs.my-react-env@0.0.3(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14):
     resolution: {integrity: sha1-QH9BgCUPAHwNyK0DiOP/D2dV7IU=, tarball: https://node-registry.bit.cloud/@learnbit/hello-world.envs.my-react-env/-/@learnbit-hello-world.envs.my-react-env-0.0.3.tgz}
     dependencies:
       '@babel/runtime': 7.20.0
       '@mdx-js/react': 1.6.22(react@18.2.0)
       '@teambit/defender.eslint-linter': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)
-      '@teambit/defender.jest-tester': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@12.20.4)
+      '@teambit/defender.jest-tester': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@16.18.37)
       '@teambit/defender.prettier-formatter': 0.0.6(@teambit/legacy@node_modules+@teambit+legacy)
       '@teambit/dependencies.modules.packages-excluder': 0.0.70(react@18.2.0)
       '@teambit/mdx.ui.mdx-scope-context': 0.0.496(react-dom@18.2.0)(react@18.2.0)
       '@teambit/preview.react-preview': 0.0.35(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/react@18.2.14)(eslint@7.32.0)(graphql@14.7.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.3)
       '@teambit/react.mounter': 0.0.10
-      '@teambit/react.react-env': 0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+      '@teambit/react.react-env': 0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@teambit/typescript.typescript-compiler': 0.0.0-f236a8833a0038e3956090f2282a672c96eb90f3(@teambit/legacy@node_modules+@teambit+legacy)
       core-js: 3.31.0
       graphql: 14.7.0
-      jest: 29.3.1(@types/node@12.20.4)
+      jest: 29.3.1(@types/node@16.18.37)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-router-dom: 6.8.1(react-dom@18.2.0)(react@18.2.0)
@@ -4923,6 +4923,7 @@ packages:
       - node-notifier
       - supports-color
       - ts-node
+    dev: false
 
   /@teambit/defender.jest-tester@0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@16.18.37):
     resolution: {integrity: sha1-lD4AK6CzYBXK0drezQX4loEz69I=, tarball: https://node-registry.bit.cloud/@teambit/defender.jest-tester/-/@teambit-defender.jest-tester-0.0.10.tgz}
@@ -4960,7 +4961,6 @@ packages:
       - node-notifier
       - supports-color
       - ts-node
-    dev: true
 
   /@teambit/defender.linter-task@0.0.5:
     resolution: {integrity: sha1-SVz+88G7j/lePhSSy3g+xt4F7wQ=, tarball: https://node-registry.bit.cloud/@teambit/defender.linter-task/-/@teambit-defender.linter-task-0.0.5.tgz}
@@ -6241,68 +6241,6 @@ packages:
   /@teambit/node.generator.node-templates@0.0.0-34940b37905cab7d8e95aeb96a7cfc43b8803c4d:
     resolution: {integrity: sha1-irmkBA6xuYuB3XGqaE7pFwmt80s=, tarball: https://node-registry.bit.cloud/@teambit/node.generator.node-templates/-/@teambit-node.generator.node-templates-0.0.0-34940b37905cab7d8e95aeb96a7cfc43b8803c4d.tgz}
 
-  /@teambit/node.node@0.0.38(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)(graphql@14.7.0):
-    resolution: {integrity: sha1-0NAuntojQwKi19nIBjy0iXlN75s=, tarball: https://node-registry.bit.cloud/@teambit/node.node/-/@teambit-node.node-0.0.38.tgz}
-    dependencies:
-      '@babel/runtime': 7.20.0
-      '@mdx-js/react': 1.6.22(react@18.2.0)
-      '@teambit/defender.eslint-linter': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)
-      '@teambit/defender.jest-tester': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@12.20.4)
-      '@teambit/defender.prettier-formatter': 0.0.6(@teambit/legacy@node_modules+@teambit+legacy)
-      '@teambit/dependencies.modules.packages-excluder': 0.0.70(react@18.2.0)
-      '@teambit/mdx.ui.mdx-scope-context': 0.0.496(react-dom@18.2.0)(react@18.2.0)
-      '@teambit/node.generator.node-starters': 0.0.0-64e4ddb6778cd055a7e0a05e826bce91c99ea894
-      '@teambit/node.generator.node-templates': 0.0.0-34940b37905cab7d8e95aeb96a7cfc43b8803c4d
-      '@teambit/preview.react-preview': 0.0.35(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/react@18.2.14)(eslint@7.32.0)(graphql@14.7.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.3)
-      '@teambit/react.mounter': 0.0.10
-      '@teambit/react.react-env': 0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
-      '@teambit/typescript.typescript-compiler': 0.0.9(@teambit/legacy@node_modules+@teambit+legacy)
-      core-js: 3.31.0
-      jest: 29.3.1(@types/node@12.20.4)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@babel/traverse'
-      - '@swc/core'
-      - '@teambit/legacy'
-      - '@testing-library/react'
-      - '@types/express'
-      - '@types/node'
-      - '@types/react'
-      - '@types/webpack'
-      - '@typescript-eslint/parser'
-      - bufferutil
-      - canvas
-      - clean-css
-      - csso
-      - debug
-      - encoding
-      - esbuild
-      - eslint
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - fibers
-      - graphql
-      - html-webpack-plugin
-      - less
-      - node-notifier
-      - node-sass
-      - puppeteer
-      - sass-embedded
-      - sockjs-client
-      - supports-color
-      - ts-node
-      - type-fest
-      - typescript
-      - uglify-js
-      - utf-8-validate
-      - vue-template-compiler
-      - webpack-cli
-      - webpack-dev-server
-      - webpack-hot-middleware
-      - webpack-plugin-serve
-
   /@teambit/node.node@0.0.38(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)(graphql@14.7.0):
     resolution: {integrity: sha1-0NAuntojQwKi19nIBjy0iXlN75s=, tarball: https://node-registry.bit.cloud/@teambit/node.node/-/@teambit-node.node-0.0.38.tgz}
     dependencies:
@@ -6364,7 +6302,6 @@ packages:
       - webpack-dev-server
       - webpack-hot-middleware
       - webpack-plugin-serve
-    dev: true
 
   /@teambit/preview.react-preview@0.0.35(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/react@17.0.62)(eslint@7.32.0)(graphql@14.7.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.3):
     resolution: {integrity: sha1-x0ZR2jv4kCva7eGG4yrcZwIsn9A=, tarball: https://node-registry.bit.cloud/@teambit/preview.react-preview/-/@teambit-preview.react-preview-0.0.35.tgz}
@@ -6643,6 +6580,7 @@ packages:
       - supports-color
       - ts-node
       - utf-8-validate
+    dev: false
 
   /@teambit/react.jest.react-jest@0.0.6(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@16.18.37):
     resolution: {integrity: sha1-9kx1mmO+Z7KqWOJrmXF2pTwEAMQ=, tarball: https://node-registry.bit.cloud/@teambit/react.jest.react-jest/-/@teambit-react.jest.react-jest-0.0.6.tgz}
@@ -6663,7 +6601,6 @@ packages:
       - supports-color
       - ts-node
       - utf-8-validate
-    dev: true
 
   /@teambit/react.mounter@0.0.10:
     resolution: {integrity: sha1-uR+FUXDzUO4NSqhkUuVUCYz+G1Y=, tarball: https://node-registry.bit.cloud/@teambit/react.mounter/-/@teambit-react.mounter-0.0.10.tgz}
@@ -6748,80 +6685,6 @@ packages:
       - webpack-plugin-serve
     dev: false
 
-  /@teambit/react.react-env@0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14):
-    resolution: {integrity: sha1-+47dMWyPsV6mq4SdgfLZoBsuurU=, tarball: https://node-registry.bit.cloud/@teambit/react.react-env/-/@teambit-react.react-env-0.0.68.tgz}
-    dependencies:
-      '@babel/runtime': 7.20.0
-      '@mdx-js/react': 1.6.22(react@18.2.0)
-      '@teambit/defender.eslint-linter': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)
-      '@teambit/defender.jest-tester': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@12.20.4)
-      '@teambit/defender.prettier-formatter': 0.0.6(@teambit/legacy@node_modules+@teambit+legacy)
-      '@teambit/dependencies.modules.packages-excluder': 0.0.70(react@18.2.0)
-      '@teambit/docs.docs-template': 0.0.11(@testing-library/react@13.4.0)(@types/react@18.2.14)(graphql@14.7.0)(typescript@4.9.3)
-      '@teambit/mdx.ui.mdx-scope-context': 0.0.496(react-dom@18.2.0)(react@18.2.0)
-      '@teambit/preview.react-preview': 0.0.35(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/react@18.2.14)(eslint@7.32.0)(graphql@14.7.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.3)
-      '@teambit/react.apps.react-app-types': 0.0.32(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/react@18.2.14)(eslint@7.32.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.3)
-      '@teambit/react.eslint-config-bit-react': 0.0.794(@teambit/legacy@node_modules+@teambit+legacy)(eslint-plugin-import@2.22.1)(eslint-plugin-jsx-a11y@6.4.1)(eslint-plugin-react-hooks@4.2.0)(eslint-plugin-react@7.22.0)(eslint@7.32.0)(typescript@4.9.3)
-      '@teambit/react.generator.react-starters': 0.0.12
-      '@teambit/react.generator.react-templates': 0.0.10
-      '@teambit/react.jest.react-jest': 0.0.6(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@12.20.4)
-      '@teambit/react.mounter': 0.0.10
-      '@teambit/typescript.typescript-compiler': 0.0.9(@teambit/legacy@node_modules+@teambit+legacy)
-      '@testing-library/jest-dom': 5.16.5
-      browserslist: 4.21.4
-      core-js: 3.31.0
-      eslint: 7.32.0
-      eslint-plugin-import: 2.22.1(eslint@7.32.0)
-      eslint-plugin-jest: 24.1.5(eslint@7.32.0)(typescript@4.9.3)
-      eslint-plugin-jsx-a11y: 6.4.1(eslint@7.32.0)
-      eslint-plugin-mdx: 1.13.0(eslint@7.32.0)
-      eslint-plugin-react: 7.22.0(eslint@7.32.0)
-      eslint-plugin-react-hooks: 4.2.0(eslint@7.32.0)
-      graphql: 14.7.0
-      jest: 29.3.1(@types/node@12.20.4)
-      pino-pretty: 4.5.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      typescript: 4.9.3
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@babel/traverse'
-      - '@swc/core'
-      - '@teambit/legacy'
-      - '@testing-library/react'
-      - '@types/express'
-      - '@types/node'
-      - '@types/react'
-      - '@types/webpack'
-      - '@typescript-eslint/parser'
-      - bufferutil
-      - canvas
-      - clean-css
-      - csso
-      - debug
-      - encoding
-      - esbuild
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - fibers
-      - html-webpack-plugin
-      - less
-      - node-notifier
-      - node-sass
-      - puppeteer
-      - sass-embedded
-      - sockjs-client
-      - supports-color
-      - ts-node
-      - type-fest
-      - uglify-js
-      - utf-8-validate
-      - vue-template-compiler
-      - webpack-cli
-      - webpack-dev-server
-      - webpack-hot-middleware
-      - webpack-plugin-serve
-
   /@teambit/react.react-env@0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14):
     resolution: {integrity: sha1-+47dMWyPsV6mq4SdgfLZoBsuurU=, tarball: https://node-registry.bit.cloud/@teambit/react.react-env/-/@teambit-react.react-env-0.0.68.tgz}
     dependencies:
@@ -6895,7 +6758,6 @@ packages:
       - webpack-dev-server
       - webpack-hot-middleware
       - webpack-plugin-serve
-    dev: true
 
   /@teambit/react.rendering.ssr@1.0.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha1-Wt4Y5BoIxJgeVaeJ16DRz1aojcc=, tarball: https://node-registry.bit.cloud/@teambit/react.rendering.ssr/-/@teambit-react.rendering.ssr-1.0.1.tgz}
@@ -12638,6 +12500,7 @@ packages:
       - '@types/node'
       - supports-color
       - ts-node
+    dev: false
 
   /jest-cli@29.5.0(@types/node@16.18.37):
     resolution: {integrity: sha512-L1KcP1l4HtfwdxXNFCL5bmUbLQiKrakMUriBEcc1Vfz6gx31ORKdreuWvmQVBit+1ss9NNR3yxjwfwzZNdQXJw==}
@@ -12703,6 +12566,7 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /jest-config@29.5.0(@types/node@16.18.37):
     resolution: {integrity: sha512-kvDUKBnNJPNBmFFOhDbm59iu1Fii1Q6SxyhXfvylq3UTHbg6o7j/g8k2dZyXWLvfdKB1vAPxNZnMgtKJcmu3kA==}
@@ -13084,6 +12948,7 @@ packages:
       - '@types/node'
       - supports-color
       - ts-node
+    dev: false
 
   /jest@29.3.1(@types/node@16.18.37):
     resolution: {integrity: sha512-6iWfL5DTT0Np6UYs/y5Niu7WIfNv/wRTtN5RSXt2DIEft3dx3zPuw/3WJQBCJfmEzvDiEKwoqMbGD9n49+qLSA==}
@@ -17522,7 +17387,7 @@ packages:
   /zwitch@1.0.5:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}
 
-  file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14):
+  file:scope-name/envs/my-react-env(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14):
     resolution: {directory: scope-name/envs/my-react-env, type: directory}
     id: file:scope-name/envs/my-react-env
     name: '@org/scope-name.envs.my-react-env'
@@ -17530,17 +17395,17 @@ packages:
       '@babel/runtime': 7.20.0
       '@mdx-js/react': 1.6.22(react@18.2.0)
       '@teambit/defender.eslint-linter': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)
-      '@teambit/defender.jest-tester': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@12.20.4)
+      '@teambit/defender.jest-tester': 0.0.10(@teambit/legacy@node_modules+@teambit+legacy)(@types/node@16.18.37)
       '@teambit/defender.prettier-formatter': 0.0.6(@teambit/legacy@node_modules+@teambit+legacy)
       '@teambit/dependencies.modules.packages-excluder': 0.0.70(react@18.2.0)
       '@teambit/mdx.ui.mdx-scope-context': 0.0.496(react-dom@18.2.0)(react@18.2.0)
       '@teambit/preview.react-preview': 0.0.35(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/react@18.2.14)(eslint@7.32.0)(graphql@14.7.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.3)
       '@teambit/react.mounter': 0.0.10
-      '@teambit/react.react-env': 0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@12.20.4)(@types/react@18.2.14)
+      '@teambit/react.react-env': 0.0.68(@teambit/legacy@node_modules+@teambit+legacy)(@testing-library/react@13.4.0)(@types/node@16.18.37)(@types/react@18.2.14)
       '@teambit/typescript.typescript-compiler': 0.0.0-f236a8833a0038e3956090f2282a672c96eb90f3(@teambit/legacy@node_modules+@teambit+legacy)
       core-js: 3.31.0
       graphql: 14.7.0
-      jest: 29.3.1(@types/node@12.20.4)
+      jest: 29.3.1(@types/node@16.18.37)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-router-dom: 6.8.1(react-dom@18.2.0)(react@18.2.0)
