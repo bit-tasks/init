@@ -3954,7 +3954,12 @@ async function run(exec, wsdir) {
   await exec(`bvm install ${bitEngineVersion} --use-system-node`);
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
-  
+
+  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
+  const bitPath = await exec('where bit');
+  console.log(bitPath);
+  console.log("###")
+
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
@@ -3972,22 +3977,6 @@ async function run(exec, wsdir) {
 }
 
 module.exports = run;
-
-
-/***/ }),
-
-/***/ 759:
-/***/ ((module) => {
-
-async function setBitPath(exec) {
-  // sets path for subsequent steps
-  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
-  const bitPath = await exec('where bit');
-  console.log(bitPath);
-  console.log("###")
-}
-
-module.exports = setBitPath;
 
 
 /***/ }),
@@ -4148,12 +4137,10 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(508);
 const exec = (__nccwpck_require__(362).exec);
 const run = __nccwpck_require__(188);
-const setBitPath = __nccwpck_require__(759);
 
 try {
   const wsDir = core.getInput('ws-dir');
   run(exec, wsDir);
-  setBitPath(exec);
 } catch (error) {
   core.setFailed(error.message);
 }
