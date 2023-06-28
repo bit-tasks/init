@@ -10,7 +10,7 @@
     /**
      * the name of the component workspace. used for development purposes.
      **/
-    "name": "my-workspace-name",
+    "name": "test-data",
     /**
      * set the icon to be shown on the Bit server.
      **/
@@ -27,21 +27,47 @@
     /**
      * default scope for all components in workspace.
      **/
-    "defaultScope": "my-org.my-scope"
+    "defaultScope": "org.scope-name"
   },
   /**
    * main configuration for component dependency resolution.
    **/
   "teambit.dependencies/dependency-resolver": {
-    /**
-     * choose the package manager for Bit to use. you can choose between 'yarn', 'pnpm'
-     */
     "packageManager": "teambit.dependencies/pnpm",
-    "rootComponents": true,
     "policy": {
-      "dependencies": {},
-      "peerDependencies": {}
-    }
+      "dependencies": {
+        "@teambit/defender.eslint-linter": "0.0.10",
+        "@teambit/defender.jest-tester": "0.0.10",
+        "@teambit/defender.prettier-formatter": "0.0.6",
+        "@teambit/dependencies.modules.packages-excluder": "0.0.70",
+        "@teambit/eslint-config-bit-react": "~0.0.367",
+        "@teambit/mdx.ui.mdx-scope-context": "0.0.496",
+        "@teambit/node.node": "0.0.38",
+        "@teambit/preview.react-preview": "0.0.35",
+        "@teambit/react.mounter": "0.0.10",
+        "@teambit/react.react-env": "0.0.68",
+        "@teambit/typescript.typescript-compiler": "f236a8833a0038e3956090f2282a672c96eb90f3",
+        "@typescript-eslint/eslint-plugin": "4.29.3",
+        "eslint-import-resolver-node": "0.3.6",
+        "eslint-plugin-import": "2.22.1",
+        "eslint-plugin-jest": "24.4.0",
+        "eslint-plugin-jsx-a11y": "6.4.1",
+        "eslint-plugin-mdx": "1.15.0",
+        "eslint-plugin-react": "7.25.1"
+      },
+      "peerDependencies": {
+        "@apollo/client": "3.6.9",
+        "@testing-library/react": "^12.1.5",
+        "@testing-library/react-hooks": "^8.0.0",
+        "graphql": "^14.3.0",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "react-router-dom": "^6.0.0",
+        "subscriptions-transport-ws": "^0.11.0"
+      }
+    },
+    "linkCoreAspects": true,
+    "rootComponents": true
   },
   /**
    * workspace variants allow to set different subsets of configuration for components in your
@@ -60,5 +86,6 @@
        **/
       // "teambit.react/react": { }
     }
-  }
+  },
+  "org.scope-name/hello-world-app": {}
 }

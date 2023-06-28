@@ -9,15 +9,113 @@
  */
 
 {
-    "pages/welcome": {
+    "envs/my-react-env": {
         "scope": "",
         "version": "",
+        "defaultScope": "org.scope-name",
         "mainFile": "index.ts",
-        "rootDir": "my-scope/pages/welcome",
+        "rootDir": "scope-name/envs/my-react-env",
         "config": {
-            "teambit.react/react": {},
+            "teambit.dependencies/dependency-resolver": {
+                "policy": {
+                    "dependencies": {
+                        "@teambit/react.react-env": "^0.0.68"
+                    }
+                }
+            },
             "teambit.envs/envs": {
-                "env": "teambit.react/react"
+                "env": "teambit.envs/env"
+            },
+            "teambit.compositions/compositions": {},
+            "teambit.docs/docs": {},
+            "teambit.preview/preview": {},
+            "teambit.component/dev-files": {},
+            "teambit.pipelines/builder": {},
+            "teambit.component/forking": {
+                "forkedFrom": {
+                    "scope": "learnbit.hello-world",
+                    "name": "envs/my-react-env",
+                    "version": "0.0.3"
+                }
+            }
+        }
+    },
+    "get-hello-world": {
+        "scope": "",
+        "version": "",
+        "defaultScope": "org.scope-name",
+        "mainFile": "index.ts",
+        "rootDir": "scope-name/get-hello-world",
+        "config": {
+            "teambit.node/node@0.0.38": {},
+            "teambit.envs/envs": {
+                "env": "teambit.node/node"
+            },
+            "teambit.dependencies/dependency-resolver": {},
+            "teambit.compositions/compositions": {},
+            "teambit.docs/docs": {},
+            "teambit.preview/preview": {},
+            "teambit.component/dev-files": {},
+            "teambit.pipelines/builder": {},
+            "teambit.component/forking": {
+                "forkedFrom": {
+                    "scope": "learnbit.hello-world",
+                    "name": "get-hello-world",
+                    "version": "0.0.7"
+                }
+            }
+        }
+    },
+    "hello-world-app": {
+        "scope": "",
+        "version": "",
+        "defaultScope": "org.scope-name",
+        "mainFile": "index.ts",
+        "rootDir": "scope-name/hello-world-app",
+        "config": {
+            "learnbit.hello-world/envs/my-react-env@0.0.3": {},
+            "teambit.envs/envs": {
+                "env": "learnbit.hello-world/envs/my-react-env"
+            },
+            "teambit.dependencies/dependency-resolver": {},
+            "teambit.harmony/application": {},
+            "teambit.compositions/compositions": {},
+            "teambit.docs/docs": {},
+            "teambit.preview/preview": {},
+            "teambit.component/dev-files": {},
+            "teambit.pipelines/builder": {},
+            "teambit.component/forking": {
+                "forkedFrom": {
+                    "scope": "learnbit.hello-world",
+                    "name": "hello-world-app",
+                    "version": "0.0.8"
+                }
+            }
+        }
+    },
+    "ui/hello-world": {
+        "scope": "",
+        "version": "",
+        "defaultScope": "org.scope-name",
+        "mainFile": "index.ts",
+        "rootDir": "scope-name/ui/hello-world",
+        "config": {
+            "learnbit.hello-world/envs/my-react-env@0.0.3": {},
+            "teambit.envs/envs": {
+                "env": "learnbit.hello-world/envs/my-react-env"
+            },
+            "teambit.dependencies/dependency-resolver": {},
+            "teambit.compositions/compositions": {},
+            "teambit.docs/docs": {},
+            "teambit.preview/preview": {},
+            "teambit.component/dev-files": {},
+            "teambit.pipelines/builder": {},
+            "teambit.component/forking": {
+                "forkedFrom": {
+                    "scope": "learnbit.hello-world",
+                    "name": "ui/hello-world",
+                    "version": "0.0.8"
+                }
             }
         }
     },
