@@ -16,7 +16,7 @@ async function run(exec, wsdir) {
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
-  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
+  //await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
   const bitPath = await exec('where bit');
   console.log(bitPath);
   console.log("###")
