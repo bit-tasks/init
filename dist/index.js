@@ -3955,10 +3955,14 @@ async function run(exec, wsdir) {
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
-  //await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
-  const bitPath = await exec('where bit');
-  console.log(bitPath);
-  console.log("###")
+  // Find path of Bit binary
+  let bitPath;
+  try {
+    bitPath = (await exec("which bit")).trim();
+    console.log("Bit Path:", bitPath);
+  } catch (error) {
+    console.error("Error finding Bit path:", error);
+  }
 
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
@@ -3973,7 +3977,7 @@ async function run(exec, wsdir) {
   await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
 
   // bit install dependencies
-  await exec('bit install', [], { cwd: wsdir });
+  await exec("bit install", [], { cwd: wsdir });
 }
 
 module.exports = run;
