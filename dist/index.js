@@ -3975,7 +3975,7 @@ try {
     const stdExec = (command, options) => (0, exec_1.exec)(command, [], options);
     (0, init_1.default)(stdExec, wsDir).then(() => {
         // Set wsDir path for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR="${process.env.WSDIR}"`);
+        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
     });

@@ -8,7 +8,7 @@ try {
   const stdExec: ExecFunction = (command: string, options?: {cwd: string}): Promise<number> => exec(command, [], options);
   run(stdExec, wsDir).then((): void => {
     // Set wsDir path for subsequent steps in GitHub Actions
-    fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR="${process.env.WSDIR}"`);
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.WSDIR}`);
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_PATH as string, process.env.PATH as string);
   });
