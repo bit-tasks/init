@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-const { execSync } = require("child_process");
+import { execSync } from "child_process";
 
 const run: (wsdir: string) => void = (wsdir) => {
   // get bit version to install
@@ -27,14 +27,9 @@ const run: (wsdir: string) => void = (wsdir) => {
   execSync("bit config set analytics_reporting false", { stdio: "inherit" });
   execSync("bit config set anonymous_reporting false", { stdio: "inherit" });
   execSync("bit config set user.token $BIT_TOKEN", { stdio: "inherit" });
-  execSync(`npm config set always-auth true`, { stdio: "inherit" });
-  //TODO: move these back to "node.bit.cloud" once that promotion occurs
-  execSync(`npm config set @teambit:registry https://node-registry.bit.cloud`, {
-    stdio: "inherit",
-  });
-  execSync(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`, {
-    stdio: "inherit",
-  });
+  execSync(`npm config set always-auth true`, { stdio: 'inherit' });
+  execSync(`npm config set @teambit:registry https://node-registry.bit.cloud`, { stdio: 'inherit' });
+  execSync(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`, { stdio: 'inherit' });
 
   // bit install dependencies
   execSync("bit install --add-missing-deps", { stdio: "inherit", cwd: wsdir });

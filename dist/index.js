@@ -2784,7 +2784,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
-const { execSync } = __nccwpck_require__(81);
+const child_process_1 = __nccwpck_require__(81);
 const run = (wsdir) => {
     // get bit version to install
     const wsDirPath = path.resolve(wsdir);
@@ -2795,28 +2795,23 @@ const run = (wsdir) => {
     const match = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = match ? match[1] : "";
     // install bvm globally
-    execSync("npm i -g @teambit/bvm", { stdio: "inherit" });
+    (0, child_process_1.execSync)("npm i -g @teambit/bvm", { stdio: "inherit" });
     // install bit
-    execSync(`bvm install ${bitEngineVersion} --use-system-node`, {
+    (0, child_process_1.execSync)(`bvm install ${bitEngineVersion} --use-system-node`, {
         stdio: "inherit",
     });
     // sets path for current step
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD
-    execSync("bit config set interactive false", { stdio: "inherit" });
-    execSync("bit config set analytics_reporting false", { stdio: "inherit" });
-    execSync("bit config set anonymous_reporting false", { stdio: "inherit" });
-    execSync("bit config set user.token $BIT_TOKEN", { stdio: "inherit" });
-    execSync(`npm config set always-auth true`, { stdio: "inherit" });
-    //TODO: move these back to "node.bit.cloud" once that promotion occurs
-    execSync(`npm config set @teambit:registry https://node-registry.bit.cloud`, {
-        stdio: "inherit",
-    });
-    execSync(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`, {
-        stdio: "inherit",
-    });
+    (0, child_process_1.execSync)("bit config set interactive false", { stdio: "inherit" });
+    (0, child_process_1.execSync)("bit config set analytics_reporting false", { stdio: "inherit" });
+    (0, child_process_1.execSync)("bit config set anonymous_reporting false", { stdio: "inherit" });
+    (0, child_process_1.execSync)("bit config set user.token $BIT_TOKEN", { stdio: "inherit" });
+    (0, child_process_1.execSync)(`npm config set always-auth true`, { stdio: 'inherit' });
+    (0, child_process_1.execSync)(`npm config set @teambit:registry https://node-registry.bit.cloud`, { stdio: 'inherit' });
+    (0, child_process_1.execSync)(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`, { stdio: 'inherit' });
     // bit install dependencies
-    execSync("bit install --add-missing-deps", { stdio: "inherit", cwd: wsdir });
+    (0, child_process_1.execSync)("bit install --add-missing-deps", { stdio: "inherit", cwd: wsdir });
 };
 exports["default"] = run;
 
