@@ -17,4 +17,7 @@ jobs:
           ws-dir: 'test-data'
       - name: Bit version test
         run: |
+          echo $WSDIR
+      - name: Bit version test
+        run: |
           bit -v

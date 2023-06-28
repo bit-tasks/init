@@ -3943,6 +3943,9 @@ const path = __nccwpck_require__(17);
 async function run(exec, wsdir) {
   // get bit version to install
   const wsDirPath = path.resolve(wsdir);
+  // sets wsdir env for any external usage
+  process.env.WSDIR = wsdir;
+
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspace = fs.readFileSync(wsFile).toString();
   const match = /"engine": "(.*)"/.exec(workspace);
@@ -4137,6 +4140,8 @@ const run = __nccwpck_require__(188);
 try {
   const wsDir = core.getInput('ws-dir');
   run(exec, wsDir).then(()=>{
+    // Set wsDir path for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_ENV, process.env.WSDIR);
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
   });

@@ -4,6 +4,9 @@ const path = require("path");
 async function run(exec, wsdir) {
   // get bit version to install
   const wsDirPath = path.resolve(wsdir);
+  // sets wsdir env for any external usage
+  process.env.WSDIR = wsdir;
+
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspace = fs.readFileSync(wsFile).toString();
   const match = /"engine": "(.*)"/.exec(workspace);
