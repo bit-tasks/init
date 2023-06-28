@@ -1,51 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 142:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const fs = __nccwpck_require__(147);
-const path = __nccwpck_require__(17);
-
-async function run(exec, wsdir) {
-  // get bit version to install
-  const wsDirPath = path.resolve(wsdir);
-  const wsFile = path.join(wsDirPath, "workspace.jsonc");
-  const workspace = fs.readFileSync(wsFile).toString();
-  const match = /"engine": "(.*)"/.exec(workspace);
-  const bitEngineVersion = match ? match[1] : "";
-
-  // install bvm globally
-  await exec("npm i -g @teambit/bvm");
-  // install bit
-  await exec(`bvm install ${bitEngineVersion} --use-system-node`);
-  
-  // sets path for current step
-  process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
-  // sets path for subsequent steps
-  await exec(`echo "$HOME/.bvm/bin" >> $GITHUB_PATH`);
-
-  // config bit/npm for CI/CD
-  await exec("bit config set interactive false");
-  await exec("bit config set analytics_reporting false");
-  await exec("bit config set anonymous_reporting false");
-  await exec("bit config set user.token $BIT_TOKEN");
-  await exec(`npm config set always-auth true`);
-  //TODO: move these back to "node.bit.cloud" once that promotion occurs
-  await exec(
-    `npm config set @teambit:registry https://node-registry.bit.cloud`
-  );
-  await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
-
-  // bit install dependencies
-  await exec('bit install', [], { cwd: wsdir });
-}
-
-module.exports = run;
-
-
-/***/ }),
-
 /***/ 498:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -3979,6 +3934,51 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ 188:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const fs = __nccwpck_require__(147);
+const path = __nccwpck_require__(17);
+
+async function run(exec, wsdir) {
+  // get bit version to install
+  const wsDirPath = path.resolve(wsdir);
+  const wsFile = path.join(wsDirPath, "workspace.jsonc");
+  const workspace = fs.readFileSync(wsFile).toString();
+  const match = /"engine": "(.*)"/.exec(workspace);
+  const bitEngineVersion = match ? match[1] : "";
+
+  // install bvm globally
+  await exec("npm i -g @teambit/bvm");
+  // install bit
+  await exec(`bvm install ${bitEngineVersion} --use-system-node`);
+  
+  // sets path for current step
+  process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
+  // sets path for subsequent steps
+  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
+
+  // config bit/npm for CI/CD
+  await exec("bit config set interactive false");
+  await exec("bit config set analytics_reporting false");
+  await exec("bit config set anonymous_reporting false");
+  await exec("bit config set user.token $BIT_TOKEN");
+  await exec(`npm config set always-auth true`);
+  //TODO: move these back to "node.bit.cloud" once that promotion occurs
+  await exec(
+    `npm config set @teambit:registry https://node-registry.bit.cloud`
+  );
+  await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
+
+  // bit install dependencies
+  await exec('bit install', [], { cwd: wsdir });
+}
+
+module.exports = run;
+
+
+/***/ }),
+
 /***/ 728:
 /***/ ((module) => {
 
@@ -4134,7 +4134,7 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(508);
 const exec = (__nccwpck_require__(362).exec);
-const run = __nccwpck_require__(142);
+const run = __nccwpck_require__(188);
 
 try {
   const wsDir = core.getInput('ws-dir');
