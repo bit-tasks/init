@@ -4139,9 +4139,7 @@ const run = __nccwpck_require__(188);
 
 try {
   const wsDir = core.getInput("ws-dir");
-  const stdExec = (command, cwd) => {
-    return exec(command, [], cwd);
-  };
+  const stdExec = (command, cwd) => exec.exec(command, [], { cwd });
   run(stdExec, wsDir).then(() => {
     // Set wsDir path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR="${process.env.WSDIR}"`);
