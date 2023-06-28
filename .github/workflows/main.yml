@@ -17,9 +17,9 @@ jobs:
           ws-dir: 'test-data'
       - name: Bit version test
         run: |
-          cd ${HOME}/runner/bin
+          cd ${HOME}/bin
           echo ls
           echo ${HOME}
           echo $PATH
-          ls ${HOME}/runner/bin
+          ls ${HOME}/bin
           bit -v
