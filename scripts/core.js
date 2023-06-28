@@ -15,7 +15,7 @@ async function run(exec, wsdir) {
   await exec(`bvm install ${bitEngineVersion} --use-system-node`);
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
-  await exec(`echo "${process.env.HOME}/bin" >> $GITHUB_PATH`);
+  
   // config bit/npm for CI/CD
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
