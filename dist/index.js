@@ -3971,7 +3971,7 @@ async function run(exec, wsdir) {
   await exec(`npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN`);
 
   // bit install dependencies
-  await exec("bit install", [], { cwd: wsdir });
+  await exec("bit install", { cwd: wsdir });
 }
 
 module.exports = run;
@@ -4138,13 +4138,15 @@ const exec = (__nccwpck_require__(362).exec);
 const run = __nccwpck_require__(188);
 
 try {
-  const wsDir = core.getInput('ws-dir');
-  run(exec, wsDir).then(()=>{
+  const wsDir = core.getInput("ws-dir");
+  const stdExec = (command, cwd) => {
+    return exec(command, [], cwd);
+  };
+  run(stdExec, wsDir).then(() => {
     // Set wsDir path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR="${process.env.WSDIR}"`);
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
-    
   });
 } catch (error) {
   core.setFailed(error.message);

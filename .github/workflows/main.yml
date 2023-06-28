@@ -15,9 +15,9 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: 'test-data'
-      - name: Bit version test
+      - name: Bit workspace directory environment variable test
         run: |
           echo $WSDIR
-      - name: Bit version test
+      - name: Installed Bit version test
         run: |
           bit -v
