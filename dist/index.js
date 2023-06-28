@@ -4140,7 +4140,10 @@ const run = __nccwpck_require__(188);
 
 try {
   const wsDir = core.getInput('ws-dir');
-  run(exec, wsDir);
+  run(exec, wsDir).then(()=>{
+
+    
+  });
 } catch (error) {
   core.setFailed(error.message);
 }
