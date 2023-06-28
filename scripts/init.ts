@@ -25,8 +25,8 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   await exec("bit config set interactive false");
   await exec("bit config set analytics_reporting false");
   await exec("bit config set anonymous_reporting false");
-  await exec("bit config set user.token $BIT_TOKEN");
-  await exec("npm config set always-auth true");
+  // await exec("bit config set user.token $BIT_TOKEN");
+  // await exec("npm config set always-auth true");
   //TODO: move these back to "node.bit.cloud" once that promotion occurs
   await exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
   await exec("RUN npm config set '@teambit:registry' https://node-registry.bit.cloud");
