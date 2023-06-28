@@ -13,6 +13,8 @@ This CI Task, install bit in the CI and executs `bit install` inside the workspa
 
 ## Example usage
 
+Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your Github repository. Name it `BIT_TOKEN`.
+
 ```yaml
 name: Test Bit Init
 on:
@@ -20,6 +22,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      BIT_TOKEN: ${{ secrets.BIT_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
