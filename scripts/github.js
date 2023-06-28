@@ -1,8 +1,6 @@
-const fs = require('fs');
-
-async function setBitHome(exec, wsdir) {
+async function setBitPath(exec) {
   // sets path for subsequent steps
   await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
 }
 
-module.exports = setBitHome;
+module.exports = setBitPath;

@@ -3976,6 +3976,19 @@ module.exports = run;
 
 /***/ }),
 
+/***/ 759:
+/***/ ((module) => {
+
+async function setBitPath(exec) {
+  // sets path for subsequent steps
+  await exec(`echo "$HOME/bin" >> $GITHUB_PATH`);
+}
+
+module.exports = setBitPath;
+
+
+/***/ }),
+
 /***/ 728:
 /***/ ((module) => {
 
@@ -4132,10 +4145,12 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(508);
 const exec = (__nccwpck_require__(362).exec);
 const run = __nccwpck_require__(188);
+const setBitPath = __nccwpck_require__(759);
 
 try {
   const wsDir = core.getInput('ws-dir');
   run(exec, wsDir);
+  setBitPath(exec);
 } catch (error) {
   core.setFailed(error.message);
 }
