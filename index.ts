@@ -11,6 +11,10 @@ try {
     fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.WSDIR}`);
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_PATH as string, process.env.PATH as string);
+    // Set org path for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.ORG}`);
+    // Set scope path for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.SCOPE}`);
   });
 } catch (error: any) {
   core.setFailed(error.message);

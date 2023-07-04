@@ -3978,6 +3978,10 @@ try {
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
+        // Set org path for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.ORG}`);
+        // Set scope path for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.SCOPE}`);
     });
 }
 catch (error) {
@@ -4036,6 +4040,11 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const workspace = fs.readFileSync(wsFile).toString();
     const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
+    const defaultScopeMatch = /"defaultScope": "([^"]+)"/.exec(workspace);
+    const bitDefaultScope = defaultScopeMatch ? defaultScopeMatch[1] : 'org.scope-name';
+    const [Org, Scope] = bitDefaultScope.split('.');
+    process.env.Org = Org;
+    process.env.Scope = Scope;
     // install bvm globally
     yield exec("npm i -g @teambit/bvm");
     // install bit
