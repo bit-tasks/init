@@ -4048,8 +4048,8 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const jsonData = JSON.parse(contentWithoutComments);
     const defaultScope = jsonData["teambit.workspace/workspace"].defaultScope;
     const [Org, Scope] = defaultScope.split(".");
-    process.env.Org = jsonData;
-    process.env.Scope = "Test";
+    process.env.ORG = jsonData;
+    process.env.SCOPE = "Test";
     // install bvm globally
     yield exec("npm i -g @teambit/bvm");
     // install bit
