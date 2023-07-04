@@ -1,8 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import stripJsonComments from 'strip-json-comments';
 
 export type ExecFunction = (command: string, options?: {cwd: string}) => Promise<number>;
+
+function removeSchemeUrl(inputString: string): string {
+  const urlRegex: RegExp = /(https?:\/\/[^\s]+)/g;
+  return inputString.replace(urlRegex, '",');
+}
+
+function removeComments(jsonc: string): string {
+  return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
+}
 
 const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, wsdir) => {
   // get bit version to install
@@ -15,13 +23,12 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
   const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
 
-  const contentWithoutComments: string = stripJsonComments(workspace);
-  const jsonData: any = JSON.parse(contentWithoutComments);
-  const defaultScope: string =
-    jsonData["teambit.workspace/workspace"].defaultScope;
-  const [Org, Scope] = defaultScope.split(".");
-  process.env.ORG = workspace;
-  process.env.SCOPE = jsonData["teambit.workspace/workspace"].defaultScope;
+  const workspaceJson = removeComments(removeSchemeUrl(workspace));
+  const workspaceObject = JSON.parse(workspaceJson);
+  const defaultScope = workspaceObject['teambit.workspace/workspace'].defaultScope;
+  const [Org, Scope ] = defaultScope.split(".");
+  process.env.ORG = Org
+  process.env.SCOPE = Scope
 
   // install bvm globally
   await exec("npm i -g @teambit/bvm");
