@@ -4033,14 +4033,17 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     // sets wsdir env for any external usage
     process.env.WSDIR = wsdir;
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
-    const workspace = fs.readFileSync(wsFile, 'utf-8').toString();
+    const workspace = fs.readFileSync(wsFile).toString();
     const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
     const defaultScopeMatch = /"defaultScope": "([^"]+)"/.exec(workspace);
     const bitDefaultScope = defaultScopeMatch ? defaultScopeMatch[1] : 'org.scope-name';
-    const [Org, Scope] = bitDefaultScope.split('.');
-    process.env.ORG = Org;
-    process.env.SCOPE = Scope;
+    process.env.Scope = bitDefaultScope;
+    console.log(bitDefaultScope);
+    console.log(workspace);
+    // const [Org, Scope] = bitDefaultScope.split('.');
+    // process.env.Org = Org;
+    // process.env.Scope = Scope;
     // install bvm globally
     yield exec("npm i -g @teambit/bvm");
     // install bit
