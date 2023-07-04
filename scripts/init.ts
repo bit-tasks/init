@@ -21,7 +21,7 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
 
   const [Org, Scope] = defaultScope.split('.');
   process.env.ORG = "tttttt";
-  process.env.SCOPE = Scope;
+  process.env.SCOPE = defaultScope;
 
   // install bvm globally
   await exec("npm i -g @teambit/bvm");
