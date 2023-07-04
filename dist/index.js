@@ -4036,11 +4036,11 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const workspace = fs.readFileSync(wsFile).toString();
     const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
-    const workspaceConfig = JSON.parse(workspace);
-    const bitDefaultScope = workspaceConfig['teambit.workspace/workspace']['defaultScope'];
-    const [Org, Scope] = bitDefaultScope.split(".");
-    process.env.ORG = Org;
-    process.env.SCOPE = Scope;
+    const defaultScopeMatch = /"defaultScope": "([^"]+)"/.exec(workspace);
+    const bitDefaultScope = defaultScopeMatch ? defaultScopeMatch[1] : 'org.scope-name';
+    const [Org, Scope] = bitDefaultScope.split('.');
+    console.log('Org:', Org);
+    console.log('Scope:', Scope);
     // install bvm globally
     yield exec("npm i -g @teambit/bvm");
     // install bit
