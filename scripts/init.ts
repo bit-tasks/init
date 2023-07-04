@@ -10,7 +10,7 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   process.env.WSDIR = wsdir;
   
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
-  const workspace = fs.readFileSync(wsFile).toString();
+  const workspace = fs.readFileSync(wsFile,'utf-8').toString();
   const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
   const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
 

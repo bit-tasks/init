@@ -4033,7 +4033,7 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     // sets wsdir env for any external usage
     process.env.WSDIR = wsdir;
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
-    const workspace = fs.readFileSync(wsFile).toString();
+    const workspace = fs.readFileSync(wsFile, 'utf-8').toString();
     const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
     const defaultScopeMatch = /"defaultScope": "([^"]+)"/.exec(workspace);
