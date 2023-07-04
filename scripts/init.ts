@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import stripJsonComments from 'strip-json-comments';
 
 export type ExecFunction = (command: string, options?: {cwd: string}) => Promise<number>;
 
@@ -8,15 +9,17 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   const wsDirPath = path.resolve(wsdir);
   // sets wsdir env for any external usage
   process.env.WSDIR = wsdir;
-  
+
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspace = fs.readFileSync(wsFile).toString();
   const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
   const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
 
-  const defaultScopeMatch = /"defaultScope": "([^"]+)"/.exec(workspace);
-  const bitDefaultScope = defaultScopeMatch ? defaultScopeMatch[1] : 'org.scope-name';
-  const [Org, Scope] = bitDefaultScope.split('.');
+  const contentWithoutComments: string = stripJsonComments(workspace);
+  const jsonData: any = JSON.parse(contentWithoutComments);
+  const defaultScope: string =
+    jsonData["teambit.workspace/workspace"].defaultScope;
+  const [Org, Scope] = defaultScope.split(".");
   process.env.Org = Org;
   process.env.Scope = Scope;
 
@@ -35,7 +38,9 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   // await exec("npm config set always-auth true");
   //TODO: move these back to "node.bit.cloud" once that promotion occurs
   await exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
-  await exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
+  await exec(
+    "npm config set '@teambit:registry' https://node-registry.bit.cloud"
+  );
   await exec("npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN");
 
   // bit install dependencies
