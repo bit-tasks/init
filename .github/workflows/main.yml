@@ -24,6 +24,9 @@ jobs:
       - name: Bit scope environment variable test
         run: |
           echo $SCOPE
+      - name: Bit path environment variable test
+        run: |
+            echo $PATH
       - name: Installed Bit version test
         run: |
           bit -v
