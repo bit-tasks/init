@@ -20,8 +20,8 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   const defaultScope: string =
     jsonData["teambit.workspace/workspace"].defaultScope;
   const [Org, Scope] = defaultScope.split(".");
-  process.env.ORG = jsonData;
-  process.env.SCOPE = "Test";
+  process.env.ORG = workspace;
+  process.env.SCOPE = jsonData["teambit.workspace/workspace"].defaultScope;
 
   // install bvm globally
   await exec("npm i -g @teambit/bvm");
