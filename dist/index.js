@@ -4038,9 +4038,10 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
     const defaultScopeMatch = /"defaultScope": "([^"]+)"/.exec(workspace);
     const bitDefaultScope = defaultScopeMatch ? defaultScopeMatch[1] : 'org.scope-name';
-    const [Org, Scope] = bitDefaultScope.split('.');
-    process.env.Org = Org;
-    process.env.Scope = Scope;
+    process.env.Scope = bitDefaultScope;
+    // const [Org, Scope] = bitDefaultScope.split('.');
+    // process.env.Org = Org;
+    // process.env.Scope = Scope;
     // install bvm globally
     yield exec("npm i -g @teambit/bvm");
     // install bit
