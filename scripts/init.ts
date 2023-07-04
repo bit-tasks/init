@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import stripJsonComments from 'strip-json-comments';
 
 export type ExecFunction = (command: string, options?: {cwd: string}) => Promise<number>;
 
@@ -14,14 +15,13 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
   const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
 
-  const defaultScopeMatch = /"defaultScope": "([^"]+)"/.exec(workspace);
-  const bitDefaultScope = defaultScopeMatch ? defaultScopeMatch[1] : 'org.scope-name';
-  process.env.Scope = bitDefaultScope;
-  console.log(bitDefaultScope)
-  console.log(workspace)
-  // const [Org, Scope] = bitDefaultScope.split('.');
-  // process.env.Org = Org;
-  // process.env.Scope = Scope;
+  const contentWithoutComments: string = stripJsonComments(workspace);
+  const jsonData: any = JSON.parse(contentWithoutComments);
+  const defaultScope: string = jsonData['teambit.workspace/workspace'].defaultScope;
+
+  const [Org, Scope] = defaultScope.split('.');
+  process.env.ORG = Org;
+  process.env.SCOPE = Scope;
 
   // install bvm globally
   await exec("npm i -g @teambit/bvm");
