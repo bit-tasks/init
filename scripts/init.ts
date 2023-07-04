@@ -14,8 +14,8 @@ const run: (exec: ExecFunction, wsdir: string) => Promise<void> = async (exec, w
   const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
   const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
 
-  const defaultScopeMatch = /"defaultScope": "(.*)"/.exec(workspace);
-  const bitDefaultScope = defaultScopeMatch ? defaultScopeMatch[1] : "org.scope-name";
+  const workspaceConfig = JSON.parse(workspace);
+  const bitDefaultScope = workspaceConfig['teambit.workspace/workspace']['defaultScope'];
   const [Org, Scope] = bitDefaultScope.split(".");
   process.env.ORG = Org;
   process.env.SCOPE = Scope;
