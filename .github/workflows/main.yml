@@ -18,6 +18,12 @@ jobs:
       - name: Bit workspace directory environment variable test
         run: |
           echo $WSDIR
+      - name: Bit org environment variable test
+        run: |
+          echo $ORG
+      - name: Bit scope environment variable test
+        run: |
+          echo $SCOPE
       - name: Installed Bit version test
         run: |
           bit -v
