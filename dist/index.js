@@ -3975,13 +3975,13 @@ try {
     const stdExec = (command, options) => (0, exec_1.exec)(command, [], options);
     (0, init_1.default)(stdExec, wsDir).then(() => {
         // Set wsDir path for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}`);
+        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
         // Set org path for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `ORG=${process.env.ORG}`);
+        fs.appendFileSync(process.env.GITHUB_ENV, `ORG=${process.env.ORG}\n`);
         // Set scope path for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.SCOPE}`);
+        fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.SCOPE}\n`);
     });
 }
 catch (error) {
