@@ -4024,13 +4024,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
-const strip_json_comments_1 = __importDefault(__nccwpck_require__(519));
 const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     // get bit version to install
     const wsDirPath = path.resolve(wsdir);
@@ -4040,12 +4036,6 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const workspace = fs.readFileSync(wsFile).toString();
     const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
-    const contentWithoutComments = (0, strip_json_comments_1.default)(workspace);
-    const jsonData = JSON.parse(contentWithoutComments);
-    const defaultScope = jsonData['teambit.workspace/workspace'].defaultScope;
-    const [Org, Scope] = defaultScope.split('.');
-    process.env.ORG = "tttttt";
-    process.env.SCOPE = defaultScope;
     // install bvm globally
     yield exec("npm i -g @teambit/bvm");
     // install bit
@@ -4180,125 +4170,6 @@ module.exports = require("tls");
 "use strict";
 module.exports = require("util");
 
-/***/ }),
-
-/***/ 519:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
-
-"use strict";
-__nccwpck_require__.r(__webpack_exports__);
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ stripJsonComments)
-/* harmony export */ });
-const singleComment = Symbol('singleComment');
-const multiComment = Symbol('multiComment');
-
-const stripWithoutWhitespace = () => '';
-const stripWithWhitespace = (string, start, end) => string.slice(start, end).replace(/\S/g, ' ');
-
-const isEscaped = (jsonString, quotePosition) => {
-	let index = quotePosition - 1;
-	let backslashCount = 0;
-
-	while (jsonString[index] === '\\') {
-		index -= 1;
-		backslashCount += 1;
-	}
-
-	return Boolean(backslashCount % 2);
-};
-
-function stripJsonComments(jsonString, {whitespace = true, trailingCommas = false} = {}) {
-	if (typeof jsonString !== 'string') {
-		throw new TypeError(`Expected argument \`jsonString\` to be a \`string\`, got \`${typeof jsonString}\``);
-	}
-
-	const strip = whitespace ? stripWithWhitespace : stripWithoutWhitespace;
-
-	let isInsideString = false;
-	let isInsideComment = false;
-	let offset = 0;
-	let buffer = '';
-	let result = '';
-	let commaIndex = -1;
-
-	for (let index = 0; index < jsonString.length; index++) {
-		const currentCharacter = jsonString[index];
-		const nextCharacter = jsonString[index + 1];
-
-		if (!isInsideComment && currentCharacter === '"') {
-			// Enter or exit string
-			const escaped = isEscaped(jsonString, index);
-			if (!escaped) {
-				isInsideString = !isInsideString;
-			}
-		}
-
-		if (isInsideString) {
-			continue;
-		}
-
-		if (!isInsideComment && currentCharacter + nextCharacter === '//') {
-			// Enter single-line comment
-			buffer += jsonString.slice(offset, index);
-			offset = index;
-			isInsideComment = singleComment;
-			index++;
-		} else if (isInsideComment === singleComment && currentCharacter + nextCharacter === '\r\n') {
-			// Exit single-line comment via \r\n
-			index++;
-			isInsideComment = false;
-			buffer += strip(jsonString, offset, index);
-			offset = index;
-			continue;
-		} else if (isInsideComment === singleComment && currentCharacter === '\n') {
-			// Exit single-line comment via \n
-			isInsideComment = false;
-			buffer += strip(jsonString, offset, index);
-			offset = index;
-		} else if (!isInsideComment && currentCharacter + nextCharacter === '/*') {
-			// Enter multiline comment
-			buffer += jsonString.slice(offset, index);
-			offset = index;
-			isInsideComment = multiComment;
-			index++;
-			continue;
-		} else if (isInsideComment === multiComment && currentCharacter + nextCharacter === '*/') {
-			// Exit multiline comment
-			index++;
-			isInsideComment = false;
-			buffer += strip(jsonString, offset, index + 1);
-			offset = index + 1;
-			continue;
-		} else if (trailingCommas && !isInsideComment) {
-			if (commaIndex !== -1) {
-				if (currentCharacter === '}' || currentCharacter === ']') {
-					// Strip trailing comma
-					buffer += jsonString.slice(offset, index);
-					result += strip(buffer, 0, 1) + buffer.slice(1);
-					buffer = '';
-					offset = index;
-					commaIndex = -1;
-				} else if (currentCharacter !== ' ' && currentCharacter !== '\t' && currentCharacter !== '\r' && currentCharacter !== '\n') {
-					// Hit non-whitespace following a comma; comma is not trailing
-					buffer += jsonString.slice(offset, index);
-					offset = index;
-					commaIndex = -1;
-				}
-			} else if (currentCharacter === ',') {
-				// Flush buffer prior to this point, and save new comma index
-				result += buffer + jsonString.slice(offset, index);
-				buffer = '';
-				offset = index;
-				commaIndex = index;
-			}
-		}
-	}
-
-	return result + buffer + (isInsideComment ? strip(jsonString.slice(offset)) : jsonString.slice(offset));
-}
-
-
 /***/ })
 
 /******/ 	});
@@ -4334,34 +4205,6 @@ function stripJsonComments(jsonString, {whitespace = true, trailingCommas = fals
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
