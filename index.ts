@@ -12,9 +12,9 @@ try {
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_PATH as string, process.env.PATH as string);
     // Set org path for subsequent steps in GitHub Actions
-    fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.ORG}`);
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `ORG=${process.env.ORG}`);
     // Set scope path for subsequent steps in GitHub Actions
-    fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.SCOPE}`);
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.SCOPE}`);
   });
 } catch (error: any) {
   core.setFailed(error.message);

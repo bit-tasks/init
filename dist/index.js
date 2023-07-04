@@ -3979,9 +3979,9 @@ try {
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
         // Set org path for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.ORG}`);
+        fs.appendFileSync(process.env.GITHUB_ENV, `ORG=${process.env.ORG}`);
         // Set scope path for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.SCOPE}`);
+        fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.SCOPE}`);
     });
 }
 catch (error) {
