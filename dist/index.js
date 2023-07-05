@@ -3972,8 +3972,12 @@ const exec_1 = __nccwpck_require__(514);
 const init_1 = __importDefault(__nccwpck_require__(154));
 try {
     const wsDir = core.getInput('ws-dir');
+    const bitToken = process.env.BIT_TOKEN;
+    if (!bitToken) {
+        throw new Error("Bit token not found");
+    }
     const stdExec = (command, options) => (0, exec_1.exec)(command, [], options);
-    (0, init_1.default)(stdExec, wsDir).then(() => {
+    (0, init_1.default)(stdExec, bitToken, wsDir).then(() => {
         // Set wsDir path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
@@ -4038,7 +4042,7 @@ function removeSchemeUrl(inputString) {
 function removeComments(jsonc) {
     return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
 }
-const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
+const run = (exec, bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     // get bit version to install
     const wsDirPath = path.resolve(wsdir);
     // sets wsdir env for any external usage
@@ -4063,12 +4067,12 @@ const run = (exec, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     yield exec("bit config set interactive false");
     yield exec("bit config set analytics_reporting false");
     yield exec("bit config set anonymous_reporting false");
-    yield exec("bit config set user.token $BIT_TOKEN");
+    yield exec(`bit config set user.token ${bitToken}`);
     // await exec("npm config set always-auth true");
     //TODO: move these back to "node.bit.cloud" once that promotion occurs
     yield exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
     yield exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
-    yield exec("npm config set //node-registry.bit.cloud/:_authToken $BIT_TOKEN");
+    yield exec(`npm config set //node-registry.bit.cloud/:_authToken ${bitToken}`);
     // bit install dependencies
     yield exec("bit install", { cwd: wsdir });
 });

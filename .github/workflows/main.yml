@@ -4,6 +4,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      BIT_TOKEN: ${{ secrets.BIT_TOKEN }}
     steps:
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -15,6 +17,8 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: 'test-data'
+      - name: Bit token test
+        run: echo "$(bit config get user.token)"
       - name: Bit workspace directory environment variable test
         run: |
           echo $WSDIR
