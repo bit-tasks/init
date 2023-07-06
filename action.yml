@@ -1,6 +1,8 @@
 name: 'Initalize Bit'
 description: 'Initialize Bit'
-icon: 'download'
+branding: 
+  icon: 'download'
+  color: 'purple'
 inputs:
   ws-dir:
     description: "Workspace json file directory path"
