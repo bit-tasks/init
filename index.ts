@@ -18,11 +18,11 @@ try {
     fs.appendFileSync(process.env.GITHUB_ENV as string, `ORG=${process.env.ORG}\n`);
     // Set scope env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.SCOPE}\n`);
-    // Set Bit analytics reporting flag env for subsequent steps in GitHub Actions
+    // Set Bit analytics reporting env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_ANALYTICS_REPORTING}\n`);
-    // Set Bit anonymous reporting flag env for subsequent steps in GitHub Actions
+    // Set Bit anonymous reporting env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
-    // Set Bit interactive flag env for subsequent steps in GitHub Actions
+    // Set Bit interactive env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
     // Set Bit user token env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_USER_TOKEN}\n`);

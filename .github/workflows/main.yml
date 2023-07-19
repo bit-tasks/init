@@ -28,6 +28,18 @@ jobs:
       - name: Bit scope environment variable test
         run: |
           echo $SCOPE
+      - name: Bit analytics reporting environment variable test
+        run: |
+          echo $BIT_CONFIG_ANALYTICS_REPORTING
+      - name: Bit anonymous reporting environment variable test
+        run: |
+          echo $BIT_CONFIG_ANONYMOUS_REPORTING
+      - name: Bit interactive environment variable test
+        run: |
+          echo $BIT_CONFIG_INTERACTIVE
+      - name: Bit user token environment variable test
+        run: |
+          echo $BIT_CONFIG_USER_TOKEN
       - name: Bit path environment variable test
         run: |
             echo $PATH
