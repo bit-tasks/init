@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-
-export type ExecFunction = (command: string, options?: {cwd: string}) => Promise<number>;
+import { exec } from '@actions/exec';
 
 function removeSchemeUrl(inputString: string): string {
   const urlRegex: RegExp = /(https?:\/\/[^\s]+)/g;
@@ -12,7 +11,7 @@ function removeComments(jsonc: string): string {
   return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
 }
 
-const run: (exec: ExecFunction, bitToken: string, wsdir: string) => Promise<void> = async (exec, bitToken, wsdir) => {
+const run: (bitToken: string, wsdir: string) => Promise<void> = async (bitToken, wsdir) => {
   // get bit version to install
   const wsDirPath = path.resolve(wsdir);
   // sets wsdir env for any external usage
@@ -20,8 +19,6 @@ const run: (exec: ExecFunction, bitToken: string, wsdir: string) => Promise<void
 
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspace = fs.readFileSync(wsFile).toString();
-  const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
-  const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
 
   const workspaceJson = removeComments(removeSchemeUrl(workspace));
   const workspaceObject = JSON.parse(workspaceJson);
@@ -30,11 +27,7 @@ const run: (exec: ExecFunction, bitToken: string, wsdir: string) => Promise<void
   process.env.ORG = Org
   process.env.SCOPE = Scope
 
-  // install bvm globally
-  await exec("npm i -g @teambit/bvm");
-  // install bit
-  await exec(`bvm install ${bitEngineVersion} --use-system-node`);
-  // sets path for current step
+  await exec("npx @teambit/bvm install");
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
   // config bit/npm for CI/CD
@@ -51,7 +44,7 @@ const run: (exec: ExecFunction, bitToken: string, wsdir: string) => Promise<void
   await exec(`npm config set //node-registry.bit.cloud/:_authToken ${bitToken}`);
 
   // bit install dependencies
-  await exec("bit install", { cwd: wsdir });
+  await exec("bit install", [], { cwd: wsdir });
 }
 
 export default run;

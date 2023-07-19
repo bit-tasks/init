@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as core from '@actions/core';
-import { exec } from '@actions/exec';
-import run, { ExecFunction } from './scripts/init';
+import run from './scripts/init';
 
 try {
   const wsDir: string = core.getInput('ws-dir');
@@ -9,8 +8,8 @@ try {
   if (!bitToken) {
     throw new Error("Bit token not found");
   }
-  const stdExec: ExecFunction = (command: string, options?: {cwd: string}): Promise<number> => exec(command, [], options);
-  run(stdExec, bitToken, wsDir).then((): void => {
+
+  run(bitToken, wsDir).then((): void => {
     // Set wsDir path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.WSDIR}\n`);
     // Set Bit path for subsequent steps in GitHub Actions
