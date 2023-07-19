@@ -3976,14 +3976,22 @@ try {
         throw new Error("Bit token not found");
     }
     (0, init_1.default)(bitToken, wsDir).then(() => {
-        // Set wsDir path for subsequent steps in GitHub Actions
+        // Set wsDir env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
-        // Set org path for subsequent steps in GitHub Actions
+        // Set org env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `ORG=${process.env.ORG}\n`);
-        // Set scope path for subsequent steps in GitHub Actions
+        // Set scope env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.SCOPE}\n`);
+        // Set Bit analytics reporting flag env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.BIT_CONFIG_ANALYTICS_REPORTING}\n`);
+        // Set Bit anonymous reporting flag env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
+        // Set Bit interactive flag env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
+        // Set Bit user token env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.BIT_CONFIG_USER_TOKEN}\n`);
     });
 }
 catch (error) {
@@ -4057,12 +4065,10 @@ const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () 
     yield (0, exec_1.exec)("npx @teambit/bvm install");
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD
-    yield (0, exec_1.exec)("bit config set interactive false");
-    yield (0, exec_1.exec)("bit config set analytics_reporting false");
-    yield (0, exec_1.exec)("bit config set anonymous_reporting false");
-    yield (0, exec_1.exec)(`bit config set user.token ${bitToken}`);
-    // await exec("npm config set always-auth true");
-    //TODO: move these back to "node.bit.cloud" once that promotion occurs
+    process.env.BIT_CONFIG_ANALYTICS_REPORTING = 'false';
+    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = 'false';
+    process.env.BIT_CONFIG_INTERACTIVE = 'false';
+    process.env.BIT_CONFIG_USER_TOKEN = bitToken;
     yield (0, exec_1.exec)("npm config set '@bit:registry' https://node-registry.bit.cloud");
     yield (0, exec_1.exec)("npm config set '@teambit:registry' https://node-registry.bit.cloud");
     yield (0, exec_1.exec)(`npm config set //node-registry.bit.cloud/:_authToken ${bitToken}`);

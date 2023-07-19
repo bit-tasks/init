@@ -10,14 +10,22 @@ try {
   }
 
   run(bitToken, wsDir).then((): void => {
-    // Set wsDir path for subsequent steps in GitHub Actions
+    // Set wsDir env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `WSDIR=${process.env.WSDIR}\n`);
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_PATH as string, process.env.PATH as string);
-    // Set org path for subsequent steps in GitHub Actions
+    // Set org env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `ORG=${process.env.ORG}\n`);
-    // Set scope path for subsequent steps in GitHub Actions
+    // Set scope env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.SCOPE}\n`);
+    // Set Bit analytics reporting flag env for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_ANALYTICS_REPORTING}\n`);
+    // Set Bit anonymous reporting flag env for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
+    // Set Bit interactive flag env for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
+    // Set Bit user token env for subsequent steps in GitHub Actions
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_USER_TOKEN}\n`);
   });
 } catch (error: any) {
   core.setFailed(error.message);

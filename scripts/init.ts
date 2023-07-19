@@ -31,12 +31,11 @@ const run: (bitToken: string, wsdir: string) => Promise<void> = async (bitToken,
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
   // config bit/npm for CI/CD
-  await exec("bit config set interactive false");
-  await exec("bit config set analytics_reporting false");
-  await exec("bit config set anonymous_reporting false");
-  await exec(`bit config set user.token ${bitToken}`);
-  // await exec("npm config set always-auth true");
-  //TODO: move these back to "node.bit.cloud" once that promotion occurs
+  process.env.BIT_CONFIG_ANALYTICS_REPORTING = 'false';
+  process.env.BIT_CONFIG_ANONYMOUS_REPORTING = 'false';
+  process.env.BIT_CONFIG_INTERACTIVE = 'false';
+  process.env.BIT_CONFIG_USER_TOKEN = bitToken;
+
   await exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
   await exec(
     "npm config set '@teambit:registry' https://node-registry.bit.cloud"
