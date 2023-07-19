@@ -17,6 +17,9 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: 'test-data'
+      - name: Installed Bit version test
+        run: |
+          bit -v
       - name: Bit token test
         run: echo "$(bit config get user.token)"
       - name: Bit workspace directory environment variable test
@@ -43,6 +46,3 @@ jobs:
       - name: Bit path environment variable test
         run: |
             echo $PATH
-      - name: Installed Bit version test
-        run: |
-          bit -v
