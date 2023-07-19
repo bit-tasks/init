@@ -3968,7 +3968,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs = __importStar(__nccwpck_require__(147));
 const core = __importStar(__nccwpck_require__(186));
-const exec_1 = __nccwpck_require__(514);
 const init_1 = __importDefault(__nccwpck_require__(154));
 try {
     const wsDir = core.getInput('ws-dir');
@@ -3976,8 +3975,7 @@ try {
     if (!bitToken) {
         throw new Error("Bit token not found");
     }
-    const stdExec = (command, options) => (0, exec_1.exec)(command, [], options);
-    (0, init_1.default)(stdExec, bitToken, wsDir).then(() => {
+    (0, init_1.default)(bitToken, wsDir).then(() => {
         // Set wsDir path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
@@ -4035,6 +4033,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
+const exec_1 = __nccwpck_require__(514);
 function removeSchemeUrl(inputString) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return inputString.replace(urlRegex, '",');
@@ -4042,39 +4041,33 @@ function removeSchemeUrl(inputString) {
 function removeComments(jsonc) {
     return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
 }
-const run = (exec, bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
+const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     // get bit version to install
     const wsDirPath = path.resolve(wsdir);
     // sets wsdir env for any external usage
     process.env.WSDIR = wsdir;
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
     const workspace = fs.readFileSync(wsFile).toString();
-    const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
-    const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
     const workspaceJson = removeComments(removeSchemeUrl(workspace));
     const workspaceObject = JSON.parse(workspaceJson);
     const defaultScope = workspaceObject['teambit.workspace/workspace'].defaultScope;
     const [Org, Scope] = defaultScope.split(".");
     process.env.ORG = Org;
     process.env.SCOPE = Scope;
-    // install bvm globally
-    yield exec("npm i -g @teambit/bvm");
-    // install bit
-    yield exec(`bvm install ${bitEngineVersion} --use-system-node`);
-    // sets path for current step
+    yield (0, exec_1.exec)("npx @teambit/bvm install");
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD
-    yield exec("bit config set interactive false");
-    yield exec("bit config set analytics_reporting false");
-    yield exec("bit config set anonymous_reporting false");
-    yield exec(`bit config set user.token ${bitToken}`);
+    yield (0, exec_1.exec)("bit config set interactive false");
+    yield (0, exec_1.exec)("bit config set analytics_reporting false");
+    yield (0, exec_1.exec)("bit config set anonymous_reporting false");
+    yield (0, exec_1.exec)(`bit config set user.token ${bitToken}`);
     // await exec("npm config set always-auth true");
     //TODO: move these back to "node.bit.cloud" once that promotion occurs
-    yield exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
-    yield exec("npm config set '@teambit:registry' https://node-registry.bit.cloud");
-    yield exec(`npm config set //node-registry.bit.cloud/:_authToken ${bitToken}`);
+    yield (0, exec_1.exec)("npm config set '@bit:registry' https://node-registry.bit.cloud");
+    yield (0, exec_1.exec)("npm config set '@teambit:registry' https://node-registry.bit.cloud");
+    yield (0, exec_1.exec)(`npm config set //node-registry.bit.cloud/:_authToken ${bitToken}`);
     // bit install dependencies
-    yield exec("bit install", { cwd: wsdir });
+    yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
 });
 exports["default"] = run;
 
