@@ -19,13 +19,13 @@ try {
     // Set scope env for subsequent steps in GitHub Actions
     fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.SCOPE}\n`);
     // Set Bit analytics reporting env for subsequent steps in GitHub Actions
-    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_ANALYTICS_REPORTING}\n`);
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `BIT_CONFIG_ANALYTICS_REPORTING=${process.env.BIT_CONFIG_ANALYTICS_REPORTING}\n`);
     // Set Bit anonymous reporting env for subsequent steps in GitHub Actions
-    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `BIT_CONFIG_ANONYMOUS_REPORTING=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
     // Set Bit interactive env for subsequent steps in GitHub Actions
-    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `BIT_CONFIG_INTERACTIVE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
     // Set Bit user token env for subsequent steps in GitHub Actions
-    fs.appendFileSync(process.env.GITHUB_ENV as string, `SCOPE=${process.env.BIT_CONFIG_USER_TOKEN}\n`);
+    fs.appendFileSync(process.env.GITHUB_ENV as string, `BIT_CONFIG_USER_TOKEN=${process.env.BIT_CONFIG_USER_TOKEN}\n`);
   });
 } catch (error: any) {
   core.setFailed(error.message);
