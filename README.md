@@ -35,7 +35,7 @@ jobs:
 
 ## Resolve component packages 
 
-Use the below step to resolve component pacakges from bit.cloud registry.
+Use the below step to resolve component packages from bit.cloud registry.
 ```yaml
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |

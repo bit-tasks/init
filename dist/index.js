@@ -3970,7 +3970,7 @@ const fs = __importStar(__nccwpck_require__(147));
 const core = __importStar(__nccwpck_require__(186));
 const init_1 = __importDefault(__nccwpck_require__(154));
 try {
-    const wsDir = core.getInput('ws-dir');
+    const wsDir = core.getInput("ws-dir");
     const bitToken = process.env.BIT_TOKEN;
     if (!bitToken) {
         throw new Error("Bit token not found");
@@ -4047,7 +4047,7 @@ function removeSchemeUrl(inputString) {
     return inputString.replace(urlRegex, '",');
 }
 function removeComments(jsonc) {
-    return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
+    return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
 }
 const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     // get bit version to install
@@ -4058,16 +4058,16 @@ const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () 
     const workspace = fs.readFileSync(wsFile).toString();
     const workspaceJson = removeComments(removeSchemeUrl(workspace));
     const workspaceObject = JSON.parse(workspaceJson);
-    const defaultScope = workspaceObject['teambit.workspace/workspace'].defaultScope;
+    const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
     const [Org, Scope] = defaultScope.split(".");
     process.env.ORG = Org;
     process.env.SCOPE = Scope;
     yield (0, exec_1.exec)("npx @teambit/bvm install");
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD
-    process.env.BIT_CONFIG_ANALYTICS_REPORTING = 'false';
-    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = 'false';
-    process.env.BIT_CONFIG_INTERACTIVE = 'false';
+    process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
+    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
+    process.env.BIT_CONFIG_INTERACTIVE = "false";
     process.env.BIT_CONFIG_USER_TOKEN = bitToken;
     // bit install dependencies
     yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
