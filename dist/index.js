@@ -4069,9 +4069,6 @@ const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () 
     process.env.BIT_CONFIG_ANONYMOUS_REPORTING = 'false';
     process.env.BIT_CONFIG_INTERACTIVE = 'false';
     process.env.BIT_CONFIG_USER_TOKEN = bitToken;
-    yield (0, exec_1.exec)("npm config set '@bit:registry' https://node-registry.bit.cloud");
-    yield (0, exec_1.exec)("npm config set '@teambit:registry' https://node-registry.bit.cloud");
-    yield (0, exec_1.exec)(`npm config set //node-registry.bit.cloud/:_authToken ${bitToken}`);
     // bit install dependencies
     yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
 });

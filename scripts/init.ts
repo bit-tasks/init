@@ -36,12 +36,6 @@ const run: (bitToken: string, wsdir: string) => Promise<void> = async (bitToken,
   process.env.BIT_CONFIG_INTERACTIVE = 'false';
   process.env.BIT_CONFIG_USER_TOKEN = bitToken;
 
-  await exec("npm config set '@bit:registry' https://node-registry.bit.cloud");
-  await exec(
-    "npm config set '@teambit:registry' https://node-registry.bit.cloud"
-  );
-  await exec(`npm config set //node-registry.bit.cloud/:_authToken ${bitToken}`);
-
   // bit install dependencies
   await exec("bit install", [], { cwd: wsdir });
 }
