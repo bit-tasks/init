@@ -33,6 +33,23 @@ jobs:
           ws-dir: '<WORKSPACE_DIR_PATH>'
 ```
 
+## Resolve component packages from bit.cloud registry (Or any external registry)
+
+```yaml
+      - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
+        run: |
+          npm config set '@bit:registry' https://node-registry.bit.cloud
+          npm config set '@teambit:registry' https://node-registry.bit.cloud
+          npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_TOKEN }}
+```
+
+**Note:** For external registries, append the new configuration to the registry config list and provide the token configuration if required.
+
+```yaml
+  npm config set`@myorg:registry` https://<my-org-registry-url>
+  npm config set //<my-org-registry-url>/:_authToken ${{ <MY ORG ACCESS TOKEN> }}
+```
+
 # Contributor Guide
 
 Steps to create custom tasks in different CI/CD platforms.
