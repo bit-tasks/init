@@ -31,10 +31,10 @@ const run: (bitToken: string, wsdir: string) => Promise<void> = async (bitToken,
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
   // config bit/npm for CI/CD
-  process.env.BIT_CONFIG_ANALYTICS_REPORTING = 'false';
-  process.env.BIT_CONFIG_ANONYMOUS_REPORTING = 'false';
-  process.env.BIT_CONFIG_INTERACTIVE = 'false';
-  process.env.BIT_CONFIG_USER_TOKEN = bitToken;
+  await exec("bit config set interactive false");
+  await exec("bit config set analytics_reporting false");
+  await exec("bit config set anonymous_reporting false");
+  await exec(`bit config set user.token ${bitToken}`);
 
   // bit install dependencies
   await exec("bit install", [], { cwd: wsdir });
