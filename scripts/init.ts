@@ -11,10 +11,7 @@ function removeComments(jsonc: string): string {
   return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
 }
 
-const run: (bitToken: string, wsdir: string) => Promise<void> = async (
-  bitToken,
-  wsdir
-) => {
+const run = async (bitToken: string, wsdir: string) => {
   // get bit version to install
   const wsDirPath = path.resolve(wsdir);
   // sets wsdir env for any external usage
