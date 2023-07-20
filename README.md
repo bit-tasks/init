@@ -13,7 +13,7 @@ This CI Task, install bit in the CI and executs `bit install` inside the workspa
 
 ## Example usage
 
-Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your Github repository. Name it `BIT_TOKEN`.
+Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your Github repository. Name it `BIT_CONFIG_USER_TOKEN`.
 
 ```yaml
 name: Test Bit Init
@@ -23,7 +23,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     env:
-      BIT_TOKEN: ${{ secrets.BIT_TOKEN }}
+      BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -41,7 +41,7 @@ Use the below step to resolve component packages from bit.cloud registry.
         run: |
           npm config set '@bit:registry' https://node-registry.bit.cloud
           npm config set '@teambit:registry' https://node-registry.bit.cloud
-          npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_TOKEN }}
+          npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_CONFIG_USER_TOKEN }}
 ```
 
 **Note:** For external registries, append a new configuration to the registry config list and provide the token configuration if required.

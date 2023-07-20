@@ -3971,11 +3971,10 @@ const core = __importStar(__nccwpck_require__(186));
 const init_1 = __importDefault(__nccwpck_require__(154));
 try {
     const wsDir = core.getInput("ws-dir");
-    const bitToken = process.env.BIT_TOKEN;
-    if (!bitToken) {
-        throw new Error("Bit token not found");
+    if (!process.env.BIT_CONFIG_USER_TOKEN) {
+        throw new Error("BIT_CONFIG_USER_TOKEN environment variable is not set");
     }
-    (0, init_1.default)(bitToken, wsDir).then(() => {
+    (0, init_1.default)(wsDir).then(() => {
         // Set wsDir env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
@@ -3990,8 +3989,6 @@ try {
         fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_ANONYMOUS_REPORTING=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
         // Set Bit interactive env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_INTERACTIVE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
-        // Set Bit user token env for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_USER_TOKEN=${process.env.BIT_CONFIG_USER_TOKEN}\n`);
     });
 }
 catch (error) {
@@ -4049,7 +4046,7 @@ function removeSchemeUrl(inputString) {
 function removeComments(jsonc) {
     return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
 }
-const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
+const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     // get bit version to install
     const wsDirPath = path.resolve(wsdir);
     // sets wsdir env for any external usage
@@ -4068,7 +4065,6 @@ const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () 
     process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
     process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
     process.env.BIT_CONFIG_INTERACTIVE = "false";
-    process.env.BIT_CONFIG_USER_TOKEN = bitToken;
     // bit install dependencies
     yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
 });

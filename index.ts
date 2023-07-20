@@ -4,12 +4,12 @@ import run from "./scripts/init";
 
 try {
   const wsDir: string = core.getInput("ws-dir");
-  const bitToken = process.env.BIT_TOKEN;
-  if (!bitToken) {
-    throw new Error("Bit token not found");
+
+  if (!process.env.BIT_CONFIG_USER_TOKEN) {
+    throw new Error("BIT_CONFIG_USER_TOKEN environment variable is not set");
   }
 
-  run(bitToken, wsDir).then((): void => {
+  run(wsDir).then((): void => {
     // Set wsDir env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
@@ -44,11 +44,6 @@ try {
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
       `BIT_CONFIG_INTERACTIVE=${process.env.BIT_CONFIG_INTERACTIVE}\n`
-    );
-    // Set Bit user token env for subsequent steps in GitHub Actions
-    fs.appendFileSync(
-      process.env.GITHUB_ENV as string,
-      `BIT_CONFIG_USER_TOKEN=${process.env.BIT_CONFIG_USER_TOKEN}\n`
     );
   });
 } catch (error: any) {

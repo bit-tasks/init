@@ -11,7 +11,7 @@ function removeComments(jsonc: string): string {
   return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
 }
 
-const run = async (bitToken: string, wsdir: string) => {
+const run = async (wsdir: string) => {
   // get bit version to install
   const wsDirPath = path.resolve(wsdir);
   // sets wsdir env for any external usage
@@ -35,7 +35,6 @@ const run = async (bitToken: string, wsdir: string) => {
   process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
   process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
   process.env.BIT_CONFIG_INTERACTIVE = "false";
-  process.env.BIT_CONFIG_USER_TOKEN = bitToken;
 
   // bit install dependencies
   await exec("bit install", [], { cwd: wsdir });
