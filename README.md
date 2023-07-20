@@ -33,8 +33,9 @@ jobs:
           ws-dir: '<WORKSPACE_DIR_PATH>'
 ```
 
-## Resolve component packages from bit.cloud registry (Or any external registry)
+## Resolve component packages 
 
+Use the below step to resolve component pacakges from bit.cloud registry.
 ```yaml
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |
@@ -43,7 +44,7 @@ jobs:
           npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_TOKEN }}
 ```
 
-**Note:** For external registries, append the new configuration to the registry config list and provide the token configuration if required.
+**Note:** For external registries, append a new configuration to the registry config list and provide the token configuration if required.
 
 ```yaml
   npm config set`@myorg:registry` https://<my-org-registry-url>
