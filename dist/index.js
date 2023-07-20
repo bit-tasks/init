@@ -3984,6 +3984,14 @@ try {
         fs.appendFileSync(process.env.GITHUB_ENV, `ORG=${process.env.ORG}\n`);
         // Set scope env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `SCOPE=${process.env.SCOPE}\n`);
+        // Set Bit analytics reporting env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_ANALYTICS_REPORTING=${process.env.BIT_CONFIG_ANALYTICS_REPORTING}\n`);
+        // Set Bit anonymous reporting env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_ANONYMOUS_REPORTING=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
+        // Set Bit interactive env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_INTERACTIVE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
+        // Set Bit user token env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_USER_TOKEN=${process.env.BIT_CONFIG_USER_TOKEN}\n`);
     });
 }
 catch (error) {
@@ -4057,10 +4065,10 @@ const run = (bitToken, wsdir) => __awaiter(void 0, void 0, void 0, function* () 
     yield (0, exec_1.exec)("npx @teambit/bvm install");
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD
-    yield (0, exec_1.exec)("bit config set interactive false");
-    yield (0, exec_1.exec)("bit config set analytics_reporting false");
-    yield (0, exec_1.exec)("bit config set anonymous_reporting false");
-    yield (0, exec_1.exec)(`bit config set user.token ${bitToken}`);
+    process.env.BIT_CONFIG_ANALYTICS_REPORTING = 'false';
+    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = 'false';
+    process.env.BIT_CONFIG_INTERACTIVE = 'false';
+    process.env.BIT_CONFIG_USER_TOKEN = bitToken;
     // bit install dependencies
     yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
 });
