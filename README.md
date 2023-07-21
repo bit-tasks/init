@@ -3,7 +3,7 @@ Initialize Bit for CI/CD Pipelines
 
 # GitHub Actions
 
-This CI Task, install bit in the CI and executs `bit install` inside the workspace directory.
+This Task installs Bit in your CI by executing `bit install` inside the workspace directory.
 
 ## Inputs
 
@@ -35,7 +35,7 @@ jobs:
 
 ## Resolve component packages 
 
-Use the below step to resolve component packages from bit.cloud registry.
+Use the below step to resolve component packages from **bit.cloud** registry.
 ```yaml
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |
