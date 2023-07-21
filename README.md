@@ -13,14 +13,14 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 ## Example usage
 
-Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your Github repository. Name it `BIT_CONFIG_USER_TOKEN`.
+Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your GitHub repository. Name it `BIT_CONFIG_USER_TOKEN`.
 
 ```yaml
 name: Test Bit Init
 on:
   workflow_dispatch:
 jobs:
-  release:
+  install:
     runs-on: ubuntu-latest
     env:
       BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
@@ -44,7 +44,7 @@ Use the below step to resolve component packages from **bit.cloud** registry.
           npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_CONFIG_USER_TOKEN }}
 ```
 
-**Note:** For external registries, append a new configuration to the registry config list and provide the token configuration if required.
+**Note:** For external registries, append a new configuration to the registry config list and configure the authToken if required.
 
 ```yaml
   npm config set`@myorg:registry` https://<my-org-registry-url>
@@ -67,4 +67,4 @@ git tag -a -m "action release" v1 --force
 git push --follow-tags
 ```
 
-For more information refer [Create a javascript action](https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action)
+For more information, refer to [Create a javascript action](https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action)

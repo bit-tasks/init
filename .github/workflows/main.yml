@@ -2,7 +2,7 @@ name: Test Bit Init
 on:
   workflow_dispatch:
 jobs:
-  release:
+  install:
     runs-on: ubuntu-latest
     env:
       BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
