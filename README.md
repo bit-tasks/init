@@ -13,7 +13,11 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 ## Example usage
 
-Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your GitHub repository. Name it `BIT_CONFIG_USER_TOKEN`.
+1. Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your GitHub repository. Name it `BIT_CONFIG_USER_TOKEN`.
+2. [Optional] Create [secret variables](https://docs.github.com/en/actions/security-guides/encrypted-secrets) `GITHUB_USERNAME` and `GITHUB_EMAIL` and use them as [environment variables](https://docs.github.com/en/actions/learn-github-actions/variables) in your GitHub Action.
+3. [Optional] Define `GITHUB_TOKEN` also as an environment variable. `GITHUB_TOKEN` secret is [automatically created by GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication).
+
+**Note:** `GITHUB_TOKEN`, `GITHUB_USERNAME`, and `GITHUB_EMAIL` are required for tasks like `bit-tasks/commit-bitmap@v1`, `bit-tasks/dependency-update@v1` etc. Therefore, defining these variables upfront will make the workflow configuration consistent and reusable across different `bit-tasks`.
 
 ```yaml
 name: Test Bit Init
@@ -23,6 +27,9 @@ jobs:
   install:
     runs-on: ubuntu-latest
     env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+      GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
       BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
     steps:
       - name: Checkout repository
