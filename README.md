@@ -13,11 +13,12 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 ## Example usage
 
-1. Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in your GitHub repository. Name it `BIT_CONFIG_USER_TOKEN`.
-2. **[Optional]** Create [secret variables](https://docs.github.com/en/actions/security-guides/encrypted-secrets) `GIT_USER_NAME` and `GIT_USER_EMAIL` and use them as [environment variables](https://docs.github.com/en/actions/learn-github-actions/variables) in your GitHub Action.
-3. **[Optional]** Use `GITHUB_TOKEN` as an environment variable. Here, `GITHUB_TOKEN` secret is [automatically created by GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication).
+1. Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) `BIT_CONFIG_USER_TOKEN` and use it as an [environment variable](https://docs.github.com/en/actions/learn-github-actions/variables) in your GitHub Action.
+2. **[Optional]** Create new [secret variables](https://docs.github.com/en/actions/security-guides/encrypted-secrets) `GIT_USER_NAME`, `GIT_USER_EMAIL` and use them as [environment variables](https://docs.github.com/en/actions/learn-github-actions/variables) in your GitHub Action.
+3. **[Optional]** Define `GITHUB_TOKEN` also as an [environment variable](https://docs.github.com/en/actions/learn-github-actions/variables). Here, `GITHUB_TOKEN` secret is [automatically created by GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication).
+4. **[Optional]** If your workspace is not at the root of the Git repository, specify the input parameter `ws-dir` pointing to the workspace directory path.
 
-**Note:** `GITHUB_TOKEN`, `GIT_USER_NAME`, and `GIT_USER_EMAIL` are required for tasks like `bit-tasks/commit-bitmap@v1`, `bit-tasks/dependency-update@v1` etc. Therefore, defining these variables upfront will make the workflow configuration consistent and reusable across different `bit-tasks`.
+**Note:** `GITHUB_TOKEN`, `GIT_USER_NAME`, and `GIT_USER_EMAIL` are required for tasks like `bit-tasks/commit-bitmap@v1`, `bit-tasks/dependency-update@v1` etc. Therefore, it is **recommended** to define these variables upfront, which makes the workflow configuration consistent and reusable across different `bit-tasks`.
 
 ```yaml
 name: Test Bit Init

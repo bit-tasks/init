@@ -4047,19 +4047,24 @@ function removeComments(jsonc) {
     return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
 }
 const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
-    // get bit version to install
     const wsDirPath = path.resolve(wsdir);
-    // sets wsdir env for any external usage
+    // sets wsdir env for dependent tasks usage
     process.env.WSDIR = wsdir;
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
     const workspace = fs.readFileSync(wsFile).toString();
+    // sets org and scope env for dependent tasks usage
     const workspaceJson = removeComments(removeSchemeUrl(workspace));
     const workspaceObject = JSON.parse(workspaceJson);
     const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
     const [Org, Scope] = defaultScope.split(".");
     process.env.ORG = Org;
     process.env.SCOPE = Scope;
-    yield (0, exec_1.exec)("npx @teambit/bvm install");
+    // install bvm and bit
+    const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
+    const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
+    yield (0, exec_1.exec)("npm i -g @teambit/bvm");
+    yield (0, exec_1.exec)(`bvm install ${bitEngineVersion} --use-system-node`);
+    // sets path for current step
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD
     process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";

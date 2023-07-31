@@ -12,14 +12,15 @@ function removeComments(jsonc: string): string {
 }
 
 const run = async (wsdir: string) => {
-  // get bit version to install
   const wsDirPath = path.resolve(wsdir);
-  // sets wsdir env for any external usage
+
+  // sets wsdir env for dependent tasks usage
   process.env.WSDIR = wsdir;
 
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspace = fs.readFileSync(wsFile).toString();
 
+  // sets org and scope env for dependent tasks usage
   const workspaceJson = removeComments(removeSchemeUrl(workspace));
   const workspaceObject = JSON.parse(workspaceJson);
   const defaultScope =
@@ -28,7 +29,12 @@ const run = async (wsdir: string) => {
   process.env.ORG = Org;
   process.env.SCOPE = Scope;
 
-  await exec("npx @teambit/bvm install");
+  // install bvm and bit
+  const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
+  const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
+  await exec("npm i -g @teambit/bvm");
+  await exec(`bvm install ${bitEngineVersion} --use-system-node`);
+  // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
   // config bit/npm for CI/CD
