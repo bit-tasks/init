@@ -3,8 +3,12 @@ import * as core from "@actions/core";
 import run from "./scripts/init";
 
 try {
-  const wsDir: string = core.getInput("ws-dir");
+  const wsDir: string | undefined = process.env.WS_DIR;
 
+  if (!wsDir) {
+    throw new Error("Workspace directory is not set");
+  }
+  
   if (!process.env.BIT_CONFIG_USER_TOKEN) {
     throw new Error("BIT_CONFIG_USER_TOKEN environment variable is not set");
   }
