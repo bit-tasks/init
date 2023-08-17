@@ -3970,7 +3970,10 @@ const fs = __importStar(__nccwpck_require__(147));
 const core = __importStar(__nccwpck_require__(186));
 const init_1 = __importDefault(__nccwpck_require__(154));
 try {
-    const wsDir = core.getInput("ws-dir");
+    const wsDir = process.env.WS_DIR;
+    if (!wsDir) {
+        throw new Error("Workspace directory is not set");
+    }
     if (!process.env.BIT_CONFIG_USER_TOKEN) {
         throw new Error("BIT_CONFIG_USER_TOKEN environment variable is not set");
     }
