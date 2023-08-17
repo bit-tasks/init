@@ -22,5 +22,6 @@ runs:
     - name: Action
       id: action
       run: node ${{ github.action_path }}/dist/index.js
+      shell: ${{ (runner.os == 'Windows' && 'pwsh') || 'bash' }}
       env:
         WS_DIR: ${{ inputs.ws-dir }}
