@@ -31,7 +31,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
       GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-      BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }} # You need either BIT_CLOUD_ACCESS_TOKEN or BIT_CONFIG_USER_TOKEN. Not both.
+      BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }} # Either BIT_CLOUD_ACCESS_TOKEN or BIT_CONFIG_USER_TOKEN is needed. Not both.
       BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
     steps:
       - name: Checkout repository
