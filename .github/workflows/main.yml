@@ -24,6 +24,9 @@ jobs:
       - name: Installed Bit version test
         run: |
           bit -v
+      - name: Installed Bit location test
+        run: |
+          which bit
       - name: Bit token test
         run: echo "$(bit config get user.token)"
       - name: Bit workspace directory environment variable test
