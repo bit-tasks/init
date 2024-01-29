@@ -11,14 +11,14 @@ inputs:
   node-version:
     description: Node version
     required: false
-    default: '18'
+    default: '20'
 runs:
   using: composite
   steps:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ inputs.node-version || '18' }}
+        node-version: ${{ inputs.node-version || '20' }}
     - name: Action
       id: action
       run: node ${{ github.action_path }}/dist/index.js
