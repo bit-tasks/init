@@ -9,15 +9,10 @@ inputs:
     required: false
     default: './'
 runs:
-  using: composite
+  using: 'composite'
   steps:
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - name: Action
-      id: action
+    - name: Run Bit Initialization Script
       run: node ${{ github.action_path }}/dist/index.js
-      shell: ${{ (runner.os == 'Windows' && 'pwsh') || 'bash' }}
+      shell: bash
       env:
         WS_DIR: ${{ inputs.ws-dir }}
