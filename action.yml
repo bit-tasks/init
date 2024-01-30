@@ -14,7 +14,7 @@ runs:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ inputs.node-version || '20' }}
+        node-version: '20'
     - name: Action
       id: action
       run: node ${{ github.action_path }}/dist/index.js
