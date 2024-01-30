@@ -8,20 +8,6 @@ inputs:
     description: "Workspace json file directory path"
     required: false
     default: './'
-  node-version:
-    description: Node version
-    required: false
-    default: '20'
 runs:
-  using: composite
-  steps:
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ inputs.node-version || '20' }}
-    - name: Action
-      id: action
-      run: node ${{ github.action_path }}/dist/index.js
-      shell: ${{ (runner.os == 'Windows' && 'pwsh') || 'bash' }}
-      env:
-        WS_DIR: ${{ inputs.ws-dir }}
+  using: 'node20'
+  main: 'dist/index.js'
