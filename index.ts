@@ -9,8 +9,8 @@ try {
     throw new Error("Workspace directory is not set");
   }
   
-  if (!process.env.BIT_CONFIG_USER_TOKEN && !process.env.BIT_CLOUD_ACCESS_TOKEN) {
-    throw new Error("Neither BIT_CONFIG_USER_TOKEN nor BIT_CLOUD_ACCESS_TOKEN environment variable is set. At least one of them is required!");
+  if (!process.env.BIT_CLOUD_ACCESS_TOKEN) {
+    throw new Error("BIT_CLOUD_ACCESS_TOKEN environment variable is set!");
   }
 
   run(wsDir).then((): void => {
