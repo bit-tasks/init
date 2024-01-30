@@ -11,6 +11,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
     - name: Run Bit Initialization Script
       run: node ${{ github.action_path }}/dist/index.js
       shell: bash
