@@ -10,7 +10,7 @@ try {
   }
   
   if (!process.env.BIT_CLOUD_ACCESS_TOKEN) {
-    throw new Error("BIT_CLOUD_ACCESS_TOKEN environment variable is set!");
+    throw new Error("Error: BIT_CLOUD_ACCESS_TOKEN environment variable is not set!");
   }
 
   run(wsDir).then((): void => {
