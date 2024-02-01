@@ -3982,6 +3982,8 @@ try {
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
+        // Set BIT_CLOUD_ACCESS_TOKEN env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CLOUD_ACCESS_TOKEN=${process.env.BIT_CLOUD_ACCESS_TOKEN}\n`);
         // Set org env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `ORG=${process.env.ORG}\n`);
         // Set scope env for subsequent steps in GitHub Actions

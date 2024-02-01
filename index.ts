@@ -24,6 +24,11 @@ try {
       process.env.GITHUB_PATH as string,
       process.env.PATH as string
     );
+    // Set BIT_CLOUD_ACCESS_TOKEN env for subsequent steps in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_ENV as string,
+      `BIT_CLOUD_ACCESS_TOKEN=${process.env.BIT_CLOUD_ACCESS_TOKEN}\n`
+    );
     // Set org env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
