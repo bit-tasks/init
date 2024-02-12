@@ -4048,12 +4048,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
 const exec_1 = __nccwpck_require__(514);
-function removeSchemeUrl(inputString) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return inputString.replace(urlRegex, '",');
-}
 function removeComments(jsonc) {
-    return jsonc.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
+    const removedUrl = jsonc.replace(/(https?:\/\/[^\s]+)/g, '",');
+    return removedUrl.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
 }
 const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const wsDirPath = path.resolve(wsdir);
@@ -4062,7 +4059,7 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
     const workspace = fs.readFileSync(wsFile).toString();
     // sets org and scope env for dependent tasks usage
-    const workspaceJson = removeComments(removeSchemeUrl(workspace));
+    const workspaceJson = removeComments(workspace);
     const workspaceObject = JSON.parse(workspaceJson);
     const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
     const [Org, Scope] = defaultScope.split(".");
