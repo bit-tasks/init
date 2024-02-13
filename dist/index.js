@@ -4049,8 +4049,9 @@ const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
 const exec_1 = __nccwpck_require__(514);
 function removeComments(jsonc) {
-    const removedUrl = jsonc.replace(/(https?:\/\/[^\s]+)/g, '",');
-    return removedUrl.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
+    const removedUrl = jsonc.replace(/https?:\/\/[^\s]+/g, "https://dummy-url-string.com");
+    const removedComments = removedUrl.replace(/(?:^|\s)\/\/.*|\/\*[\s\S]*?\*\//gm, "");
+    return removedComments;
 }
 const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const wsDirPath = path.resolve(wsdir);

@@ -3,8 +3,9 @@ import * as path from "path";
 import { exec } from "@actions/exec";
 
 function removeComments(jsonc: string): string {
-  const removedUrl = jsonc.replace(/(https?:\/\/[^\s]+)/g, '",');
-  return removedUrl.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
+  const removedUrl = jsonc.replace(/https?:\/\/[^\s]+/g, "https://dummy-url-string.com");
+  const removedComments = removedUrl.replace(/(?:^|\s)\/\/.*|\/\*[\s\S]*?\*\//gm, "");
+  return removedComments;
 }
 
 const run = async (wsdir: string) => {
