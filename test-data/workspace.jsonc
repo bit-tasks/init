@@ -87,5 +87,25 @@
       // "teambit.react/react": { }
     }
   },
-  "org.scope-name/hello-world-app": {}
+  "org.scope-name/hello-world-app": {},
+  "teambit.workspace/variants": {
+    "*": {
+      "teambit.pkg/pkg": {
+        "packageManagerPublishArgs": ["--access=public"],
+        "packageJson": {
+          "license": "GPL-2.0-or-later",
+          "bugs": {
+            "email": "support@abc.com",
+            "url": "https://github.com/bit-tasks/init/issues/new/choose"
+          },
+          "repository": "https://github.com/bit-tasks/init",
+          "private": false,
+          "publishConfig": {
+            "scope": "@bit-tasks",
+            "registry": "https://npm.pkg.github.com"
+          }
+        }
+      }
+    }
+  }
 }
