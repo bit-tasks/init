@@ -1,11 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
+import * as jsoncParser from 'jsonc-parser';
 import { exec } from "@actions/exec";
-
-function removeComments(jsonc: string): string {
-  const removedUrl = jsonc.replace(/(https?:\/\/[^\s]+)/g, '",');
-  return removedUrl.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
-}
 
 const run = async (wsdir: string) => {
   const wsDirPath = path.resolve(wsdir);
@@ -17,8 +13,7 @@ const run = async (wsdir: string) => {
   const workspace = fs.readFileSync(wsFile).toString();
 
   // sets org and scope env for dependent tasks usage
-  const workspaceJson = removeComments(workspace);
-  const workspaceObject = JSON.parse(workspaceJson);
+  const workspaceObject = jsoncParser.parse(workspace);
   const defaultScope =
     workspaceObject["teambit.workspace/workspace"].defaultScope;
   const [Org, Scope] = defaultScope.split(".");
