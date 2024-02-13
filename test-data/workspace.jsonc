@@ -76,25 +76,36 @@
    * wrap the rule with curly brackets (e.g. `"{ui/*}": {}`)
    * see https://bit.dev/docs/workspace/variants for more info.
    **/
-   "teambit.workspace/variants": {
+  "teambit.workspace/variants": {
+    /**
+     * "*" is a special rule which applied on all components in the workspace.
+     **/
     "*": {
-      "teambit.pkg/pkg": {
-        "packageManagerPublishArgs": ["--access=public"],
-        "packageJson": {
-          "license": "GPL-2.0-or-later",
-          "bugs": {
-            "email": "support@bit-tasks.com",
-            "url": "https://github.com/bit-tasks/init/issues/new/choose"
-          },
-          "repository": "https://github.com/bit-tasks/init",
-          "private": false,
-          "publishConfig": {
-            "scope": "@bit-tasks",
-            "registry": "https://npm.pkg.github.com"
-          }
-        }
-      }
+      /**
+       * uncomment to apply the chosen environment on all components.
+       **/
+      // "teambit.react/react": { }
     }
   },
-  "org.scope-name/hello-world-app": {}
+  "org.scope-name/hello-world-app": {},
+  // "teambit.workspace/variants": {
+  //   "*": {
+  //     "teambit.pkg/pkg": {
+  //       "packageManagerPublishArgs": ["--access=public"],
+  //       "packageJson": {
+  //         "license": "GPL-2.0-or-later",
+  //         "bugs": {
+  //           "email": "support@bit-tasks.com",
+  //           "url": "https://github.com/bit-tasks/init/issues/new/choose"
+  //         },
+  //         "repository": "https://github.com/bit-tasks/init",
+  //         "private": false,
+  //         "publishConfig": {
+  //           "scope": "@bit-tasks",
+  //           "registry": "https://npm.pkg.github.com"
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
