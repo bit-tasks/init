@@ -4049,7 +4049,8 @@ const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
 const exec_1 = __nccwpck_require__(514);
 function removeComments(jsonc) {
-    return jsonc.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "");
+    const removedUrl = jsonc.replace(/(https?:\/\/[^\s]+)/g, '",');
+    return removedUrl.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
 }
 const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const wsDirPath = path.resolve(wsdir);
