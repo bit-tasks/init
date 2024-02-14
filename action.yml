@@ -8,6 +8,19 @@ inputs:
     description: "Workspace json file directory path"
     required: false
     default: './'
+  token:
+    description: "Github token"
+    required: false
+  BIT_CLOUD_ACCESS_TOKEN: 
+    description: "Bit cloud access token"
+    required: false
+  GIT_USER_NAME:
+    description: "Git user name"
+    required: false
+  GIT_USER_EMAIL:
+    description: "Git user email"
+    required: false
+  
 runs:
   using: 'composite'
   steps:
