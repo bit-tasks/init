@@ -21,8 +21,8 @@ const run = async (wsdir: string) => {
   process.env.SCOPE = Scope;
 
   // install bvm and bit
-  const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
-  const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
+  const bitEngineVersion = 
+    workspaceObject["teambit.harmony/bit"]?.engine || "";
 
   await exec("npm i -g @teambit/bvm");
   await exec(`bvm install ${bitEngineVersion} --use-system-node`);

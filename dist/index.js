@@ -5915,6 +5915,7 @@ const path = __importStar(__nccwpck_require__(1017));
 const jsoncParser = __importStar(__nccwpck_require__(245));
 const exec_1 = __nccwpck_require__(1514);
 const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const wsDirPath = path.resolve(wsdir);
     // sets wsdir env for dependent tasks usage
     process.env.WSDIR = wsdir;
@@ -5927,8 +5928,7 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     process.env.ORG = Org;
     process.env.SCOPE = Scope;
     // install bvm and bit
-    const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
-    const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
+    const bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
     yield (0, exec_1.exec)("npm i -g @teambit/bvm");
     yield (0, exec_1.exec)(`bvm install ${bitEngineVersion} --use-system-node`);
     // sets path for current step
