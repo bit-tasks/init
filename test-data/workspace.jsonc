@@ -29,6 +29,13 @@
      **/
     "defaultScope": "org.scope-name"
   },
+   /**
+   * specify the Bit engine version
+   **/
+   "teambit.harmony/bit": {
+    "engine": "1.6.51",
+    "engineStrict": true // warning or error if the version of the engine is not the same as the workspace
+  },
   /**
    * main configuration for component dependency resolution.
    **/
