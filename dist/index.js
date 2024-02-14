@@ -5837,15 +5837,17 @@ const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
     const wsDir = process.env.WS_DIR;
     if (!wsDir) {
-        throw new Error("Workspace directory is not set");
+        throw new Error('Workspace directory is not set');
     }
-    if (!process.env.BIT_CLOUD_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
+    if (!process.env.BIT_CLOUD_ACCESS_TOKEN &&
+        !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
-        throw new Error("BIT_CLOUD_ACCESS_TOKEN environment variable is not set!");
+        throw new Error('BIT_CLOUD_ACCESS_TOKEN environment variable is not set!');
     }
     else if (!process.env.BIT_CONFIG_USER_TOKEN) {
         process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CLOUD_ACCESS_TOKEN;
     }
+    // eslint-disable-next-line github/no-then
     (0, init_1.default)(wsDir).then(() => {
         // Set wsDir env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
@@ -5864,6 +5866,7 @@ try {
         // Set Bit interactive env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_INTERACTIVE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }
 catch (error) {
     core.setFailed(error.message);
@@ -5914,31 +5917,34 @@ const fs = __importStar(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
 const jsoncParser = __importStar(__nccwpck_require__(245));
 const exec_1 = __nccwpck_require__(1514);
+/**
+ *
+ */
 const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const wsDirPath = path.resolve(wsdir);
     // sets wsdir env for dependent tasks usage
     process.env.WSDIR = wsdir;
-    const wsFile = path.join(wsDirPath, "workspace.jsonc");
+    const wsFile = path.join(wsDirPath, 'workspace.jsonc');
     const workspace = fs.readFileSync(wsFile).toString();
     // sets org and scope env for dependent tasks usage
     const workspaceObject = jsoncParser.parse(workspace);
-    const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
-    const [Org, Scope] = defaultScope.split(".");
+    const defaultScope = workspaceObject['teambit.workspace/workspace'].defaultScope;
+    const [Org, Scope] = defaultScope.split('.');
     process.env.ORG = Org;
     process.env.SCOPE = Scope;
     // install bvm and bit
-    const bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
-    yield (0, exec_1.exec)("npm i -g @teambit/bvm");
+    const bitEngineVersion = ((_a = workspaceObject['teambit.harmony/bit']) === null || _a === void 0 ? void 0 : _a.engine) || '';
+    yield (0, exec_1.exec)('npm i -g @teambit/bvm');
     yield (0, exec_1.exec)(`bvm install ${bitEngineVersion} --use-system-node`);
     // sets path for current step
-    process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
+    process.env.PATH = `${process.env.HOME}/bin:${process.env.PATH}`;
     // config bit/npm for CI/CD
-    process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
-    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
-    process.env.BIT_CONFIG_INTERACTIVE = "false";
+    process.env.BIT_CONFIG_ANALYTICS_REPORTING = 'false';
+    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = 'false';
+    process.env.BIT_CONFIG_INTERACTIVE = 'false';
     // bit install dependencies
-    yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
+    yield (0, exec_1.exec)('bit install', [], { cwd: wsdir });
 });
 exports["default"] = run;
 
