@@ -5929,8 +5929,6 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     process.env.SCOPE = Scope;
     // install bvm and bit
     const bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
-    console.log("###########");
-    console.log(bitEngineVersion);
     yield (0, exec_1.exec)("npm i -g @teambit/bvm");
     yield (0, exec_1.exec)(`bvm install ${bitEngineVersion} --use-system-node`);
     // sets path for current step
