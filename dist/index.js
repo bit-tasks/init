@@ -5839,12 +5839,12 @@ try {
     if (!wsDir) {
         throw new Error("Workspace directory is not set");
     }
-    if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
+    if (!process.env.BIT_CLOUD_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
-        throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
+        throw new Error("BIT_CLOUD_ACCESS_TOKEN environment variable is not set!");
     }
     else if (!process.env.BIT_CONFIG_USER_TOKEN) {
-        process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
+        process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CLOUD_ACCESS_TOKEN;
     }
     (0, init_1.default)(wsDir).then(() => {
         // Set wsDir env for subsequent steps in GitHub Actions

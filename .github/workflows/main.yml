@@ -5,7 +5,7 @@ jobs:
   install:
     runs-on: ubuntu-latest
     env:
-      BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
+      BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,7 +17,7 @@ jobs:
         run: |
           npm config set '@bit:registry' https://node-registry.bit.cloud
           npm config set '@teambit:registry' https://node-registry.bit.cloud
-          npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_CONFIG_ACCESS_TOKEN }}
+          npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_CLOUD_ACCESS_TOKEN }}
       - name: Installed Node version test
         run: |
             node -v
@@ -49,7 +49,7 @@ jobs:
           echo $BIT_CONFIG_INTERACTIVE
       - name: Bit user token environment variable test
         run: |
-          echo $BIT_CONFIG_ACCESS_TOKEN
+          echo $BIT_CLOUD_ACCESS_TOKEN
       - name: Bit path environment variable test
         run: |
           echo $PATH
