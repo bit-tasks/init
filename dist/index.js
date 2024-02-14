@@ -5926,6 +5926,12 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const [Org, Scope] = defaultScope.split(".");
     process.env.ORG = Org;
     process.env.SCOPE = Scope;
+    console.log("##############Start");
+    console.log(defaultScope);
+    console.log(Org);
+    console.log(Scope);
+    console.log(workspace);
+    console.log("#############End");
     // install bvm and bit
     const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
