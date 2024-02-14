@@ -5930,11 +5930,11 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(defaultScope);
     console.log(Org);
     console.log(Scope);
-    console.log(workspace);
-    console.log("#############End");
     // install bvm and bit
     const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
     const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
+    console.log(bitEngineVersion);
+    console.log("#############End");
     yield (0, exec_1.exec)("npm i -g @teambit/bvm");
     yield (0, exec_1.exec)(`bvm install ${bitEngineVersion} --use-system-node`);
     // sets path for current step
