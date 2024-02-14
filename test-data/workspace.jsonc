@@ -46,7 +46,7 @@
         "@teambit/preview.react-preview": "0.0.35",
         "@teambit/react.mounter": "0.0.10",
         "@teambit/react.react-env": "0.0.68",
-        "@teambit/typescript.typescript-compiler": "f236a8833a0038e3956090f2282a672c96eb90f3",
+        "@teambit/typescript.typescript-compiler": "2.0.16",
         "@typescript-eslint/eslint-plugin": "4.29.3",
         "eslint-import-resolver-node": "0.3.6",
         "eslint-plugin-import": "2.22.1",
