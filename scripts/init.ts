@@ -19,17 +19,11 @@ const run = async (wsdir: string) => {
   const [Org, Scope] = defaultScope.split(".");
   process.env.ORG = Org;
   process.env.SCOPE = Scope;
-  console.log("##############Start")
-  console.log(defaultScope);
-  console.log(Org);
-  console.log(Scope);
-
 
   // install bvm and bit
   const engineVersionMatch = /"engine": "(.*)"/.exec(workspace);
   const bitEngineVersion = engineVersionMatch ? engineVersionMatch[1] : "";
-  console.log(bitEngineVersion);
-  console.log("#############End")
+
   await exec("npm i -g @teambit/bvm");
   await exec(`bvm install ${bitEngineVersion} --use-system-node`);
   // sets path for current step
