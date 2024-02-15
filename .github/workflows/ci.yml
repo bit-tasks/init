@@ -1,18 +1,63 @@
-name: Test Bit Init
+name: Continuous Integration
+
 on:
-  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
 jobs:
-  install:
+  test-typescript:
+    name: TypeScript Tests
     runs-on: ubuntu-latest
-    env:
-      BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
+        id: checkout
         uses: actions/checkout@v4
-      - name: Initialize Bit
-        uses: bit-tasks/init@main
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - name: Install Dependencies
+        id: npm-ci
+        run: npm ci
+
+      - name: Check Format
+        id: npm-format-check
+        run: npm run format:check
+
+      - name: Lint
+        id: npm-lint
+        run: npm run lint
+
+      # - name: Test
+      #   id: npm-ci-test
+      #   run: npm run ci-test
+
+  test-action:
+    name: GitHub Actions Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Test Local Action
+        id: test-action
+        uses: ./
         with:
           ws-dir: "test-data"
+          BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
+          BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
+
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |
           npm config set '@bit:registry' https://node-registry.bit.cloud

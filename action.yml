@@ -8,6 +8,22 @@ inputs:
     description: "Workspace json file directory path"
     required: false
     default: './'
+  token:
+    description: "Github token"
+    required: false
+  BIT_CONFIG_USER_TOKEN:
+    description: "Bit config user token"
+    required: false
+  BIT_CLOUD_ACCESS_TOKEN: 
+    description: "Bit cloud access token"
+    required: false
+  GIT_USER_NAME:
+    description: "Git user name"
+    required: false
+  GIT_USER_EMAIL:
+    description: "Git user email"
+    required: false
+  
 runs:
   using: 'composite'
   steps:
@@ -20,3 +36,8 @@ runs:
       shell: bash
       env:
         WS_DIR: ${{ inputs.ws-dir }}
+        BIT_CONFIG_USER_TOKEN: ${{ inputs.BIT_CONFIG_USER_TOKEN }}
+        BIT_CLOUD_ACCESS_TOKEN: ${{ inputs.BIT_CLOUD_ACCESS_TOKEN }}
+        GIT_USER_NAME: ${{ inputs.GIT_USER_NAME }}
+        GIT_USER_EMAIL: ${{ inputs.GIT_USER_EMAIL }}
+        GITHUB_TOKEN: ${{ inputs.token }}
