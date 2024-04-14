@@ -33,6 +33,8 @@ const run = async (wsdir: string) => {
   process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
   process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
   process.env.BIT_CONFIG_INTERACTIVE = "false";
+  process.env.BIT_DISABLE_CONSOLE = "true";
+  process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
   await exec("bit install", [], { cwd: wsdir });

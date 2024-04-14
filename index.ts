@@ -57,6 +57,16 @@ try {
       process.env.GITHUB_ENV as string,
       `BIT_CONFIG_INTERACTIVE=${process.env.BIT_CONFIG_INTERACTIVE}\n`
     );
+    // Set Bit console env for subsequent steps in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_ENV as string,
+      `BIT_DISABLE_CONSOLE=${process.env.BIT_DISABLE_CONSOLE}\n`
+    );
+    // Set Bit spinner env for subsequent steps in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_ENV as string,
+      `BIT_DISABLE_SPINNER=${process.env.BIT_DISABLE_SPINNER}\n`
+    );
   });
 } catch (error: any) {
   core.setFailed(error.message);

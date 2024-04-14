@@ -5863,6 +5863,10 @@ try {
         fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_ANONYMOUS_REPORTING=${process.env.BIT_CONFIG_ANONYMOUS_REPORTING}\n`);
         // Set Bit interactive env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `BIT_CONFIG_INTERACTIVE=${process.env.BIT_CONFIG_INTERACTIVE}\n`);
+        // Set Bit console env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_DISABLE_CONSOLE=${process.env.BIT_DISABLE_CONSOLE}\n`);
+        // Set Bit spinner env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `BIT_DISABLE_SPINNER=${process.env.BIT_DISABLE_SPINNER}\n`);
     });
 }
 catch (error) {
@@ -5937,6 +5941,8 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
     process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
     process.env.BIT_CONFIG_INTERACTIVE = "false";
+    process.env.BIT_DISABLE_CONSOLE = "true";
+    process.env.BIT_DISABLE_SPINNER = "true";
     // bit install dependencies
     yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
 });

@@ -53,3 +53,9 @@ jobs:
       - name: Bit path environment variable test
         run: |
           echo $PATH
+      - name: Bit console environment variable test
+        run: |
+          echo $BIT_DISABLE_CONSOLE
+      - name: Bit spinner environment variable test
+        run: |
+          echo $BIT_DISABLE_SPINNER
