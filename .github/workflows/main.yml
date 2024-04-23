@@ -41,6 +41,9 @@ jobs:
       - name: Log environment variable test
         run: |
           echo $LOG
+      - name: Cache environment variable test
+        run: |
+          echo $CACHE
       - name: Bit org environment variable test
         run: |
           echo $ORG
