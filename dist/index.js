@@ -5940,8 +5940,8 @@ const run = (wsdir, debugFlag) => __awaiter(void 0, void 0, void 0, function* ()
     process.env.SCOPE = Scope;
     // install bvm and bit
     const bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
-    yield (0, exec_1.exec)("npm i -g @teambit/bvm");
-    yield (0, exec_1.exec)(`bvm install ${bitEngineVersion} --use-system-node`);
+    yield (0, exec_1.exec)('npm', ['i', '-g', '@teambit/bvm']);
+    yield (0, exec_1.exec)('bvm', ['install', bitEngineVersion, '--use-system-node']);
     // sets path for current step
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD
@@ -5951,7 +5951,7 @@ const run = (wsdir, debugFlag) => __awaiter(void 0, void 0, void 0, function* ()
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
     // bit install dependencies
-    yield (0, exec_1.exec)('bit', ['install'], { cwd: wsdir });
+    yield (0, exec_1.exec)('bit', ['install', debugFlag], { cwd: wsdir });
 });
 exports["default"] = run;
 

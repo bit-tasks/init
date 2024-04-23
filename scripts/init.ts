@@ -24,8 +24,8 @@ const run = async (wsdir: string, debugFlag: string) => {
   const bitEngineVersion = 
     workspaceObject["teambit.harmony/bit"]?.engine || "";
 
-  await exec("npm i -g @teambit/bvm");
-  await exec(`bvm install ${bitEngineVersion} --use-system-node`);
+  await exec('npm', ['i', '-g', '@teambit/bvm']);
+  await exec('bvm', ['install', bitEngineVersion, '--use-system-node']);
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
@@ -37,7 +37,7 @@ const run = async (wsdir: string, debugFlag: string) => {
   process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
-  await exec('bit', ['install'], { cwd: wsdir });
+  await exec('bit', ['install', debugFlag], { cwd: wsdir });
 };
 
 export default run;
