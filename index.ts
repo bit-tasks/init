@@ -4,7 +4,7 @@ import run from "./scripts/init";
 
 try {
   const wsdir = process.env.WSDIR || './';
-  const args = process.env.LOG? [`--log ${process.env.LOG}`]: [];
+  const args = process.env.LOG? [`--log=${process.env.LOG}`]: [];
 
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
