@@ -12,7 +12,7 @@ inputs:
     description: "Enable caching"
     required: false
     default: 'false'
-  ripple-ci:
+  ripple:
     description: "Use Ripple CI to build components"
     required: false
     default: 'false'
@@ -53,3 +53,8 @@ runs:
     - name: Run Bit Initialization Script
       run: node ${{ github.action_path }}/dist/index.js
       shell: bash
+      env:
+        WSDIR: ${{ inputs.ws-dir }}
+        CACHE: ${{ inputs.cache }}
+        RIPPLE: ${{ inputs.ripple }}
+        DEBUG: ${{ inputs.debug }}

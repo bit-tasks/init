@@ -3,12 +3,7 @@ import * as core from "@actions/core";
 import run from "./scripts/init";
 
 try {
-  const wsdir: string = core.getInput("ws-dir") || process.env.WSDIR || "./";
-
-  process.env.WSDIR = wsdir;
-  process.env.RIPPLE = core.getInput("ripple-ci");
-  process.env.DEBUG = core.getInput("debug");
-  
+  const wsdir = process.env.WSDIR || './';
   const args = process.env.DEBUG === "true"? ['--debug']: [];
 
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {

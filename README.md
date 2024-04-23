@@ -15,7 +15,7 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 **Optional** Enables caching for the workflow. Default `"false"`.
 
-### `ripple-ci`
+### `ripple`
 
 **Optional** Use ripple ci to build components. Default `"false"`.
 
