@@ -13,9 +13,9 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: "test-data"
-          ripple: "true"
-          log: "trace"
-          cache: "true"
+          # ripple: "true"
+          # log: "trace"
+          # cache: "true"
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |
           npm config set '@bit:registry' https://node-registry.bit.cloud
