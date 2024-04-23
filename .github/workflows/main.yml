@@ -32,6 +32,9 @@ jobs:
       - name: Bit workspace directory environment variable test
         run: |
           echo $WSDIR
+      - name: Ripple CI environment variable test
+        run: |
+          echo $RIPPLE
       - name: Bit org environment variable test
         run: |
           echo $ORG
