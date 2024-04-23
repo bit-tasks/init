@@ -19,7 +19,7 @@ inputs:
   log:
     description: "Log options for bit commands. Options: [trace, debug, info, warn, error, fatal]"
     required: false
-    default: 'info'
+    default: ''
 runs:
   using: 'composite'
   steps:
