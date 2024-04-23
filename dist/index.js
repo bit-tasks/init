@@ -5836,6 +5836,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
     const wsdir = process.env.WSDIR || './';
+    const args = process.env.DEBUG ? ['--debug'] : [];
     if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
         throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
@@ -5843,13 +5844,13 @@ try {
     else if (!process.env.BIT_CONFIG_USER_TOKEN) {
         process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
     }
-    (0, init_1.default)(wsdir).then(() => {
+    (0, init_1.default)(wsdir, args).then(() => {
         // Set WSDIR env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set RIPPLE env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `RIPPLE=${process.env.RIPPLE}\n`);
-        // Set DEBUG_FLAG env for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `DEBUG=${process.env.DEBUG}\n`);
+        // Set LOG env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `LOG=${process.env.LOG}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
         // Set BIT_CONFIG_USER_TOKEN env for subsequent steps in GitHub Actions
@@ -5919,7 +5920,7 @@ const fs = __importStar(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
 const jsoncParser = __importStar(__nccwpck_require__(245));
 const exec_1 = __nccwpck_require__(1514);
-const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
+const run = (wsdir, args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const wsDirPath = path.resolve(wsdir);
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
@@ -5943,7 +5944,7 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
     // bit install dependencies
-    yield (0, exec_1.exec)('bit', ['install'], { cwd: wsdir });
+    yield (0, exec_1.exec)('bit', ['install', ...args], { cwd: wsdir });
 });
 exports["default"] = run;
 

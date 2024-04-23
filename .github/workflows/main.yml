@@ -14,7 +14,7 @@ jobs:
         with:
           ws-dir: "test-data"
           ripple: "true"
-          debug: "true"
+          log: "info"
           cache: "true"
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |
@@ -38,9 +38,9 @@ jobs:
       - name: Ripple CI environment variable test
         run: |
           echo $RIPPLE
-      - name: Debug environment variable test
+      - name: Log environment variable test
         run: |
-          echo $DEBUG
+          echo $LOG
       - name: Bit org environment variable test
         run: |
           echo $ORG

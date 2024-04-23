@@ -16,10 +16,10 @@ inputs:
     description: "Use Ripple CI to build components"
     required: false
     default: 'false'
-  debug:
-    description: "Debug bit commands"
+  log:
+    description: "Log options for bit commands. Options: [trace, debug, info, warn, error, fatal]"
     required: false
-    default: 'false'
+    default: 'info'
 runs:
   using: 'composite'
   steps:
@@ -57,4 +57,4 @@ runs:
         WSDIR: ${{ inputs.ws-dir }}
         CACHE: ${{ inputs.cache }}
         RIPPLE: ${{ inputs.ripple }}
-        DEBUG: ${{ inputs.debug }}
+        LOG: ${{ inputs.log }}

@@ -4,6 +4,7 @@ import run from "./scripts/init";
 
 try {
   const wsdir = process.env.WSDIR || './';
+  const args = process.env.LOG? [`--log ${process.env.LOG}`]: [];
 
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
@@ -12,7 +13,7 @@ try {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
-  run(wsdir).then((): void => {
+  run(wsdir, args).then((): void => {
     // Set WSDIR env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
@@ -23,10 +24,10 @@ try {
       process.env.GITHUB_ENV as string,
       `RIPPLE=${process.env.RIPPLE}\n`
     );
-    // Set DEBUG_FLAG env for subsequent steps in GitHub Actions
+    // Set LOG env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
-      `DEBUG=${process.env.DEBUG}\n`
+      `LOG=${process.env.LOG}\n`
     );
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(

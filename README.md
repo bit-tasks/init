@@ -19,9 +19,9 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 **Optional** Use ripple ci to build components. Default `"false"`.
 
-### `debug`
+### `log`
 
-**Optional** Add the parameter to debug all bit commands. Default `"false"`.
+**Optional** Log bit CLI execution, options are: `[trace, debug, info, warn, error, fatal]`, Default `"info"`.
 
 ## Example usage
 
