@@ -14,7 +14,7 @@ jobs:
         with:
           ws-dir: "test-data"
           # ripple: "true"
-          # log: "trace"
+          log: "trace"
           # cache: "true"
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |
