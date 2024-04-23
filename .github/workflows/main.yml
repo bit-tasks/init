@@ -13,7 +13,7 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: "test-data"
-          # debug: "true"
+          debug: "true"
           # cache: "true"
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
         run: |
@@ -37,6 +37,9 @@ jobs:
       - name: Ripple CI environment variable test
         run: |
           echo $RIPPLE
+      - name: Debug flag environment variable test
+        run: |
+          echo $DEBUG_FLAG
       - name: Bit org environment variable test
         run: |
           echo $ORG
