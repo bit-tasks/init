@@ -9,7 +9,7 @@ inputs:
     required: false
     default: './'
   cache:
-    description: "Enable cache"
+    description: "Enable caching"
     required: false
     default: 'false'
 runs:
