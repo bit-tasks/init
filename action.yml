@@ -20,21 +20,6 @@ runs:
       with:
         node-version: '20'
 
-    - name: Get npm global path
-      if: inputs.cache == 'true'
-      shell: bash
-      id: npm-global-path
-      run: echo "NPM_GLOBAL_PATH=$(npm root -g)" >> $GITHUB_ENV
-
-    - name: Cache npm global packages
-      if: inputs.cache == 'true'
-      uses: actions/cache@v4
-      with:
-        path: ${{ env.NPM_GLOBAL_PATH }}
-        key: ${{ runner.os }}-npm-global-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-npm-global-
-
     - name: Install pnpm
       if: inputs.cache == 'true'
       uses: pnpm/action-setup@v3
