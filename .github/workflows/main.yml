@@ -13,6 +13,7 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: "test-data"
+          ripple-ci: "true"
           debug: "true"
           cache: "true"
       - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
