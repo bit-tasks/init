@@ -37,9 +37,9 @@ jobs:
       - name: Ripple CI environment variable test
         run: |
           echo $RIPPLE
-      - name: Debug flag environment variable test
+      - name: Debug environment variable test
         run: |
-          echo $DEBUG_FLAG
+          echo $DEBUG
       - name: Bit org environment variable test
         run: |
           echo $ORG
