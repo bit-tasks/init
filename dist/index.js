@@ -5840,6 +5840,8 @@ try {
         throw new Error("Workspace directory is not set");
     }
     process.env.RIPPLE = core.getInput("ripple-ci");
+    const debugFlag = core.getInput("debug") === "true" ? '--debug' : '';
+    process.env.DEBUG_FLAG = debugFlag;
     if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
         throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
@@ -5847,11 +5849,13 @@ try {
     else if (!process.env.BIT_CONFIG_USER_TOKEN) {
         process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
     }
-    (0, init_1.default)(wsDir).then(() => {
-        // Set wsDir env for subsequent steps in GitHub Actions
+    (0, init_1.default)(wsDir, debugFlag).then(() => {
+        // Set WSDIR env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
-        // Set ripple env for subsequent steps in GitHub Actions
+        // Set RIPPLE env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `RIPPLE=${process.env.RIPPLE}\n`);
+        // Set DEBUG_FLAG env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `DEBUG_FLAG=${process.env.DEBUG_FLAG}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
         // Set BIT_CONFIG_USER_TOKEN env for subsequent steps in GitHub Actions
@@ -5921,7 +5925,7 @@ const fs = __importStar(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
 const jsoncParser = __importStar(__nccwpck_require__(245));
 const exec_1 = __nccwpck_require__(1514);
-const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
+const run = (wsdir, debugFlag) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const wsDirPath = path.resolve(wsdir);
     // sets wsdir env for dependent tasks usage
@@ -5947,7 +5951,7 @@ const run = (wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
     // bit install dependencies
-    yield (0, exec_1.exec)("bit install", [], { cwd: wsdir });
+    yield (0, exec_1.exec)('bit', ['install', debugFlag], { cwd: wsdir });
 });
 exports["default"] = run;
 

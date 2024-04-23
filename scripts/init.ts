@@ -3,7 +3,7 @@ import * as path from "path";
 import * as jsoncParser from 'jsonc-parser';
 import { exec } from "@actions/exec";
 
-const run = async (wsdir: string) => {
+const run = async (wsdir: string, debugFlag: string) => {
   const wsDirPath = path.resolve(wsdir);
 
   // sets wsdir env for dependent tasks usage
@@ -37,7 +37,7 @@ const run = async (wsdir: string) => {
   process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
-  await exec("bit install", [], { cwd: wsdir });
+  await exec('bit', ['install', debugFlag], { cwd: wsdir });
 };
 
 export default run;

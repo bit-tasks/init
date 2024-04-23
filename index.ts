@@ -11,6 +11,9 @@ try {
   
   process.env.RIPPLE = core.getInput("ripple-ci");
 
+  const debugFlag =  core.getInput("debug") === "true"? '--debug': '';
+  process.env.DEBUG_FLAG = debugFlag;
+
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
     throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
@@ -18,16 +21,21 @@ try {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
-  run(wsDir).then((): void => {
-    // Set wsDir env for subsequent steps in GitHub Actions
+  run(wsDir, debugFlag).then((): void => {
+    // Set WSDIR env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
       `WSDIR=${process.env.WSDIR}\n`
     );
-    // Set ripple env for subsequent steps in GitHub Actions
+    // Set RIPPLE env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
       `RIPPLE=${process.env.RIPPLE}\n`
+    );
+    // Set DEBUG_FLAG env for subsequent steps in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_ENV as string,
+      `DEBUG_FLAG=${process.env.DEBUG_FLAG}\n`
     );
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(

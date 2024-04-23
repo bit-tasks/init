@@ -16,6 +16,10 @@ inputs:
     description: "Use Ripple CI to build components"
     required: false
     default: 'false'
+  debug:
+    description: "Debug bit commands"
+    required: false
+    default: 'false'
 runs:
   using: 'composite'
   steps:
