@@ -11,9 +11,9 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 **Optional** The workspace directory path from the root. Default `"./"`.
 
-### `cache`
+<!-- ### `cache`
 
-**Optional** Enables caching for the workflow. Default `"false"`.
+**Optional** Enables caching for the workflow. Default `"false"`. -->
 
 ### `ripple`
 
