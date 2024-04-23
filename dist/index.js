@@ -5835,10 +5835,8 @@ const fs = __importStar(__nccwpck_require__(7147));
 const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
-    const wsDir = process.env.WS_DIR;
-    if (!wsDir) {
-        throw new Error("Workspace directory is not set");
-    }
+    const wsdir = core.getInput("ws-dir");
+    process.env.WSDIR = wsdir;
     process.env.RIPPLE = core.getInput("ripple-ci");
     process.env.DEBUG = core.getInput("debug");
     const args = process.env.DEBUG === "true" ? ['--debug'] : [];
@@ -5849,12 +5847,12 @@ try {
     else if (!process.env.BIT_CONFIG_USER_TOKEN) {
         process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
     }
-    (0, init_1.default)(wsDir, args).then(() => {
+    (0, init_1.default)(wsdir, args).then(() => {
         // Set WSDIR env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set RIPPLE env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `RIPPLE=${process.env.RIPPLE}\n`);
-        // Set DEBUG env for subsequent steps in GitHub Actions
+        // Set DEBUG_FLAG env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `DEBUG=${process.env.DEBUG}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
@@ -5928,8 +5926,6 @@ const exec_1 = __nccwpck_require__(1514);
 const run = (wsdir, args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const wsDirPath = path.resolve(wsdir);
-    // sets wsdir env for dependent tasks usage
-    process.env.WSDIR = wsdir;
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
     const workspace = fs.readFileSync(wsFile).toString();
     // sets org and scope env for dependent tasks usage

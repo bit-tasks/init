@@ -53,5 +53,3 @@ runs:
     - name: Run Bit Initialization Script
       run: node ${{ github.action_path }}/dist/index.js
       shell: bash
-      env:
-        WS_DIR: ${{ inputs.ws-dir }}

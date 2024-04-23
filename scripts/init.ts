@@ -6,9 +6,6 @@ import { exec } from "@actions/exec";
 const run = async (wsdir: string, args: string[]) => {
   const wsDirPath = path.resolve(wsdir);
 
-  // sets wsdir env for dependent tasks usage
-  process.env.WSDIR = wsdir;
-
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspace = fs.readFileSync(wsFile).toString();
 
