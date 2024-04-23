@@ -28,27 +28,27 @@ runs:
       with:
         node-version: '20'
 
-    # - name: Install pnpm
-    #   if: inputs.cache == 'true'
-    #   uses: pnpm/action-setup@v3
-    #   with:
-    #     version: 8
-    #     run_install: false
+    - name: Install pnpm
+      if: inputs.cache == 'true'
+      uses: pnpm/action-setup@v3
+      with:
+        version: 8
+        run_install: false
 
-    # - name: Get pnpm store directory
-    #   if: inputs.cache == 'true'
-    #   shell: bash
-    #   run: |
-    #     echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+    - name: Get pnpm store directory
+      if: inputs.cache == 'true'
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-    # - name: Setup pnpm cache
-    #   if: inputs.cache == 'true'
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: ${{ env.STORE_PATH }}
-    #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-pnpm-store-
+    - name: Setup pnpm cache
+      if: inputs.cache == 'true'
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
 
     - name: Run Bit Initialization Script
       run: node ${{ github.action_path }}/dist/index.js
