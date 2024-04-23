@@ -5835,7 +5835,7 @@ const fs = __importStar(__nccwpck_require__(7147));
 const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
-    const wsdir = core.getInput("ws-dir");
+    const wsdir = core.getInput("ws-dir") || process.env.WSDIR || "./";
     process.env.WSDIR = wsdir;
     process.env.RIPPLE = core.getInput("ripple-ci");
     process.env.DEBUG = core.getInput("debug");

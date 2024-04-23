@@ -3,7 +3,7 @@ import * as core from "@actions/core";
 import run from "./scripts/init";
 
 try {
-  const wsdir = core.getInput("ws-dir");
+  const wsdir: string = core.getInput("ws-dir") || process.env.WSDIR || "./";
 
   process.env.WSDIR = wsdir;
   process.env.RIPPLE = core.getInput("ripple-ci");
