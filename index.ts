@@ -4,7 +4,6 @@ import run from "./scripts/init";
 
 try {
   const wsdir = process.env.WSDIR || './';
-  const args = process.env.DEBUG === "true"? ['--debug']: [];
 
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
@@ -13,7 +12,7 @@ try {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
-  run(wsdir, args).then((): void => {
+  run(wsdir).then((): void => {
     // Set WSDIR env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,

@@ -3,7 +3,7 @@ import * as path from "path";
 import * as jsoncParser from 'jsonc-parser';
 import { exec } from "@actions/exec";
 
-const run = async (wsdir: string, args: string[]) => {
+const run = async (wsdir: string) => {
   const wsDirPath = path.resolve(wsdir);
 
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
@@ -34,7 +34,7 @@ const run = async (wsdir: string, args: string[]) => {
   process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
-  await exec('bit', ['install', ...args], { cwd: wsdir });
+  await exec('bit', ['install'], { cwd: wsdir });
 };
 
 export default run;
