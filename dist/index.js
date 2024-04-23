@@ -5836,7 +5836,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
     const wsdir = process.env.WSDIR || './';
-    const args = process.env.DEBUG ? ['--debug'] : [];
+    const args = process.env.LOG ? [`--log ${process.env.LOG}`] : [];
     if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
         throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
