@@ -9,8 +9,7 @@ try {
     throw new Error("Workspace directory is not set");
   }
   
-  const ripple: boolean =
-  core.getInput("ripple-ci") === "true" ? true : false;
+  process.env.RIPPLE = core.getInput("ripple-ci");
 
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
@@ -28,7 +27,7 @@ try {
     // Set ripple env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
-      `RIPPLE=${ripple}\n`
+      `RIPPLE=${process.env.RIPPLE}\n`
     );
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(

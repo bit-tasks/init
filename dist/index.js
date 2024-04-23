@@ -5839,7 +5839,7 @@ try {
     if (!wsDir) {
         throw new Error("Workspace directory is not set");
     }
-    const ripple = core.getInput("ripple-ci") === "true" ? true : false;
+    process.env.RIPPLE = core.getInput("ripple-ci");
     if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
         throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
@@ -5851,7 +5851,7 @@ try {
         // Set wsDir env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set ripple env for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `RIPPLE=${ripple}\n`);
+        fs.appendFileSync(process.env.GITHUB_ENV, `RIPPLE=${process.env.RIPPLE}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
         // Set BIT_CONFIG_USER_TOKEN env for subsequent steps in GitHub Actions
