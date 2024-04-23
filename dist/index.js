@@ -5851,6 +5851,8 @@ try {
         fs.appendFileSync(process.env.GITHUB_ENV, `RIPPLE=${process.env.RIPPLE}\n`);
         // Set LOG env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `LOG=${process.env.LOG}\n`);
+        // Set CACHE env for subsequent steps in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_ENV, `CACHE=${process.env.CACHE}\n`);
         // Set Bit path for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_PATH, process.env.PATH);
         // Set BIT_CONFIG_USER_TOKEN env for subsequent steps in GitHub Actions

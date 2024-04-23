@@ -29,6 +29,13 @@ try {
       process.env.GITHUB_ENV as string,
       `LOG=${process.env.LOG}\n`
     );
+
+    // Set CACHE env for subsequent steps in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_ENV as string,
+      `CACHE=${process.env.CACHE}\n`
+    );
+    
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_PATH as string,
