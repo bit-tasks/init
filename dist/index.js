@@ -5951,7 +5951,7 @@ const run = (wsdir, debugFlag) => __awaiter(void 0, void 0, void 0, function* ()
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
     // bit install dependencies
-    yield (0, exec_1.exec)('bit', ['install', debugFlag], { cwd: wsdir });
+    yield (0, exec_1.exec)('bit', ['install'], { cwd: wsdir });
 });
 exports["default"] = run;
 

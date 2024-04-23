@@ -37,7 +37,7 @@ const run = async (wsdir: string, debugFlag: string) => {
   process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
-  await exec('bit', ['install', debugFlag], { cwd: wsdir });
+  await exec('bit', ['install'], { cwd: wsdir });
 };
 
 export default run;
