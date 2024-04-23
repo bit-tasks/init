@@ -14,6 +14,9 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 ### `cache`
 **Optional** Enables caching for the workflow. Default `"false"`.
 
+### `ripple-ci`
+**Optional** Use ripple ci to build components. Default `"false"`.
+
 ## Example usage
 
 1. Create a new [secret variable](https://docs.github.com/en/actions/security-guides/encrypted-secrets) for `BIT_CONFIG_ACCESS_TOKEN`([docs](https://bit.dev/reference/ci/github-actions#generating-an-access-token)) and use it as an [environment variable](https://docs.github.com/en/actions/learn-github-actions/variables) in your GitHub Action.

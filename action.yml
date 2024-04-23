@@ -12,6 +12,10 @@ inputs:
     description: "Enable caching"
     required: false
     default: 'false'
+  ripple-ci:
+    description: "Use Ripple CI to build components"
+    required: false
+    default: 'false'
 runs:
   using: 'composite'
   steps:
