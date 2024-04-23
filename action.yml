@@ -9,7 +9,7 @@ inputs:
     required: false
     default: './'
   cache:
-    description: "Enable caching"
+    description: "Enable cache"
     required: false
     default: 'false'
 runs:
@@ -22,6 +22,7 @@ runs:
 
     - name: Get npm global path
       if: inputs.cache == 'true'
+      shell: bash
       id: npm-global-path
       run: echo "NPM_GLOBAL_PATH=$(npm root -g)" >> $GITHUB_ENV
 
@@ -33,10 +34,6 @@ runs:
         key: ${{ runner.os }}-npm-global-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-npm-global-
-    
-    - name: Install @teambit/bvm globally
-      if: inputs.cache == 'true'
-      run: npm install -g @teambit/bvm
 
     - name: Install pnpm
       if: inputs.cache == 'true'
