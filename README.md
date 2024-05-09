@@ -13,7 +13,7 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 ### `cache`
 
-**Optional** Enables caching for the workflow. Default `"false"`.
+**Optional** Enables caching for the workflow. Default `"false"`. Available in `bit-tasks/init@v2`.
 
 ### `ripple`
 
