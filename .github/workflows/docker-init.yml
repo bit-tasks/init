@@ -17,14 +17,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      # - name: Create symlink to _w directory
-      #   run: |
-      #     mkdir -p /home/runner/work/_actions/bit-tasks/init/main/dist
-      #     ln -s /__w/_actions/bit-tasks/init/main/dist/index.js /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
       - name: Create symlink to _w directory
         run: |
           mkdir -p /home/runner/work/_actions
-          ln -sfn /__w/_actions/bit-tasks /home/runner/work/_actions/bit-tasks
+          ln -sfn /__w/_actions /home/runner/work/_actions
       - name: Initialize Bit
         uses: bit-tasks/init@main
         with:
