@@ -73,7 +73,7 @@ Use the below step to resolve component packages from **bit.cloud** registry.
 
 ## Docker Support
 You can use the official bit docker image to execute the `bit-tasks/init@v1` task. This saves the time that used to install bit inside the init task.
-You need to run the container as `root` by adding the `options: --user root` flag and creating an additional step to do the workspace mapping for custom tasks (e.g `bit-tasks/init@v1`) to work inside the container.
+You need to add an additional step to create a symlink to run `bit-tasks` inside the container.
 
 ```yaml
 name: Test Bit Init with Docker
@@ -84,7 +84,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: bitsrc/stable:latest
-      options: --user root
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
