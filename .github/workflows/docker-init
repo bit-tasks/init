@@ -1,0 +1,25 @@
+name: Docker Init Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: bitsrc/stable:latest
+    timeout-minutes: 20
+    env:
+      BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
+      NODE_OPTIONS: --max-old-space-size=6656 # set max old space size to 6.5GiB, GitHub hosted runners have 7GiB
+      HOME: /home/bituser
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Initialize Bit
+        uses: bit-tasks/init@v1
+        with:
+          cache: false
+          ws-dir: "test-data"
+          log: "trace"
