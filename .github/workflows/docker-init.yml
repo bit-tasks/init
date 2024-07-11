@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          path: /home/bituser/workspace/repo
+          path: repo
 
       - name: Debug - Check current directory
         run: pwd
@@ -27,9 +27,13 @@ jobs:
       - name: Debug - List files in action directory
         run: ls -alh /home/bituser/workspace/repo/_actions/bit-tasks/init/v1
 
-      - name: Initialize Bit
-        run: node /home/bituser/workspace/repo/_actions/bit-tasks/init/v1/dist/index.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          cache: false
+          node-version: '20'
+      - name: Initialize Bit
+        uses: bit-tasks/init@main
+        with:
           ws-dir: "test-data"
+          # ripple: "true"
           log: "trace"
