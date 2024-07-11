@@ -13,11 +13,12 @@ jobs:
     timeout-minutes: 20
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
+      HOME: ${{ github.workspace }}/__w
     steps:
-      - name: Create symlink to _w directory
-        run: |
-          mkdir -p /home/runner/work
-          ln -sfn /__w/_actions /home/runner/work/_actions
+      # - name: Create symlink to _w directory
+      #   run: |
+      #     mkdir -p /home/runner/work
+      #     ln -sfn /__w/_actions /home/runner/work/_actions
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Initialize Bit
