@@ -1,3 +1,4 @@
+
 name: Docker Init Test
 
 on:
@@ -13,12 +14,17 @@ jobs:
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
       NODE_OPTIONS: --max-old-space-size=6656 # set max old space size to 6.5GiB, GitHub hosted runners have 7GiB
+      HOME: ${{ github.workspace }}/__w
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      # - name: Create symlink to _w directory
+      #   run: |
+      #     mkdir -p /home/runner/work/_actions/bit-tasks/init/main/dist
+      #     ln -s /__w/_actions/bit-tasks/init/main/dist/index.js /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
       - name: Create symlink to _w directory
         run: |
-          mkdir -p /home/runner/work/_actions/bit-tasks
+          mkdir -p /home/runner/work/_actions
           ln -sfn /__w/_actions/bit-tasks /home/runner/work/_actions/bit-tasks
       - name: Initialize Bit
         uses: bit-tasks/init@main
