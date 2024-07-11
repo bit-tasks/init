@@ -18,10 +18,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Create symlink to _w directory
         run: |
-          mkdir -p /home/runner/work/_actions
-          ln -sfn /__w/_actions/bit-tasks /home/runner/work/_actions/bit-tasks
+          mkdir -p /home/runner/work
+          ln -sfn /__w/_actions /home/runner/work/_actions
       - name: Initialize Bit
         uses: bit-tasks/init@main
         with:
           ws-dir: "test-data"
-          log: "trace"
