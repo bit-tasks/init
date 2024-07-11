@@ -29,6 +29,9 @@ jobs:
       - name: Debug - List workspace directory
         run: ls -alh /__w
 
+      - name: Debug - List workspace directory
+        run: ls -alh /__w/_actions
+
       - name: Debug - List repository directory
         run: ls -alh /__w/init/init
 
