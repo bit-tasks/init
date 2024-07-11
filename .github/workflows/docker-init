@@ -12,14 +12,35 @@ jobs:
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
       NODE_OPTIONS: --max-old-space-size=6656 # set max old space size to 6.5GiB, GitHub hosted runners have 7GiB
-      HOME: /home/bituser
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Initialize Bit
-        uses: bit-tasks/init@v1
+      - name: Debug - Check current directory
+        run: pwd
+
+      - name: Debug - List root directory
+        run: ls -alh /
+
+      - name: Debug - List home directory
+        run: ls -alh /home
+
+      - name: Debug - List runner directory
+        run: ls -alh /home/runner
+
+      - name: Debug - List runner workspace
+        run: ls -alh /home/runner/work
+
+      - name: Debug - List repository directory
+        run: ls -alh ${{ github.workspace }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          cache: false
+          node-version: '20'
+
+      - name: Initialize Bit
+        uses: bit-tasks/init@main
+        with:
           ws-dir: "test-data"
           log: "trace"
