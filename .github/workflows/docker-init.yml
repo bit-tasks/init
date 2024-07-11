@@ -15,25 +15,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          path: repo
 
       - name: Debug - Check current directory
         run: pwd
 
-      - name: Debug - List files in workspace
-        run: ls -alh /home/bituser/workspace
+      - name: Debug - List root directory
+        run: ls -alh /
 
-      - name: Debug - List files in action directory
-        run: ls -alh /home/bituser/workspace/repo/_actions/bit-tasks/init/v1
+      - name: Debug - List home directory
+        run: ls -alh /home
+
+      - name: Debug - List current workspace
+        run: ls -alh ${{ github.workspace }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Initialize Bit
         uses: bit-tasks/init@main
         with:
           ws-dir: "test-data"
-          # ripple: "true"
           log: "trace"
