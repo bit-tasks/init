@@ -17,6 +17,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Debug - Node version
+        run: node -v
+
+      - name: Debug - List files in action directory
+        run: ls -alh /home/runner/work/_actions/bit-tasks/init/v1
+
       - name: Initialize Bit
         uses: bit-tasks/init@v1
         with:
