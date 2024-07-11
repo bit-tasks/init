@@ -31,10 +31,14 @@ jobs:
         run: ls -alh /__w
 
       - name: Debug - List workspace directory
-        run: ls -alh /__w/_actions
+        run: ls -alh /__w/_actions/bit-tasks
 
-      - name: Debug - List repository directory
-        run: ls -alh /__w/init/init
+
+      - name: Create symlink to _w directory
+        run: |
+          mkdir -p /home/runner/work/_actions/bit-tasks/init/main/dist
+          ln -s /__w/_actions/bit-tasks/init/main/dist/index.js /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
+
 
       - name: Initialize Bit
         uses: bit-tasks/init@main
