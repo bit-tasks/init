@@ -71,6 +71,38 @@ Use the below step to resolve component packages from **bit.cloud** registry.
   npm config set //<my-org-registry-url>/:_authToken ${{ <MY ORG ACCESS TOKEN> }}
 ```
 
+## Docker Support
+You can use the official bit docker image to execute the `bit-tasks/init@v1` task. This saves the time that used to install bit inside the init task.
+You need to run the container as `root` by adding the `options: --user root` flag and creating an additional step to do the workspace mapping for custom tasks (e.g `bit-tasks/init@v1) to work inside the container.
+
+```yaml
+name: Test Bit Init with Docker
+on:
+  workflow_dispatch:
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    container:
+      image: bitsrc/stable:latest
+      options: --user root
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+      GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+      BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
+    steps:
+      - name: Create symlink to support docker image
+        run: |
+          mkdir -p /home/runner
+          ln -sfn /__w /home/runner/work
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize Bit
+        uses: bit-tasks/init@v1
+        with:
+          ws-dir: '<WORKSPACE_DIR_PATH>'
+```
+
 # Contributor Guide
 
 Steps to create custom tasks in different CI/CD platforms.
