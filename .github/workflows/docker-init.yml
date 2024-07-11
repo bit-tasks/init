@@ -26,19 +26,11 @@ jobs:
       - name: Debug - List home directory
         run: ls -alh /home
 
-      - name: Debug - List runner directory
-        run: ls -alh /home/runner
-
-      - name: Debug - List runner workspace
-        run: ls -alh /home/runner/work
+      - name: Debug - List workspace directory
+        run: ls -alh /__w
 
       - name: Debug - List repository directory
-        run: ls -alh ${{ github.workspace }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+        run: ls -alh /__w/init/init
 
       - name: Initialize Bit
         uses: bit-tasks/init@main
