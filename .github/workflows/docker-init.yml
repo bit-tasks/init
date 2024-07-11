@@ -25,7 +25,13 @@ jobs:
       - name: Debug - List home directory
         run: ls -alh /home
 
-      - name: Debug - List current workspace
+      - name: Debug - List runner directory
+        run: ls -alh /home/runner
+
+      - name: Debug - List runner workspace
+        run: ls -alh /home/runner/work
+
+      - name: Debug - List repository directory
         run: ls -alh ${{ github.workspace }}
 
       - name: Setup Node.js
