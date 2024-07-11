@@ -13,7 +13,7 @@ jobs:
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
       NODE_OPTIONS: --max-old-space-size=6656 # set max old space size to 6.5GiB, GitHub hosted runners have 7GiB
-      GITHUB_WORKSPACE: /_w
+      GITHUB_WORKSPACE: /__w
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
