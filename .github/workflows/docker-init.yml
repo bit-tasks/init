@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Create symlink to _w directory
         run: |
-          # mkdir -p /home/runner
+          mkdir -p /home/runner
           ln -sfn /__w /home/runner/work
       - name: Checkout repository
         uses: actions/checkout@v3
