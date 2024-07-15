@@ -72,7 +72,7 @@ Use the below step to resolve component packages from **bit.cloud** registry.
 ```
 
 ## Docker Support
-You can use the official bit docker image to execute the `bit-tasks/init@v1` task. This saves the time that used to install bit inside the init task.
+You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task.
 You need to add an additional step to create a symlink to run `bit-tasks` inside the container.
 
 ```yaml
@@ -97,7 +97,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Initialize Bit
-        uses: bit-tasks/init@v1
+        uses: bit-tasks/init@v2
         with:
           ws-dir: '<WORKSPACE_DIR_PATH>'
 ```
