@@ -5922,6 +5922,7 @@ const fs = __importStar(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
 const jsoncParser = __importStar(__nccwpck_require__(245));
 const exec_1 = __nccwpck_require__(1514);
+const core = __importStar(__nccwpck_require__(2186));
 const run = (wsdir, args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const wsDirPath = path.resolve(wsdir);
@@ -5933,10 +5934,33 @@ const run = (wsdir, args) => __awaiter(void 0, void 0, void 0, function* () {
     const [Org, Scope] = defaultScope.split(".");
     process.env.ORG = Org;
     process.env.SCOPE = Scope;
-    // install bvm and bit
+    // get bitEngineVersion from workspace.jsonc
     const bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
-    yield (0, exec_1.exec)('npm', ['i', '-g', '@teambit/bvm']);
-    yield (0, exec_1.exec)('bvm', ['install', bitEngineVersion, '--use-system-node']);
+    // get installed bit version
+    let installedBitVersion = "";
+    try {
+        yield (0, exec_1.exec)('bit', ['-v'], {
+            listeners: {
+                stdout: (data) => {
+                    installedBitVersion += data.toString();
+                }
+            }
+        });
+        installedBitVersion = installedBitVersion.trim();
+        core.info(`Bit version ${installedBitVersion} is already installed.`);
+    }
+    catch (error) {
+        installedBitVersion = "";
+    }
+    // check if installation is needed
+    const shouldInstall = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+    if (shouldInstall) {
+        if (installedBitVersion && bitEngineVersion && bitEngineVersion !== installedBitVersion) {
+            core.warning(`WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`);
+        }
+        yield (0, exec_1.exec)('npm', ['i', '-g', '@teambit/bvm']);
+        yield (0, exec_1.exec)('bvm', ['install', bitEngineVersion, '--use-system-node']);
+    }
     // sets path for current step
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
     // config bit/npm for CI/CD

@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as jsoncParser from 'jsonc-parser';
 import { exec } from "@actions/exec";
+import * as core from '@actions/core';
 
 const run = async (wsdir: string, args: string[]) => {
   const wsDirPath = path.resolve(wsdir);
@@ -17,12 +18,37 @@ const run = async (wsdir: string, args: string[]) => {
   process.env.ORG = Org;
   process.env.SCOPE = Scope;
 
-  // install bvm and bit
+  // get bitEngineVersion from workspace.jsonc
   const bitEngineVersion = 
     workspaceObject["teambit.harmony/bit"]?.engine || "";
 
-  await exec('npm', ['i', '-g', '@teambit/bvm']);
-  await exec('bvm', ['install', bitEngineVersion, '--use-system-node']);
+  // get installed bit version
+  let installedBitVersion = "";
+  try {
+    await exec('bit', ['-v'], {
+      listeners: {
+        stdout: (data: Buffer) => {
+          installedBitVersion += data.toString();
+        }
+      }
+    });
+    installedBitVersion = installedBitVersion.trim();
+    core.info(`Bit version ${installedBitVersion} is already installed.`);
+  } catch (error) {
+    installedBitVersion = "";
+  }
+
+  // check if installation is needed
+  const shouldInstall = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+
+  if (shouldInstall) {
+    if (installedBitVersion && bitEngineVersion && bitEngineVersion !== installedBitVersion) {
+      core.warning(`WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`);
+    }
+    await exec('npm', ['i', '-g', '@teambit/bvm']);
+    await exec('bvm', ['install', bitEngineVersion, '--use-system-node']);
+  }
+
   // sets path for current step
   process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
 
