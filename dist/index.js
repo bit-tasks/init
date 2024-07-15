@@ -5947,7 +5947,7 @@ const run = (wsdir, args) => __awaiter(void 0, void 0, void 0, function* () {
             }
         });
         installedBitVersion = installedBitVersion.trim();
-        core.info(`Bit version ${installedBitVersion} is already installed.`);
+        core.info(`Bit version ${installedBitVersion} is available on the build agent.`);
     }
     catch (error) {
         installedBitVersion = "";
