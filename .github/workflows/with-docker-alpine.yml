@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: bitsrc/stable:latest-alpine
+      options: --user root
     timeout-minutes: 20
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
