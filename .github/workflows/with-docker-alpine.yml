@@ -30,14 +30,6 @@ jobs:
         continue-on-error: true
       - name: List contents of the action directory
         run: ls -al /home/runner/work/_actions/bit-tasks/init/main/dist
-      - name: Set execute permissions for index.js
-        run: chmod +x /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
-      - name: Run Bit initialization
-        run: /__t/node/20.15.0/x64/bin/node /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
-      - name: Enable debug logging
-        run: |
-          export ACTIONS_RUNNER_DEBUG=true
-          export ACTIONS_STEP_DEBUG=true
       - name: List directory contents after Bit initialization
         run: |
           echo "Contents of the current directory:"
