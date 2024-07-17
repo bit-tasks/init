@@ -33,6 +33,7 @@ jobs:
         run: |
           echo "Searching for main/dist/index.js..."
           find / -type f -path "*/main/dist/index.js"
+          node /__w/_actions/bit-tasks/init/main/dist/index.js
       # - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
       #   run: |
       #     npm config set '@bit:registry' https://node-registry.bit.cloud
