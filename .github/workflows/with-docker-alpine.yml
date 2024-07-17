@@ -13,10 +13,10 @@ jobs:
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
     steps:
-      - name: Create symlink to _w directory
+      - name: Create symlink to /__w/_actions/bit-tasks/init/main/dist/index.js
         run: |
-          mkdir -p /home/runner/work/_actions
-          ln -sfn /__w/_actions/ /home/runner/work/_actions/
+          mkdir -p /home/runner/work/_actions/bit-tasks/init/main/dist
+          ln -sfn /__w/_actions/bit-tasks/init/main/dist/index.js /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Verify Node.js installation
