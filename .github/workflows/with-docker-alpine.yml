@@ -33,7 +33,6 @@ jobs:
         run: |
           echo "Searching for main/dist/index.js..."
           find / -type f -path "*/main/dist/index.js"
-          node /__w/_actions/bit-tasks/init/main/dist/index.js
       - name: List files in init directory
         run: |
           echo "Listing files in /home/runner/work/_actions/bit-tasks/init:"
