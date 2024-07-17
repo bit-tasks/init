@@ -27,6 +27,7 @@ jobs:
           # ripple: "true"
           log: "trace"
           # cache: "true"
+        continue-on-error: true
       - name: List contents of the action directory
         run: ls -al /home/runner/work/_actions/bit-tasks/init/main/dist
       - name: Set execute permissions for index.js
