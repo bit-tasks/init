@@ -13,10 +13,10 @@ jobs:
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
     steps:
-      - name: Create symlink to /__w/_actions/bit-tasks/init/main/dist/index.js
+      - name: Create symlink to _w directory
         run: |
-          mkdir -p /home/runner/work/_actions/bit-tasks/init/main/dist
-          ln -sfn /__w/_actions/bit-tasks/init/main/dist/index.js /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
+          mkdir -p /home/runner
+          ln -sfn /__w /home/runner/work
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Verify Node.js installation
@@ -34,6 +34,22 @@ jobs:
           echo "Searching for main/dist/index.js..."
           find / -type f -path "*/main/dist/index.js"
           node /__w/_actions/bit-tasks/init/main/dist/index.js
+      - name: List files in init directory
+        run: |
+          echo "Listing files in /home/runner/work/_actions/bit-tasks/init:"
+          ls -al /home/runner/work/_actions/bit-tasks/init
+      - name: List files in main directory
+        run: |
+          echo "Listing files in /home/runner/work/_actions/bit-tasks/init/main:"
+          ls -al /home/runner/work/_actions/bit-tasks/init/main
+      - name: List files in dist directory
+        run: |
+          echo "Listing files in /home/runner/work/_actions/bit-tasks/init/main/dist:"
+          ls -al /home/runner/work/_actions/bit-tasks/init/main/dist
+      - name: List files in root dist directory
+        run: |
+          echo "Listing files in /__w/_actions/bit-tasks/init/main/dist:"
+          ls -al /__w/_actions/bit-tasks/init/main/dist
       # - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
       #   run: |
       #     npm config set '@bit:registry' https://node-registry.bit.cloud
