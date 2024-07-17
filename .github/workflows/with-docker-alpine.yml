@@ -28,12 +28,10 @@ jobs:
           log: "trace"
           # cache: "true"
         continue-on-error: true
-      - name: List contents of the action directory
-        run: ls -al /home/runner/work/_actions/bit-tasks/init/main/dist
-      - name: List directory contents after Bit initialization
+      - name: Search for index.js in main/dist directory pattern
         run: |
-          echo "Contents of the current directory:"
-          ls -al
+          echo "Searching for main/dist/index.js..."
+          find / -type f -path "*/main/dist/index.js"
       # - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
       #   run: |
       #     npm config set '@bit:registry' https://node-registry.bit.cloud
