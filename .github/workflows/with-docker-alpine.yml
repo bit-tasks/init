@@ -1,4 +1,3 @@
-
 name: Test Bit Init with Docker Alpine
 
 on:
@@ -19,6 +18,8 @@ jobs:
           ln -sfn /__w /home/runner/work
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Verify Node.js installation
+        run: node -v
       - name: Initialize Bit
         uses: bit-tasks/init@main
         with:
@@ -26,6 +27,16 @@ jobs:
           # ripple: "true"
           log: "trace"
           # cache: "true"
+      - name: List contents of the action directory
+        run: ls -al /home/runner/work/_actions/bit-tasks/init/main/dist
+      - name: Set execute permissions for index.js
+        run: chmod +x /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
+      - name: Run Bit initialization
+        run: /__t/node/20.15.0/x64/bin/node /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
+      - name: Enable debug logging
+        run: |
+          export ACTIONS_RUNNER_DEBUG=true
+          export ACTIONS_STEP_DEBUG=true
       - name: List directory contents after Bit initialization
         run: |
           echo "Contents of the current directory:"
