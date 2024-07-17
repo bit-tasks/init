@@ -26,58 +26,62 @@ jobs:
           # ripple: "true"
           log: "trace"
           # cache: "true"
-      - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
+      - name: List directory contents after Bit initialization
         run: |
-          npm config set '@bit:registry' https://node-registry.bit.cloud
-          npm config set '@teambit:registry' https://node-registry.bit.cloud
-          npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_CONFIG_ACCESS_TOKEN }}
-      - name: Installed Node version test
-        run: |
-            node -v
-      - name: Installed Bit version test
-        run: |
-          bit -v
-      - name: Installed Bit location test
-        run: |
-          which bit
-      - name: Bit token test
-        run: echo "$(bit config get user.token)"
-      - name: Bit workspace directory environment variable test
-        run: |
-          echo $WSDIR
-      - name: Ripple CI environment variable test
-        run: |
-          echo $RIPPLE
-      - name: Log environment variable test
-        run: |
-          echo $LOG
-      - name: Cache environment variable test
-        run: |
-          echo $CACHE
-      - name: Bit org environment variable test
-        run: |
-          echo $ORG
-      - name: Bit scope environment variable test
-        run: |
-          echo $SCOPE
-      - name: Bit analytics reporting environment variable test
-        run: |
-          echo $BIT_CONFIG_ANALYTICS_REPORTING
-      - name: Bit anonymous reporting environment variable test
-        run: |
-          echo $BIT_CONFIG_ANONYMOUS_REPORTING
-      - name: Bit interactive environment variable test
-        run: |
-          echo $BIT_CONFIG_INTERACTIVE
-      - name: Bit user token environment variable test
-        run: |
-          echo $BIT_CONFIG_ACCESS_TOKEN
-      - name: Bit path environment variable test
-        run: |
-          echo $PATH
-      - name: Bit console environment variable test
-        run: |
-          echo $BIT_DISABLE_CONSOLE
-      - name: Bit spinner environment variable test
-        run: |
-          echo $BIT_DISABLE_SPINNER
+          echo "Contents of the current directory:"
+          ls -al
+      # - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
+      #   run: |
+      #     npm config set '@bit:registry' https://node-registry.bit.cloud
+      #     npm config set '@teambit:registry' https://node-registry.bit.cloud
+      #     npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_CONFIG_ACCESS_TOKEN }}
+      # - name: Installed Node version test
+      #   run: |
+      #       node -v
+      # - name: Installed Bit version test
+      #   run: |
+      #     bit -v
+      # - name: Installed Bit location test
+      #   run: |
+      #     which bit
+      # - name: Bit token test
+      #   run: echo "$(bit config get user.token)"
+      # - name: Bit workspace directory environment variable test
+      #   run: |
+      #     echo $WSDIR
+      # - name: Ripple CI environment variable test
+      #   run: |
+      #     echo $RIPPLE
+      # - name: Log environment variable test
+      #   run: |
+      #     echo $LOG
+      # - name: Cache environment variable test
+      #   run: |
+      #     echo $CACHE
+      # - name: Bit org environment variable test
+      #   run: |
+      #     echo $ORG
+      # - name: Bit scope environment variable test
+      #   run: |
+      #     echo $SCOPE
+      # - name: Bit analytics reporting environment variable test
+      #   run: |
+      #     echo $BIT_CONFIG_ANALYTICS_REPORTING
+      # - name: Bit anonymous reporting environment variable test
+      #   run: |
+      #     echo $BIT_CONFIG_ANONYMOUS_REPORTING
+      # - name: Bit interactive environment variable test
+      #   run: |
+      #     echo $BIT_CONFIG_INTERACTIVE
+      # - name: Bit user token environment variable test
+      #   run: |
+      #     echo $BIT_CONFIG_ACCESS_TOKEN
+      # - name: Bit path environment variable test
+      #   run: |
+      #     echo $PATH
+      # - name: Bit console environment variable test
+      #   run: |
+      #     echo $BIT_DISABLE_CONSOLE
+      # - name: Bit spinner environment variable test
+      #   run: |
+      #     echo $BIT_DISABLE_SPINNER
