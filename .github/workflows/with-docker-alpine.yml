@@ -1,5 +1,5 @@
 
-name: Test Bit Init with Docker
+name: Test Bit Init with Docker Alpine
 
 on:
   workflow_dispatch:
