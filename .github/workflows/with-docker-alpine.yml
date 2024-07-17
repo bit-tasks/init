@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: Create symlink to _w directory
         run: |
-          mkdir -p /home/runner/work/_actions/bit-tasks/init/main/dist
-          ln -sfn /__w/_actions/bit-tasks/init/main/dist/index.js /home/runner/work/_actions/bit-tasks/init/main/dist/index.js
+          mkdir -p /home/runner/work/_actions
+          ln -sfn /__w/_actions/ /home/runner/work/_actions/
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Verify Node.js installation
