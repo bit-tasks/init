@@ -21,6 +21,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Verify Node.js installation
         run: node -v
+      - name: Verify Git installation
+        run: git -v
       - name: Initialize Bit
         uses: bit-tasks/init@main
         with:
