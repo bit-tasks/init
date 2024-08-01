@@ -13,10 +13,6 @@ jobs:
     env:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
     steps:
-      - name: Create symlink to _w directory
-        run: |
-          mkdir -p /home/runner
-          ln -sfn /__w /home/runner/work
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Verify Node.js installation

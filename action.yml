@@ -32,6 +32,13 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+    
+    - name: Create symlink to support docker image
+      if: inputs.docker == 'true'
+      shell: bash
+      run: |
+        mkdir -p /home/runner
+        ln -sfn /__w /home/runner/work
 
     - name: Install pnpm
       if: inputs.cache == 'true'

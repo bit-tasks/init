@@ -19,6 +19,10 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 **Optional** Use ripple ci to build components. Default `"false"`.
 
+### `docker`
+
+**Optional** Use a docker container to build components. Default `"false"`.
+
 ### `log`
 
 **Optional** Log bit CLI execution, options are: `[trace, debug, info, warn, error, fatal]`, Default `"info"`.
@@ -72,8 +76,7 @@ Use the below step to resolve component packages from **bit.cloud** registry.
 ```
 
 ## Docker Support
-You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task.
-You need to add an additional step to create a symlink to run `bit-tasks` inside the container.
+You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task. You need to set `docker: "true"` input parameter for the init script.
 
 ```yaml
 name: Test Bit Init with Docker
@@ -90,16 +93,13 @@ jobs:
       GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
     steps:
-      - name: Create symlink to support docker image
-        run: |
-          mkdir -p /home/runner
-          ln -sfn /__w /home/runner/work
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Initialize Bit
         uses: bit-tasks/init@v2
         with:
           ws-dir: '<WORKSPACE_DIR_PATH>'
+          docker: "true"
 ```
 
 # Contributor Guide
