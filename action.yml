@@ -16,6 +16,10 @@ inputs:
     description: "Use Ripple CI to build components"
     required: false
     default: 'false'
+  docker:
+    description: "Use Docker Container to build components"
+    required: false
+    default: 'false'
   log:
     description: "Log options for bit commands. Options: [trace, debug, info, warn, error, fatal]"
     required: false
@@ -24,6 +28,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Node
+      if: inputs.docker == 'false'
       uses: actions/setup-node@v4
       with:
         node-version: '20'
