@@ -76,7 +76,7 @@ Use the below step to resolve component packages from **bit.cloud** registry.
 ```
 
 ## Docker Support
-You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task. You need to set `docker: "true"` input parameter for the init script.
+You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task. You need to set `docker: "true"` input parameter for the `bit-tasks/init@v2` task, when running inside a container.
 
 ```yaml
 name: Test Bit Init with Docker
