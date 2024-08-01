@@ -3,7 +3,7 @@ Initialize Bit for CI/CD Pipelines
 
 # GitHub Actions
 
-This task installs Bit in your CI by executing `bit install` inside the workspace directory. It uses `Node 18`.
+This task installs Bit in your CI by executing `bit install` inside the workspace directory.
 
 ## Inputs
 
