@@ -8,6 +8,10 @@ inputs:
     description: "Workspace json file directory path"
     required: false
     default: './'
+  lane-name:
+    description: "Import a specific lane before running: bit install"
+    required: false
+    default: 'main'
   cache:
     description: "Enable caching"
     required: false
