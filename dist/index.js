@@ -5836,8 +5836,8 @@ const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
     const wsdir = process.env.WSDIR || './';
+    const skipDepInstall = core.getInput("skip-install") === "true" ? true : false;
     const args = process.env.LOG ? [`--log=${process.env.LOG}`] : [];
-    const lane = process.env.LANE || '';
     if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
         throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
@@ -5845,11 +5845,9 @@ try {
     else if (!process.env.BIT_CONFIG_USER_TOKEN) {
         process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
     }
-    (0, init_1.default)(wsdir, lane, args).then(() => {
+    (0, init_1.default)(wsdir, skipDepInstall, args).then(() => {
         // Set WSDIR env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
-        // Set LANE_NAME env for subsequent steps in GitHub Actions
-        fs.appendFileSync(process.env.GITHUB_ENV, `LANE=${lane}\n`);
         // Set RIPPLE env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `RIPPLE=${process.env.RIPPLE}\n`);
         // Set LOG env for subsequent steps in GitHub Actions
@@ -5926,7 +5924,7 @@ const path = __importStar(__nccwpck_require__(1017));
 const jsoncParser = __importStar(__nccwpck_require__(245));
 const exec_1 = __nccwpck_require__(1514);
 const core = __importStar(__nccwpck_require__(2186));
-const run = (wsdir, lane, args) => __awaiter(void 0, void 0, void 0, function* () {
+const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const wsDirPath = path.resolve(wsdir);
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
@@ -5956,8 +5954,8 @@ const run = (wsdir, lane, args) => __awaiter(void 0, void 0, void 0, function* (
         installedBitVersion = "";
     }
     // check if installation is needed
-    const shouldInstall = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
-    if (shouldInstall) {
+    const shouldInstallBitCLI = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+    if (shouldInstallBitCLI) {
         if (installedBitVersion && bitEngineVersion && bitEngineVersion !== installedBitVersion) {
             core.warning(`WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`);
         }
@@ -5972,13 +5970,13 @@ const run = (wsdir, lane, args) => __awaiter(void 0, void 0, void 0, function* (
     process.env.BIT_CONFIG_INTERACTIVE = "false";
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
-    if (lane) {
-        yield (0, exec_1.exec)(`bit`, ['lane', 'import', `${lane}`, ...args], { cwd: wsdir });
-        // Remove snap hashes and lane details from .Bitmap
-        yield (0, exec_1.exec)('bit', ['init', '--reset-lane-new', ...args], { cwd: wsdir });
-    }
     // bit install dependencies
-    yield (0, exec_1.exec)('bit', ['install', ...args], { cwd: wsdir });
+    if (!skipDepInstall) {
+        yield (0, exec_1.exec)('bit', ['install', ...args], { cwd: wsdir });
+    }
+    else {
+        core.warning(`WARNING - Skipped running 'bit install' command`);
+    }
 });
 exports["default"] = run;
 
