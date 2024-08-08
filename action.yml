@@ -74,3 +74,4 @@ runs:
         CACHE: ${{ inputs.cache }}
         RIPPLE: ${{ inputs.ripple }}
         LOG: ${{ inputs.log }}
+        SKIP_INSTALL: ${{ inputs.skip-install }}
