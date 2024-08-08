@@ -5,7 +5,7 @@ import run from "./scripts/init";
 try {
   const wsdir = process.env.WSDIR || './';
   const args = process.env.LOG? [`--log=${process.env.LOG}`]: [];
-  const laneName: string = core.getInput("lane-name") || "main";
+  const lane = process.env.LANE || '';
 
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
@@ -14,7 +14,7 @@ try {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
-  run(wsdir, laneName, args).then((): void => {
+  run(wsdir, lane, args).then((): void => {
     // Set WSDIR env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
@@ -23,7 +23,7 @@ try {
     // Set LANE_NAME env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
-      `LANE_NAME=${laneName}\n`
+      `LANE=${lane}\n`
     );
     // Set RIPPLE env for subsequent steps in GitHub Actions
     fs.appendFileSync(

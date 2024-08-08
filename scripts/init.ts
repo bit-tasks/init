@@ -4,7 +4,7 @@ import * as jsoncParser from 'jsonc-parser';
 import { exec } from "@actions/exec";
 import * as core from '@actions/core';
 
-const run = async (wsdir: string, laneName: string, args: string[]) => {
+const run = async (wsdir: string, lane: string, args: string[]) => {
   const wsDirPath = path.resolve(wsdir);
 
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
@@ -59,8 +59,8 @@ const run = async (wsdir: string, laneName: string, args: string[]) => {
   process.env.BIT_DISABLE_CONSOLE = "true";
   process.env.BIT_DISABLE_SPINNER = "true";
 
-  if(laneName !== "main"){
-    await exec(`bit`, ['lane', 'import', `${laneName}`, ...args], { cwd: wsdir });
+  if(lane){
+    await exec(`bit`, ['lane', 'import', `${lane}`, ...args], { cwd: wsdir });
     // Remove snap hashes and lane details from .Bitmap
     await exec('bit', ['init', '--reset-lane-new', ...args], { cwd: wsdir });
   }

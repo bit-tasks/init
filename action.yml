@@ -8,10 +8,10 @@ inputs:
     description: "Workspace json file directory path"
     required: false
     default: './'
-  lane-name:
+  lane:
     description: "Import a specific lane before running: bit install"
     required: false
-    default: 'main'
+    default: ''
   cache:
     description: "Enable caching"
     required: false
@@ -71,6 +71,7 @@ runs:
       shell: bash
       env:
         WSDIR: ${{ inputs.ws-dir }}
+        LANE: ${{ inputs.lane }}
         CACHE: ${{ inputs.cache }}
         RIPPLE: ${{ inputs.ripple }}
         LOG: ${{ inputs.log }}

@@ -23,9 +23,9 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 **Optional** Use a docker container to build components. Default `"false"`.
 
-### `lane-name`
+### `lane`
 
-**Optional** Import a specific lane before running `bit install`. Default `"main"`
+**Optional** Import a specific lane before running `bit install`.
 
 ### `log`
 
