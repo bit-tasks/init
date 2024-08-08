@@ -4,8 +4,8 @@ import run from "./scripts/init";
 
 try {
   const wsdir = process.env.WSDIR || './';
+  const skipDepInstall: boolean = core.getInput("skip-install") === "true" ? true : false;
   const args = process.env.LOG? [`--log=${process.env.LOG}`]: [];
-  const lane = process.env.LANE || '';
 
   if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
@@ -14,16 +14,11 @@ try {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
-  run(wsdir, lane, args).then((): void => {
+  run(wsdir, skipDepInstall, args).then((): void => {
     // Set WSDIR env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
       `WSDIR=${process.env.WSDIR}\n`
-    );
-    // Set LANE_NAME env for subsequent steps in GitHub Actions
-    fs.appendFileSync(
-      process.env.GITHUB_ENV as string,
-      `LANE=${lane}\n`
     );
     // Set RIPPLE env for subsequent steps in GitHub Actions
     fs.appendFileSync(

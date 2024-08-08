@@ -3,7 +3,7 @@ Initialize Bit for CI/CD Pipelines
 
 # GitHub Actions
 
-This task installs Bit in your CI by executing `bit install` inside the workspace directory.
+This task installs **Bit CLI** in your CI Agent and executes `bit install` inside the workspace directory.
 
 ## Inputs
 
@@ -23,9 +23,9 @@ This task installs Bit in your CI by executing `bit install` inside the workspac
 
 **Optional** Use a docker container to build components. Default `"false"`.
 
-### `lane`
+### `skip-install`
 
-**Optional** Import a specific lane before running `bit install`.
+**Optional** Skip running `bit install` command.
 
 ### `log`
 

@@ -4,7 +4,7 @@ import * as jsoncParser from 'jsonc-parser';
 import { exec } from "@actions/exec";
 import * as core from '@actions/core';
 
-const run = async (wsdir: string, lane: string, args: string[]) => {
+const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
   const wsDirPath = path.resolve(wsdir);
 
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
@@ -39,9 +39,9 @@ const run = async (wsdir: string, lane: string, args: string[]) => {
   }
 
   // check if installation is needed
-  const shouldInstall = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+  const shouldInstallBitCLI = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
 
-  if (shouldInstall) {
+  if (shouldInstallBitCLI) {
     if (installedBitVersion && bitEngineVersion && bitEngineVersion !== installedBitVersion) {
       core.warning(`WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`);
     }
@@ -59,14 +59,13 @@ const run = async (wsdir: string, lane: string, args: string[]) => {
   process.env.BIT_DISABLE_CONSOLE = "true";
   process.env.BIT_DISABLE_SPINNER = "true";
 
-  if(lane){
-    await exec(`bit`, ['lane', 'import', `${lane}`, ...args], { cwd: wsdir });
-    // Remove snap hashes and lane details from .Bitmap
-    await exec('bit', ['init', '--reset-lane-new', ...args], { cwd: wsdir });
+  // bit install dependencies
+  if(!skipDepInstall){
+    await exec('bit', ['install', ...args], { cwd: wsdir });
+  }else{
+    core.warning(`WARNING - Skipped running 'bit install' command`);
   }
 
-  // bit install dependencies
-  await exec('bit', ['install', ...args], { cwd: wsdir });
 };
 
 export default run;
