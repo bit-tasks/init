@@ -1,52 +1,68 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as jsoncParser from 'jsonc-parser';
+import * as jsoncParser from "jsonc-parser";
 import { exec } from "@actions/exec";
-import * as core from '@actions/core';
+import * as core from "@actions/core";
 
 const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
   const wsDirPath = path.resolve(wsdir);
-
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
-  const workspace = fs.readFileSync(wsFile).toString();
+  let bitEngineVersion = "";
 
-  // sets org and scope env for dependent tasks usage
-  const workspaceObject = jsoncParser.parse(workspace);
-  const defaultScope =
-    workspaceObject["teambit.workspace/workspace"].defaultScope;
-  const [Org, Scope] = defaultScope.split(".");
-  process.env.ORG = Org;
-  process.env.SCOPE = Scope;
+  if (fs.existsSync(wsFile)) {
+    const workspace = fs.readFileSync(wsFile).toString();
+    // sets org and scope env for dependent tasks usage
+    const workspaceObject = jsoncParser.parse(workspace);
+    const defaultScope =
+      workspaceObject["teambit.workspace/workspace"].defaultScope;
+    const [Org, Scope] = defaultScope.split(".");
+    process.env.ORG = Org;
+    process.env.SCOPE = Scope;
 
-  // get bitEngineVersion from workspace.jsonc
-  const bitEngineVersion = 
-    workspaceObject["teambit.harmony/bit"]?.engine || "";
+    // get bitEngineVersion from workspace.jsonc
+    bitEngineVersion = workspaceObject["teambit.harmony/bit"]?.engine || "";
+  } else {
+    // Log a warning if workspace.jsonc is missing
+    core.warning(
+      "Cannot find the workspace.jsonc file. Proceeding without it. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!"
+    );
+  }
 
   // get installed bit version
   let installedBitVersion = "";
   try {
-    await exec('bit', ['-v'], {
+    await exec("bit", ["-v"], {
       listeners: {
         stdout: (data: Buffer) => {
           installedBitVersion += data.toString();
-        }
-      }
+        },
+      },
     });
     installedBitVersion = installedBitVersion.trim();
-    core.info(`Bit version ${installedBitVersion} is available on the build agent.`);
+    core.info(
+      `Bit version ${installedBitVersion} is available on the build agent.`
+    );
   } catch (error) {
     installedBitVersion = "";
   }
 
   // check if installation is needed
-  const shouldInstallBitCLI = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+  const shouldInstallBitCLI =
+    !installedBitVersion ||
+    (bitEngineVersion && bitEngineVersion !== installedBitVersion);
 
   if (shouldInstallBitCLI) {
-    if (installedBitVersion && bitEngineVersion && bitEngineVersion !== installedBitVersion) {
-      core.warning(`WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`);
+    if (
+      installedBitVersion &&
+      bitEngineVersion &&
+      bitEngineVersion !== installedBitVersion
+    ) {
+      core.warning(
+        `WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`
+      );
     }
-    await exec('npm', ['i', '-g', '@teambit/bvm']);
-    await exec('bvm', ['install', bitEngineVersion, '--use-system-node']);
+    await exec("npm", ["i", "-g", "@teambit/bvm"]);
+    await exec("bvm", ["install", bitEngineVersion, "--use-system-node"]);
   }
 
   // sets path for current step
@@ -60,12 +76,11 @@ const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
   process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
-  if(!skipDepInstall){
-    await exec('bit', ['install', ...args], { cwd: wsdir });
-  }else{
+  if (!skipDepInstall) {
+    await exec("bit", ["install", ...args], { cwd: wsdir });
+  } else {
     core.warning(`WARNING - Skipped running 'bit install' command`);
   }
-
 };
 
 export default run;

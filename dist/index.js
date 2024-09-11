@@ -5928,24 +5928,31 @@ const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, f
     var _a;
     const wsDirPath = path.resolve(wsdir);
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
-    const workspace = fs.readFileSync(wsFile).toString();
-    // sets org and scope env for dependent tasks usage
-    const workspaceObject = jsoncParser.parse(workspace);
-    const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
-    const [Org, Scope] = defaultScope.split(".");
-    process.env.ORG = Org;
-    process.env.SCOPE = Scope;
-    // get bitEngineVersion from workspace.jsonc
-    const bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
+    let bitEngineVersion = "";
+    if (fs.existsSync(wsFile)) {
+        const workspace = fs.readFileSync(wsFile).toString();
+        // sets org and scope env for dependent tasks usage
+        const workspaceObject = jsoncParser.parse(workspace);
+        const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
+        const [Org, Scope] = defaultScope.split(".");
+        process.env.ORG = Org;
+        process.env.SCOPE = Scope;
+        // get bitEngineVersion from workspace.jsonc
+        bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
+    }
+    else {
+        // Log a warning if workspace.jsonc is missing
+        core.warning("Cannot find the workspace.jsonc file. Proceeding without it. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!");
+    }
     // get installed bit version
     let installedBitVersion = "";
     try {
-        yield (0, exec_1.exec)('bit', ['-v'], {
+        yield (0, exec_1.exec)("bit", ["-v"], {
             listeners: {
                 stdout: (data) => {
                     installedBitVersion += data.toString();
-                }
-            }
+                },
+            },
         });
         installedBitVersion = installedBitVersion.trim();
         core.info(`Bit version ${installedBitVersion} is available on the build agent.`);
@@ -5954,13 +5961,16 @@ const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, f
         installedBitVersion = "";
     }
     // check if installation is needed
-    const shouldInstallBitCLI = !installedBitVersion || (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+    const shouldInstallBitCLI = !installedBitVersion ||
+        (bitEngineVersion && bitEngineVersion !== installedBitVersion);
     if (shouldInstallBitCLI) {
-        if (installedBitVersion && bitEngineVersion && bitEngineVersion !== installedBitVersion) {
+        if (installedBitVersion &&
+            bitEngineVersion &&
+            bitEngineVersion !== installedBitVersion) {
             core.warning(`WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`);
         }
-        yield (0, exec_1.exec)('npm', ['i', '-g', '@teambit/bvm']);
-        yield (0, exec_1.exec)('bvm', ['install', bitEngineVersion, '--use-system-node']);
+        yield (0, exec_1.exec)("npm", ["i", "-g", "@teambit/bvm"]);
+        yield (0, exec_1.exec)("bvm", ["install", bitEngineVersion, "--use-system-node"]);
     }
     // sets path for current step
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;
@@ -5972,7 +5982,7 @@ const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, f
     process.env.BIT_DISABLE_SPINNER = "true";
     // bit install dependencies
     if (!skipDepInstall) {
-        yield (0, exec_1.exec)('bit', ['install', ...args], { cwd: wsdir });
+        yield (0, exec_1.exec)("bit", ["install", ...args], { cwd: wsdir });
     }
     else {
         core.warning(`WARNING - Skipped running 'bit install' command`);
