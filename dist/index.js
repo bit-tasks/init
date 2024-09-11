@@ -5962,9 +5962,8 @@ const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, f
         installedBitVersion = "";
     }
     // check if installation is needed
-    const shouldInstallBitCLI = workspaceFileExist &&
-        (!installedBitVersion ||
-            (bitEngineVersion && bitEngineVersion !== installedBitVersion));
+    const shouldInstallBitCLI = !installedBitVersion ||
+        (bitEngineVersion && bitEngineVersion !== installedBitVersion);
     if (shouldInstallBitCLI) {
         if (installedBitVersion &&
             bitEngineVersion &&
@@ -5983,7 +5982,7 @@ const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, f
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
     // bit install dependencies
-    if (!skipDepInstall) {
+    if (workspaceFileExist && !skipDepInstall) {
         yield (0, exec_1.exec)("bit", ["install", ...args], { cwd: wsdir });
     }
     else {

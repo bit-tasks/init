@@ -49,9 +49,8 @@ const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
 
   // check if installation is needed
   const shouldInstallBitCLI =
-    workspaceFileExist &&
-    (!installedBitVersion ||
-      (bitEngineVersion && bitEngineVersion !== installedBitVersion));
+    !installedBitVersion ||
+    (bitEngineVersion && bitEngineVersion !== installedBitVersion);
 
   if (shouldInstallBitCLI) {
     if (
@@ -78,7 +77,7 @@ const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
   process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
-  if (!skipDepInstall) {
+  if (workspaceFileExist && !skipDepInstall) {
     await exec("bit", ["install", ...args], { cwd: wsdir });
   } else {
     core.warning(`WARNING - Skipped running 'bit install' command`);
