@@ -7,9 +7,10 @@ import * as core from "@actions/core";
 const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
   const wsDirPath = path.resolve(wsdir);
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
+  const workspaceFileExist = fs.existsSync(wsFile);
   let bitEngineVersion = "";
 
-  if (fs.existsSync(wsFile)) {
+  if (workspaceFileExist) {
     const workspace = fs.readFileSync(wsFile).toString();
     // sets org and scope env for dependent tasks usage
     const workspaceObject = jsoncParser.parse(workspace);
@@ -48,8 +49,9 @@ const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
 
   // check if installation is needed
   const shouldInstallBitCLI =
-    !installedBitVersion ||
-    (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+    workspaceFileExist &&
+    (!installedBitVersion ||
+      (bitEngineVersion && bitEngineVersion !== installedBitVersion));
 
   if (shouldInstallBitCLI) {
     if (
