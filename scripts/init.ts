@@ -25,7 +25,7 @@ const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
   } else {
     // Log a warning if workspace.jsonc is missing
     core.warning(
-      "Cannot find the workspace.jsonc file. This will skip initializing ORG and SCOPE environment variables, skip running `bit install` command and may affect subsequent tasks!"
+      "WARNING - Cannot find the workspace.jsonc file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!"
     );
   }
 

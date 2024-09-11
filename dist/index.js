@@ -5943,7 +5943,7 @@ const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, f
     }
     else {
         // Log a warning if workspace.jsonc is missing
-        core.warning("Cannot find the workspace.jsonc file. Proceeding without it. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!");
+        core.warning("WARNING - Cannot find the workspace.jsonc file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!");
     }
     // get installed bit version
     let installedBitVersion = "";
