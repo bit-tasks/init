@@ -11,12 +11,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step to cache the Docker image layers
+      # Step to set a date-based cache key (daily refresh)
+      - name: Set date environment variable for Docker cache
+        run: echo "DOCKER_CACHE_DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
+
+      # Step to cache the Docker image layers using the daily cache key
       - name: Cache Docker layers
         uses: actions/cache@v4
         with:
           path: /tmp/.docker-cache
-          key: ${{ runner.os }}-docker-${{ github.sha }}
+          key: ${{ runner.os }}-docker-${{ env.DOCKER_CACHE_DATE }}
           restore-keys: |
             ${{ runner.os }}-docker-
 
