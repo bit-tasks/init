@@ -1,4 +1,4 @@
-name: Test Bit Init with Docker Alpine
+name: Test Bit Init with Docker Alpine Cache
 
 on:
   workflow_dispatch:
