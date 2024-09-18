@@ -1,4 +1,4 @@
-name: Test Bit Init with Docker Alpine
+name: Test Bit Init with Docker Alpine GH
 
 on:
   workflow_dispatch:
