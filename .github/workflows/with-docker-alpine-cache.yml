@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/bitsrc/stable:latest-alpine # Use GitHub Container Registry image
+      image: ghcr.io/bit-tasks/stable:latest-alpine # Use GitHub Container Registry image
       options: --user root
     timeout-minutes: 20
     env:
