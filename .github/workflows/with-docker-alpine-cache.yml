@@ -1,10 +1,41 @@
-name: Test Bit Init with Docker Alpine Cache
+name: Test Bit Init with Docker Alpine
 
 on:
   workflow_dispatch:
 
 jobs:
+  cache-docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step to cache the Docker image layers
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.docker-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
+      # Step to pull and save Docker image to cache
+      - name: Pull and save Docker image
+        run: |
+          mkdir -p /tmp/.docker-cache
+          if [ ! -f /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar ]; then
+            docker pull bitsrc/stable:latest-alpine
+            docker save bitsrc/stable:latest-alpine -o /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar
+          fi
+
+      # Step to load the cached Docker image
+      - name: Load cached Docker image
+        run: |
+          docker load -i /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar
+
   build:
+    needs: cache-docker  # This makes the build job depend on the cache-docker job
     runs-on: ubuntu-latest
     container:
       image: bitsrc/stable:latest-alpine
@@ -15,29 +46,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      # Cache Docker image layers
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.docker-cache
-          key: ${{ runner.os }}-docker-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
-
-      # Pull and save the Docker image if not cached
-      - name: Pull and save Docker image
-        run: |
-          mkdir -p /tmp/.docker-cache
-          if [ ! -f /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar ]; then
-            docker pull bitsrc/stable:latest-alpine
-            docker save bitsrc/stable:latest-alpine -o /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar
-          fi
-
-      # Load the cached Docker image
-      - name: Load cached Docker image
-        run: |
-          docker load -i /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar
 
       - name: Verify Node.js installation
         run: node -v
