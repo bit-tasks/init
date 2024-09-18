@@ -1,0 +1,134 @@
+name: Test Bit Init with Docker Alpine Cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cache-docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step to cache the Docker image layers
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.docker-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
+      # Step to pull and save Docker image to cache
+      - name: Pull and save Docker image
+        run: |
+          mkdir -p /tmp/.docker-cache
+          if [ ! -f /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar ]; then
+            docker pull bitsrc/stable:latest-alpine
+            docker save bitsrc/stable:latest-alpine -o /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar
+          fi
+
+      # Step to load the cached Docker image
+      - name: Load cached Docker image
+        run: |
+          docker load -i /tmp/.docker-cache/bitsrc-stable-latest-alpine.tar
+
+  build:
+    needs: cache-docker  # This makes the build job depend on the cache-docker job
+    runs-on: ubuntu-latest
+    container:
+      image: bitsrc/stable:latest-alpine
+      options: --user root
+    timeout-minutes: 20
+    env:
+      BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Node.js installation
+        run: node -v
+
+      - name: Verify Git installation
+        run: git -v
+
+      - name: Initialize Bit
+        uses: bit-tasks/init@main
+        with:
+          ws-dir: "test-data"
+          docker: "true"
+          log: "trace"
+
+      - name: Resolve component packages from bit.cloud registry (Mandatory for component installation using package managers other than Bit)
+        run: |
+          npm config set '@bit:registry' https://node-registry.bit.cloud
+          npm config set '@teambit:registry' https://node-registry.bit.cloud
+          npm config set //node-registry.bit.cloud/:_authToken ${{ env.BIT_CONFIG_ACCESS_TOKEN }}
+
+      - name: Installed Node version test
+        run: |
+          node -v
+
+      - name: Installed Bit version test
+        run: |
+          bit -v
+
+      - name: Installed Bit location test
+        run: |
+          which bit
+
+      - name: Bit token test
+        run: echo "$(bit config get user.token)"
+
+      - name: Bit workspace directory environment variable test
+        run: |
+          echo $WSDIR
+
+      - name: Ripple CI environment variable test
+        run: |
+          echo $RIPPLE
+
+      - name: Log environment variable test
+        run: |
+          echo $LOG
+
+      - name: Cache environment variable test
+        run: |
+          echo $CACHE
+
+      - name: Bit org environment variable test
+        run: |
+          echo $ORG
+
+      - name: Bit scope environment variable test
+        run: |
+          echo $SCOPE
+
+      - name: Bit analytics reporting environment variable test
+        run: |
+          echo $BIT_CONFIG_ANALYTICS_REPORTING
+
+      - name: Bit anonymous reporting environment variable test
+        run: |
+          echo $BIT_CONFIG_ANONYMOUS_REPORTING
+
+      - name: Bit interactive environment variable test
+        run: |
+          echo $BIT_CONFIG_INTERACTIVE
+
+      - name: Bit user token environment variable test
+        run: |
+          echo $BIT_CONFIG_ACCESS_TOKEN
+
+      - name: Bit path environment variable test
+        run: |
+          echo $PATH
+
+      - name: Bit console environment variable test
+        run: |
+          echo $BIT_DISABLE_CONSOLE
+
+      - name: Bit spinner environment variable test
+        run: |
+          echo $BIT_DISABLE_SPINNER
