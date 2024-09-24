@@ -1,7 +1,7 @@
 name: Test Bit Init with Docker Alpine
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       docker-image:
         description: "Docker image to use"
