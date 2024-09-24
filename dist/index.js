@@ -5943,6 +5943,7 @@ const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, 
         core.setOutput("scope", Scope);
         // get bitEngineVersion from workspace.jsonc
         bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
+        core.info(`Bit engine ${bitEngineVersion} is defined on workflow.jsonc.`);
         core.setOutput("engine", bitEngineVersion);
     }
     else {

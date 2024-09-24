@@ -29,6 +29,9 @@ const run = async (
 
     // get bitEngineVersion from workspace.jsonc
     bitEngineVersion = workspaceObject["teambit.harmony/bit"]?.engine || "";
+    core.info(
+      `Bit engine ${bitEngineVersion} is defined on workflow.jsonc.`
+    );
     core.setOutput("engine", bitEngineVersion);
   } else {
     // Log a warning if workspace.jsonc is missing
