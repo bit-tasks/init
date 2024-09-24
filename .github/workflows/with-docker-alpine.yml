@@ -1,13 +1,19 @@
 name: Test Bit Init with Docker Alpine
 
 on:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      docker-image:
+        description: "Docker image to use"
+        required: true
+        type: string
+        default: "bitsrc/stable:latest-alpine1"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: bitsrc/stable:latest-alpine
+      image: ${{ inputs.docker-image }}
       options: --user root
     timeout-minutes: 20
     env:
