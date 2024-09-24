@@ -5839,7 +5839,7 @@ try {
     const skipDepsInstall = process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
     const skipBitInstall = process.env.SKIP_BIT_INSTALL === "true" ? true : false;
     const args = process.env.LOG ? [`--log=${process.env.LOG}`] : [];
-    if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
+    if (!skipDepsInstall && !process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
         throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
     }
