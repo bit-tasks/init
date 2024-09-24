@@ -19,13 +19,13 @@ This task installs **Bit CLI** in your CI Agent and executes `bit install` insid
 
 **Optional** Use ripple ci to build components. Default `"false"`.
 
-### `docker`
-
-**Optional** Use a docker container to build components. Default `"false"`.
-
-### `skip-install`
+### `skip-deps-install`
 
 **Optional** Skip running `bit install` command.
+
+### `skip-bit-install`
+
+**Optional** Skip installing bit cli.
 
 ### `log`
 
@@ -80,7 +80,7 @@ Use the below step to resolve component packages from **bit.cloud** registry.
 ```
 
 ## Docker Support
-You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task. You need to set `docker: "true"` input parameter for the `bit-tasks/init@v2` task, when running inside a container.
+You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task.
 
 ```yaml
 name: Test Bit Init with Docker
@@ -103,7 +103,6 @@ jobs:
         uses: bit-tasks/init@v2
         with:
           ws-dir: '<WORKSPACE_DIR_PATH>'
-          docker: "true"
 ```
 
 # Contributor Guide

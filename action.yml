@@ -8,8 +8,12 @@ inputs:
     description: "Workspace json file directory path"
     required: false
     default: './'
-  skip-install:
+  skip-deps-install:
     description: "Skip running 'bit install' command"
+    required: false
+    default: 'false'
+  skip-bit-install:
+    description: "Skip installing bit cli"
     required: false
     default: 'false'
   cache:
@@ -20,29 +24,40 @@ inputs:
     description: "Use Ripple CI to build components"
     required: false
     default: 'false'
-  docker:
-    description: "Use Docker Container to build components"
-    required: false
-    default: 'false'
   log:
     description: "Log options for bit commands. Options: [trace, debug, info, warn, error, fatal]"
     required: false
     default: ''
+  # Deprecated inputs
+  docker:
+    description: "(Deprecated) Use Docker Container to build components"
+    required: false
+    default: 'false'
+  skip-install:
+    description: "(Deprecated) Skip running 'bit install' command"
+    required: false
+    default: 'false'
 runs:
   using: 'composite'
   steps:
+    - name: Detect if running in a container and create symlink if needed
+      shell: bash
+      run: |
+        if [ -f /.dockerenv ]; then
+          echo "Running inside a container."
+          echo "IS_CONTAINER=true" >> $GITHUB_ENV
+          echo "Creating symlink for Docker image..."
+          mkdir -p /home/runner
+          ln -sfn /__w /home/runner/work
+        else
+          echo "Not running inside a container."
+          echo "IS_CONTAINER=false" >> $GITHUB_ENV
+        fi
     - name: Setup Node
-      if: inputs.docker == 'false'
+      if: env.IS_CONTAINER == 'false'
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-    
-    - name: Create symlink to support docker image
-      if: inputs.docker == 'true'
-      shell: bash
-      run: |
-        mkdir -p /home/runner
-        ln -sfn /__w /home/runner/work
 
     - name: Install pnpm
       if: inputs.cache == 'true'
@@ -74,4 +89,6 @@ runs:
         CACHE: ${{ inputs.cache }}
         RIPPLE: ${{ inputs.ripple }}
         LOG: ${{ inputs.log }}
-        SKIP_INSTALL: ${{ inputs.skip-install }}
+        SKIP_BIT_INSTALL: ${{ inputs.skip-bit-install }}
+        SKIP_DEPS_INSTALL: ${{ inputs.skip-deps-install == 'true' && inputs.skip-deps-install || inputs.skip-install }}
+

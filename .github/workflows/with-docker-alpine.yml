@@ -23,7 +23,6 @@ jobs:
         uses: bit-tasks/init@main
         with:
           ws-dir: "test-data"
-          docker: "true"
           # ripple: "true"
           log: "trace"
           # cache: "true"

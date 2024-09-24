@@ -5836,7 +5836,8 @@ const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
     const wsdir = process.env.WSDIR || './';
-    const skipDepInstall = process.env.SKIP_INSTALL === "true" ? true : false;
+    const skipDepInstall = process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
+    const skipBitInstall = process.env.SKIP_BIT_INSTALL === "true" ? true : false;
     const args = process.env.LOG ? [`--log=${process.env.LOG}`] : [];
     if (!process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
@@ -5845,7 +5846,7 @@ try {
     else if (!process.env.BIT_CONFIG_USER_TOKEN) {
         process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
     }
-    (0, init_1.default)(wsdir, skipDepInstall, args).then(() => {
+    (0, init_1.default)(wsdir, skipDepInstall, skipBitInstall, args).then(() => {
         // Set WSDIR env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `WSDIR=${process.env.WSDIR}\n`);
         // Set RIPPLE env for subsequent steps in GitHub Actions
@@ -5924,7 +5925,7 @@ const path = __importStar(__nccwpck_require__(1017));
 const jsoncParser = __importStar(__nccwpck_require__(245));
 const exec_1 = __nccwpck_require__(1514);
 const core = __importStar(__nccwpck_require__(2186));
-const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, function* () {
+const run = (wsdir, skipDepInstall, skipBitInstall, args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const wsDirPath = path.resolve(wsdir);
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
@@ -5962,8 +5963,9 @@ const run = (wsdir, skipDepInstall, args) => __awaiter(void 0, void 0, void 0, f
         installedBitVersion = "";
     }
     // check if installation is needed
-    const shouldInstallBitCLI = !installedBitVersion ||
-        (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+    const shouldInstallBitCLI = !skipBitInstall &&
+        (!installedBitVersion ||
+            (bitEngineVersion && bitEngineVersion !== installedBitVersion));
     if (shouldInstallBitCLI) {
         if (installedBitVersion &&
             bitEngineVersion &&

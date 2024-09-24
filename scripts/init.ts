@@ -4,7 +4,12 @@ import * as jsoncParser from "jsonc-parser";
 import { exec } from "@actions/exec";
 import * as core from "@actions/core";
 
-const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
+const run = async (
+  wsdir: string,
+  skipDepInstall: boolean,
+  skipBitInstall: boolean,
+  args: string[]
+) => {
   const wsDirPath = path.resolve(wsdir);
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspaceFileExist = fs.existsSync(wsFile);
@@ -49,8 +54,9 @@ const run = async (wsdir: string, skipDepInstall: boolean, args: string[]) => {
 
   // check if installation is needed
   const shouldInstallBitCLI =
-    !installedBitVersion ||
-    (bitEngineVersion && bitEngineVersion !== installedBitVersion);
+    !skipBitInstall &&
+    (!installedBitVersion ||
+      (bitEngineVersion && bitEngineVersion !== installedBitVersion));
 
   if (shouldInstallBitCLI) {
     if (
