@@ -18,6 +18,10 @@ jobs:
           ws-dir: "test-data"
           skip-bit-install: "true"
           skip-deps-install: "true"
+      - name: Output Debug
+        run: |
+          echo "Engine Version in Step: ${{ steps.bit-init.outputs.engine }}"
+
   build:
     runs-on: ubuntu-latest
     needs: bit-version
