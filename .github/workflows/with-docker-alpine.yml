@@ -7,12 +7,12 @@ on:
         description: "Docker image to use"
         required: true
         type: string
-        default: "bitsrc/stable:latest-alpine1"
+        default: "bitsrc/stable:latest-alpine"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
+    container:
       image: ${{ inputs.docker-image }}
       options: --user root
     timeout-minutes: 20
