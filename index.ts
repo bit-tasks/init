@@ -4,7 +4,7 @@ import run from "./scripts/init";
 
 try {
   const wsdir = process.env.WSDIR || './';
-  const skipDepInstall: boolean = process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
+  const skipDepsInstall: boolean = process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
   const skipBitInstall: boolean = process.env.SKIP_BIT_INSTALL === "true" ? true : false;
 
   const args = process.env.LOG? [`--log=${process.env.LOG}`]: [];
@@ -16,7 +16,7 @@ try {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
-  run(wsdir, skipDepInstall, skipBitInstall, args).then((): void => {
+  run(wsdir, skipDepsInstall, skipBitInstall, args).then((): void => {
     // Set WSDIR env for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,

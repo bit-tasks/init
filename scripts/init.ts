@@ -6,7 +6,7 @@ import * as core from "@actions/core";
 
 const run = async (
   wsdir: string,
-  skipDepInstall: boolean,
+  skipDepsInstall: boolean,
   skipBitInstall: boolean,
   args: string[]
 ) => {
@@ -87,7 +87,7 @@ const run = async (
   process.env.BIT_DISABLE_SPINNER = "true";
 
   // bit install dependencies
-  if (workspaceFileExist && !skipDepInstall) {
+  if (workspaceFileExist && !skipDepsInstall) {
     await exec("bit", ["install", ...args], { cwd: wsdir });
   } else {
     core.warning(`WARNING - Skipped running 'bit install' command`);
