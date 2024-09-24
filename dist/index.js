@@ -5938,9 +5938,12 @@ const run = (wsdir, skipDepInstall, skipBitInstall, args) => __awaiter(void 0, v
         const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
         const [Org, Scope] = defaultScope.split(".");
         process.env.ORG = Org;
+        core.setOutput("org", Org);
         process.env.SCOPE = Scope;
+        core.setOutput("scope", Scope);
         // get bitEngineVersion from workspace.jsonc
         bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
+        core.setOutput("engine", bitEngineVersion);
     }
     else {
         // Log a warning if workspace.jsonc is missing
@@ -5958,6 +5961,7 @@ const run = (wsdir, skipDepInstall, skipBitInstall, args) => __awaiter(void 0, v
         });
         installedBitVersion = installedBitVersion.trim();
         core.info(`Bit version ${installedBitVersion} is available on the build agent.`);
+        core.setOutput("bit", installedBitVersion);
     }
     catch (error) {
         installedBitVersion = "";
