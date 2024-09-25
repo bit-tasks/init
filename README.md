@@ -122,8 +122,8 @@ If you need to use a Docker container image with Bit that matches the Bit versio
 
 This workflow consists of two jobs:
 
-1. Job 1 (`bit-engine-version`): Retrieves the Bit engine version from the `workspace.jsonc` file.
-2. Job 2 (`build`): Uses the retrieved Bit engine version to select the appropriate Docker image and run further build steps.
+1. **Job 1 (`bit-engine-version`):** Retrieves the Bit engine version from the `workspace.jsonc` file.
+2. **Job 2 (`build`):** Uses the retrieved Bit engine version to select the appropriate Docker image and run further build steps.
 
 ```yaml
 name: Bit Init with Specific Docker Version
@@ -144,7 +144,7 @@ jobs:
         uses: bit-tasks/init@v2
         id: bit-engine-version
         with:
-          ws-dir: "<WORKSPACE_DIR_PATH>" # Replace with your workspace directory path
+          ws-dir: "<WORKSPACE_DIR_PATH>"
           skip-bit-install: "true"
           skip-deps-install: "true"
 
@@ -165,11 +165,9 @@ jobs:
       - name: Initialize Bit
         uses: bit-tasks/init@v2
         with:
-          ws-dir: '<WORKSPACE_DIR_PATH>' # Replace with your workspace directory path
+          ws-dir: '<WORKSPACE_DIR_PATH>'
 
 ```
-
-**Note:** You need to split the workflow into two jobs, where first job will retrieve the `bit version` from `workspace.jsonc` and use it for subsequent tasks.
 
 # Contributor Guide
 
