@@ -105,27 +105,46 @@ jobs:
           ws-dir: '<WORKSPACE_DIR_PATH>'
 ```
 
-### Using a specific docker image according to `workspace.jsonc`
+### Using a Fixed Docker Image Based on `workspace.jsonc`
 
-If you need to use a docker container image with Bit, matching the bit version defined in `workspace.jsonc` as its `engine` attribute, use the following configuration.
+If you need to use a Docker container image with Bit that matches the Bit version defined in your `workspace.jsonc` file's `engine` attribute, follow the configuration example below.
+
+```
+/** file: workspace.jsonc **/
+{
+  // Other configuration options...
+  "teambit.harmony/bit": {
+    "engine": "1.8.52",
+    "engineStrict": true
+  }
+}
+```
+
+This workflow consists of two jobs:
+
+1. Job 1 (`bit-engine-version`): Retrieves the Bit engine version from the `workspace.jsonc` file.
+2. Job 2 (`build`): Uses the retrieved Bit engine version to select the appropriate Docker image and run further build steps.
 
 ```yaml
 name: Bit Init with Specific Docker Version
+
 on:
   workflow_dispatch:
+
 jobs:
   bit-engine-version:
     runs-on: ubuntu-latest
     outputs:
-        engine: ${{ steps.bit-engine-version.outputs.engine  }}
+      engine: ${{ steps.bit-engine-version.outputs.engine }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Get Bit Engine Version
         uses: bit-tasks/init@v2
         id: bit-engine-version
         with:
-          ws-dir: "<WORKSPACE_DIR_PATH>"
+          ws-dir: "<WORKSPACE_DIR_PATH>" # Replace with your workspace directory path
           skip-bit-install: "true"
           skip-deps-install: "true"
 
@@ -142,10 +161,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Initialize Bit
         uses: bit-tasks/init@v2
         with:
-          ws-dir: '<WORKSPACE_DIR_PATH>'
+          ws-dir: '<WORKSPACE_DIR_PATH>' # Replace with your workspace directory path
+
 ```
 
 **Note:** You need to split the workflow into two jobs, where first job will retrieve the `bit version` from `workspace.jsonc` and use it for subsequent tasks.
