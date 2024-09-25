@@ -90,7 +90,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: bitsrc/stable:latest
+      image: bitsrc/stable:latest-alpine
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
