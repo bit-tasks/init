@@ -83,11 +83,11 @@ Use the below step to resolve component packages from **bit.cloud** registry.
 You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task.
 
 ```yaml
-name: Test Bit Init with Docker
+name: Bit Init with Docker
 on:
   workflow_dispatch:
 jobs:
-  install:
+  build:
     runs-on: ubuntu-latest
     container:
       image: bitsrc/stable:latest
@@ -98,12 +98,57 @@ jobs:
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Initialize Bit
         uses: bit-tasks/init@v2
         with:
           ws-dir: '<WORKSPACE_DIR_PATH>'
 ```
+
+### Using a specific docker image according to `workspace.jsonc`
+
+If you need to use a docker container image with Bit, matching the bit version defined in `workspace.jsonc` as its `engine` attribute, use the following configuration.
+
+```yaml
+name: Bit Init with Specific Docker Version
+on:
+  workflow_dispatch:
+jobs:
+  bit-engine-version:
+    runs-on: ubuntu-latest
+    outputs:
+        engine: ${{ steps.bit-engine-version.outputs.engine  }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get Bit Engine Version
+        uses: bit-tasks/init@v2
+        id: bit-engine-version
+        with:
+          ws-dir: "<WORKSPACE_DIR_PATH>"
+          skip-bit-install: "true"
+          skip-deps-install: "true"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: bit-engine-version
+    container:
+      image: bitsrc/stable:${{ needs.bit-engine-version.outputs.engine }}-alpine
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+      GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+      BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize Bit
+        uses: bit-tasks/init@v2
+        with:
+          ws-dir: '<WORKSPACE_DIR_PATH>'
+```
+
+**Note:** You need to split the workflow into two jobs, where first job will retrieve the `bit version` from `workspace.jsonc` and use it for subsequent tasks.
 
 # Contributor Guide
 
