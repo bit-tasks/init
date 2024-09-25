@@ -23,16 +23,14 @@ const run = async (
       workspaceObject["teambit.workspace/workspace"].defaultScope;
     const [Org, Scope] = defaultScope.split(".");
     process.env.ORG = Org;
-    core.setOutput("org", Org);
     process.env.SCOPE = Scope;
-    core.setOutput("scope", Scope);
 
     // get bitEngineVersion from workspace.jsonc
     bitEngineVersion = workspaceObject["teambit.harmony/bit"]?.engine || "";
     core.info(
-      `Bit engine ${bitEngineVersion} is defined on workflow.jsonc.`
+      `Bit engine ${bitEngineVersion} is defined on workflow.jsonc`
     );
-    core.setOutput("engine", bitEngineVersion);
+    process.env.ENGINE = bitEngineVersion;
   } else {
     // Log a warning if workspace.jsonc is missing
     core.warning(
@@ -54,7 +52,7 @@ const run = async (
     core.info(
       `Bit version ${installedBitVersion} is available on the build agent.`
     );
-    core.setOutput("bit", installedBitVersion);
+    process.env.BIT = installedBitVersion;
   } catch (error) {
     installedBitVersion = "";
   }

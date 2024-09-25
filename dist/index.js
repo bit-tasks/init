@@ -5835,11 +5835,13 @@ const fs = __importStar(__nccwpck_require__(7147));
 const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
-    const wsdir = process.env.WSDIR || './';
+    const wsdir = process.env.WSDIR || "./";
     const skipDepsInstall = process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
     const skipBitInstall = process.env.SKIP_BIT_INSTALL === "true" ? true : false;
     const args = process.env.LOG ? [`--log=${process.env.LOG}`] : [];
-    if (!skipDepsInstall && !process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
+    if (!skipDepsInstall &&
+        !process.env.BIT_CONFIG_ACCESS_TOKEN &&
+        !process.env.BIT_CONFIG_USER_TOKEN) {
         // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
         throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
     }
@@ -5873,6 +5875,14 @@ try {
         fs.appendFileSync(process.env.GITHUB_ENV, `BIT_DISABLE_CONSOLE=${process.env.BIT_DISABLE_CONSOLE}\n`);
         // Set Bit spinner env for subsequent steps in GitHub Actions
         fs.appendFileSync(process.env.GITHUB_ENV, `BIT_DISABLE_SPINNER=${process.env.BIT_DISABLE_SPINNER}\n`);
+        // Set Engine output for subsequent jobs in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_OUTPUT, `engine=${process.env.ENGINE}\n`);
+        // Set Bit version output for subsequent jobs in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_OUTPUT, `bit=${process.env.BIT}\n`);
+        // Set Org output for subsequent jobs in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_OUTPUT, `org=${process.env.ORG}\n`);
+        // Set Org output for subsequent jobs in GitHub Actions
+        fs.appendFileSync(process.env.GITHUB_OUTPUT, `scope=${process.env.SCOPE}\n`);
     });
 }
 catch (error) {
@@ -5938,13 +5948,11 @@ const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, 
         const defaultScope = workspaceObject["teambit.workspace/workspace"].defaultScope;
         const [Org, Scope] = defaultScope.split(".");
         process.env.ORG = Org;
-        core.setOutput("org", Org);
         process.env.SCOPE = Scope;
-        core.setOutput("scope", Scope);
         // get bitEngineVersion from workspace.jsonc
         bitEngineVersion = ((_a = workspaceObject["teambit.harmony/bit"]) === null || _a === void 0 ? void 0 : _a.engine) || "";
-        core.info(`Bit engine ${bitEngineVersion} is defined on workflow.jsonc.`);
-        core.setOutput("engine", bitEngineVersion);
+        core.info(`Bit engine ${bitEngineVersion} is defined on workflow.jsonc`);
+        process.env.ENGINE = bitEngineVersion;
     }
     else {
         // Log a warning if workspace.jsonc is missing
@@ -5962,7 +5970,7 @@ const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, 
         });
         installedBitVersion = installedBitVersion.trim();
         core.info(`Bit version ${installedBitVersion} is available on the build agent.`);
-        core.setOutput("bit", installedBitVersion);
+        process.env.BIT = installedBitVersion;
     }
     catch (error) {
         installedBitVersion = "";

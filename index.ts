@@ -3,16 +3,22 @@ import * as core from "@actions/core";
 import run from "./scripts/init";
 
 try {
-  const wsdir = process.env.WSDIR || './';
-  const skipDepsInstall: boolean = process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
-  const skipBitInstall: boolean = process.env.SKIP_BIT_INSTALL === "true" ? true : false;
+  const wsdir = process.env.WSDIR || "./";
+  const skipDepsInstall: boolean =
+    process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
+  const skipBitInstall: boolean =
+    process.env.SKIP_BIT_INSTALL === "true" ? true : false;
 
-  const args = process.env.LOG? [`--log=${process.env.LOG}`]: [];
+  const args = process.env.LOG ? [`--log=${process.env.LOG}`] : [];
 
-  if (!skipDepsInstall && !process.env.BIT_CONFIG_ACCESS_TOKEN && !process.env.BIT_CONFIG_USER_TOKEN) {
+  if (
+    !skipDepsInstall &&
+    !process.env.BIT_CONFIG_ACCESS_TOKEN &&
+    !process.env.BIT_CONFIG_USER_TOKEN
+  ) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
     throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
-  } else if(!process.env.BIT_CONFIG_USER_TOKEN){
+  } else if (!process.env.BIT_CONFIG_USER_TOKEN) {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
@@ -38,7 +44,7 @@ try {
       process.env.GITHUB_ENV as string,
       `CACHE=${process.env.CACHE}\n`
     );
-    
+
     // Set Bit path for subsequent steps in GitHub Actions
     fs.appendFileSync(
       process.env.GITHUB_PATH as string,
@@ -83,6 +89,30 @@ try {
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
       `BIT_DISABLE_SPINNER=${process.env.BIT_DISABLE_SPINNER}\n`
+    );
+
+    // Set Engine output for subsequent jobs in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_OUTPUT as string,
+      `engine=${process.env.ENGINE}\n`
+    );
+
+    // Set Bit version output for subsequent jobs in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_OUTPUT as string,
+      `bit=${process.env.BIT}\n`
+    );
+
+    // Set Org output for subsequent jobs in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_OUTPUT as string,
+      `org=${process.env.ORG}\n`
+    );
+
+    // Set Org output for subsequent jobs in GitHub Actions
+    fs.appendFileSync(
+      process.env.GITHUB_OUTPUT as string,
+      `scope=${process.env.SCOPE}\n`
     );
   });
 } catch (error: any) {

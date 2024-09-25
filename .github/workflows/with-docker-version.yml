@@ -4,29 +4,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  bit-version:
+  bitengine:
     runs-on: ubuntu-latest
     outputs:
-        engine: ${{ steps.bit-init.outputs.engine  }}
+        engine: ${{ steps.bitengine.outputs.engine  }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Initialize Bit
         uses: bit-tasks/init@main
-        id: bit-init
+        id: bitengine
         with:
           ws-dir: "test-data"
           skip-bit-install: "true"
           skip-deps-install: "true"
       - name: Output Debug
         run: |
-          echo "Engine Version in Step: ${{ steps.bit-init.outputs.engine }}"
+          echo "Engine Version in Step: ${{ steps.bitengine.outputs.engine }}"
 
   build:
     runs-on: ubuntu-latest
-    needs: bit-version
+    needs: bitengine
     container:
-      image: bitsrc/stable:${{ needs.bit-version.outputs.engine }}-alpine
+      image: bitsrc/stable:${{ needs.bitengine.outputs.engine }}-alpine
       options: --user root
     timeout-minutes: 20
     env:
