@@ -37,6 +37,19 @@ inputs:
     description: "(Deprecated) Skip running 'bit install' command"
     required: false
     default: 'false'
+outputs:
+  engine:
+    value: ${{ steps.bit-init.outputs.engine }}
+    description: 'The Bit engine version defined in workspace.jsonc'
+  bit:
+    value: ${{ steps.bit-init.outputs.bit }}
+    description: 'The Bit version installed or available to execute the task'
+  org:
+    value: ${{ steps.bit-init.outputs.org }}
+    description: 'Bit organization defined in workspace.jsonc'
+  scope:
+    value: ${{ steps.bit-init.outputs.scope }}
+    description: 'Bit scope defined in workspace.jsonc'
 runs:
   using: 'composite'
   steps:
@@ -82,6 +95,7 @@ runs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Run Bit Initialization Script
+      id: bit-init
       run: node ${{ github.action_path }}/dist/index.js
       shell: bash
       env:
