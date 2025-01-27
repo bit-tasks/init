@@ -1,7 +1,7 @@
 name: Test Webhook
 
 on:
-  # **Add repository_dispatch for external webhooks**
+  # Listens for an external "webhook" repository_dispatch event
   repository_dispatch:
     types: [webhook]
 
@@ -14,7 +14,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
     
-    # We'll fetch custom data from the repository_dispatch event payload
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
