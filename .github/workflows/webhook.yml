@@ -1,0 +1,37 @@
+name: Test Webhook
+
+on:
+  # **Add repository_dispatch for external webhooks**
+  repository_dispatch:
+    types: [webhook]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    # We'll fetch custom data from the repository_dispatch event payload
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BIT_CONFIG_ACCESS_TOKEN: ${{ secrets.BIT_CONFIG_ACCESS_TOKEN }}
+      GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+      GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize Bit
+        uses: bit-tasks/init@v1
+        with:
+          ws-dir: 'test-data'
+
+      - name: Show incoming webhook data
+        if: ${{ github.event_name == 'repository_dispatch' }}
+        run: |
+          echo "Webhook URL: ${{ github.event.client_payload.url }}"
+          echo "Webhook Headers: ${{ toJson(github.event.client_payload.headers) }}"
