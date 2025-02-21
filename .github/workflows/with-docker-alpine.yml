@@ -20,7 +20,7 @@ jobs:
       - name: Verify Git installation
         run: git -v
       - name: Initialize Bit
-        uses: bit-tasks/init@main
+        uses: bit-tasks/init@v3
         with:
           ws-dir: "test-data"
           # ripple: "true"
