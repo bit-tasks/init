@@ -13,7 +13,7 @@ This task installs **Bit CLI** in your CI Agent and executes `bit install` insid
 
 ### `cache`
 
-**Optional** Enables caching for the workflow. Default `"false"`. Available in `bit-tasks/init@v2`.
+**Optional** Enables caching for the workflow. Default `"false"`. Available in `bit-tasks/init@v3`.
 
 ### `ripple`
 
@@ -80,7 +80,7 @@ Use the below step to resolve component packages from **bit.cloud** registry.
 ```
 
 ## Docker Support
-You can use the official bit docker image to execute the `bit-tasks/init@v2` task. This saves the time that used to install bit inside the init task.
+You can use the official bit docker image to execute the `bit-tasks/init@v3` task. This saves the time that used to install bit inside the init task.
 
 ```yaml
 name: Bit Init with Docker
@@ -100,7 +100,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Initialize Bit
-        uses: bit-tasks/init@v2
+        uses: bit-tasks/init@v3
         with:
           ws-dir: '<WORKSPACE_DIR_PATH>'
 ```
@@ -141,7 +141,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get Bit Engine Version
-        uses: bit-tasks/init@v2
+        uses: bit-tasks/init@v3
         id: bit-engine-version
         with:
           ws-dir: "<WORKSPACE_DIR_PATH>"
@@ -163,7 +163,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Initialize Bit
-        uses: bit-tasks/init@v2
+        uses: bit-tasks/init@v3
         with:
           ws-dir: '<WORKSPACE_DIR_PATH>'
 
@@ -181,7 +181,7 @@ Go to the GithHub action task directory and build using NCC compiler. For exampl
 npm install
 npm run build
 git commit -m "Update task"
-git tag -a -m "action release" v2 --force
+git tag -a -m "action release" v3 --force
 git push --follow-tags
 ```
 
