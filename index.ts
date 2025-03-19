@@ -18,7 +18,9 @@ try {
   ) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
     throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
-  } else if (!process.env.BIT_CONFIG_USER_TOKEN) {
+  } 
+  
+  if (!process.env.BIT_CONFIG_USER_TOKEN) {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
 
