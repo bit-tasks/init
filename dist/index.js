@@ -5840,6 +5840,7 @@ try {
     const skipBitInstall = core.getInput("skip-bit-install") === 'true' || false;
     const log = core.getInput("log") || undefined;
     const args = log ? [`--log=${log}`] : [];
+    core.info(`ws-dir: ${wsdir}`);
     if (!skipDepsInstall &&
         !process.env.BIT_CONFIG_ACCESS_TOKEN &&
         !process.env.BIT_CONFIG_USER_TOKEN) {

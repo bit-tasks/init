@@ -10,6 +10,8 @@ try {
 
   const args = log ? [`--log=${log}`] : [];
 
+  core.info(`ws-dir: ${wsdir}`);
+
   if (
     !skipDepsInstall &&
     !process.env.BIT_CONFIG_ACCESS_TOKEN &&
