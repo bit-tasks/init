@@ -10,7 +10,7 @@ const run = async (
   skipBitInstall: boolean,
   args: string[]
 ) => {
-  const wsDirPath = path.resolve(wsdir);
+  const wsDirPath = path.join(process.cwd(), wsdir);
   const wsFile = path.join(wsDirPath, "workspace.jsonc");
   const workspaceFileExist = fs.existsSync(wsFile);
   let bitEngineVersion = "";
@@ -34,7 +34,7 @@ const run = async (
   } else {
     // Log a warning if workspace.jsonc is missing
     core.warning(
-      "WARNING - Cannot find the workspace.jsonc file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!"
+      `WARNING - Cannot find the workspace.jsonc at ${wsFile} file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!`
     );
   }
 

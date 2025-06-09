@@ -5938,7 +5938,7 @@ const exec_1 = __nccwpck_require__(1514);
 const core = __importStar(__nccwpck_require__(2186));
 const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const wsDirPath = path.resolve(wsdir);
+    const wsDirPath = path.join(process.cwd(), wsdir);
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
     const workspaceFileExist = fs.existsSync(wsFile);
     let bitEngineVersion = "";
@@ -5957,7 +5957,7 @@ const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, 
     }
     else {
         // Log a warning if workspace.jsonc is missing
-        core.warning("WARNING - Cannot find the workspace.jsonc file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!");
+        core.warning(`WARNING - Cannot find the workspace.jsonc at ${wsFile} file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!`);
     }
     // get installed bit version
     let installedBitVersion = "";
