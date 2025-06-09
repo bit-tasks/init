@@ -5835,12 +5835,10 @@ const fs = __importStar(__nccwpck_require__(7147));
 const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
-    const wsdir = core.getInput("ws-dir") || "./";
-    const skipDepsInstall = core.getInput("skip-deps-install") === 'true' || false;
-    const skipBitInstall = core.getInput("skip-bit-install") === 'true' || false;
-    const log = core.getInput("log") || undefined;
-    const args = log ? [`--log=${log}`] : [];
-    core.info(`ws-dir: ${wsdir}`);
+    const wsdir = process.env.WSDIR || "./";
+    const skipDepsInstall = process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
+    const skipBitInstall = process.env.SKIP_BIT_INSTALL === "true" ? true : false;
+    const args = process.env.LOG ? [`--log=${process.env.LOG}`] : [];
     if (!skipDepsInstall &&
         !process.env.BIT_CONFIG_ACCESS_TOKEN &&
         !process.env.BIT_CONFIG_USER_TOKEN) {
@@ -5939,7 +5937,7 @@ const exec_1 = __nccwpck_require__(1514);
 const core = __importStar(__nccwpck_require__(2186));
 const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const wsDirPath = path.join(process.cwd(), wsdir);
+    const wsDirPath = path.resolve(wsdir);
     const wsFile = path.join(wsDirPath, "workspace.jsonc");
     const workspaceFileExist = fs.existsSync(wsFile);
     let bitEngineVersion = "";
@@ -5958,7 +5956,7 @@ const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, 
     }
     else {
         // Log a warning if workspace.jsonc is missing
-        core.warning(`WARNING - Cannot find the workspace.jsonc at ${wsFile} file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!`);
+        core.warning("WARNING - Cannot find the workspace.jsonc file. This will skip initializing ORG and SCOPE environment variables and may affect subsequent tasks!");
     }
     // get installed bit version
     let installedBitVersion = "";
