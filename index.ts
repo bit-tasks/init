@@ -3,13 +3,12 @@ import * as core from "@actions/core";
 import run from "./scripts/init";
 
 try {
-  const wsdir = process.env.WSDIR || "./";
-  const skipDepsInstall: boolean =
-    process.env.SKIP_DEPS_INSTALL === "true" ? true : false;
-  const skipBitInstall: boolean =
-    process.env.SKIP_BIT_INSTALL === "true" ? true : false;
+  const wsdir = core.getInput("ws-dir") || "./";
+  const skipDepsInstall = core.getBooleanInput("skip-deps-install") || false;
+  const skipBitInstall = core.getBooleanInput("skip-bit-install") || false;
+  const log = core.getInput("log") || undefined;
 
-  const args = process.env.LOG ? [`--log=${process.env.LOG}`] : [];
+  const args = log ? [`--log=${log}`] : [];
 
   if (
     !skipDepsInstall &&
@@ -18,8 +17,8 @@ try {
   ) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
     throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
-  } 
-  
+  }
+
   if (!process.env.BIT_CONFIG_USER_TOKEN) {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
