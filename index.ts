@@ -4,8 +4,8 @@ import run from "./scripts/init";
 
 try {
   const wsdir = core.getInput("ws-dir") || "./";
-  const skipDepsInstall = core.getBooleanInput("skip-deps-install") || false;
-  const skipBitInstall = core.getBooleanInput("skip-bit-install") || false;
+  const skipDepsInstall = core.getInput("skip-deps-install") === 'true' || false;
+  const skipBitInstall = core.getInput("skip-bit-install")  === 'true'|| false;
   const log = core.getInput("log") || undefined;
 
   const args = log ? [`--log=${log}`] : [];

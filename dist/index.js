@@ -5836,8 +5836,8 @@ const core = __importStar(__nccwpck_require__(2186));
 const init_1 = __importDefault(__nccwpck_require__(2154));
 try {
     const wsdir = core.getInput("ws-dir") || "./";
-    const skipDepsInstall = core.getBooleanInput("skip-deps-install") || false;
-    const skipBitInstall = core.getBooleanInput("skip-bit-install") || false;
+    const skipDepsInstall = core.getInput("skip-deps-install") === 'true' || false;
+    const skipBitInstall = core.getInput("skip-bit-install") === 'true' || false;
     const log = core.getInput("log") || undefined;
     const args = log ? [`--log=${log}`] : [];
     if (!skipDepsInstall &&
