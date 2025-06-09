@@ -83,7 +83,7 @@ runs:
       if: inputs.cache == 'true'
       shell: bash
       run: |
-        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        echo "STORE_PATH=$(pnpm store path --silent | tail -n 1)" >> $GITHUB_ENV
 
     - name: Setup pnpm cache
       if: inputs.cache == 'true'
