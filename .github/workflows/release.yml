@@ -1,0 +1,171 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (leave empty to use package.json version)'
+        required: false
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Get version from package.json
+        id: package-version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION=$(node -p "require('./package.json').version")
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Parse version with SemVer
+        id: semver
+        run: |
+          VERSION="${{ steps.package-version.outputs.version }}"
+          # Remove 'v' prefix if present
+          VERSION=${VERSION#v}
+          
+          # Parse semantic version
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f2)
+          PATCH=$(echo $VERSION | cut -d. -f3)
+          
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+          echo "patch=$PATCH" >> $GITHUB_OUTPUT
+          echo "full=$VERSION" >> $GITHUB_OUTPUT
+          
+          echo "Parsed version: $VERSION (Major: $MAJOR, Minor: $MINOR, Patch: $PATCH)"
+
+      - name: Build action
+        run: pnpm run build
+
+      - name: Create release archive
+        run: |
+          mkdir -p release-assets
+          cp -r dist/ action.yml package.json pnpm-lock.yaml release-assets/
+          tar -czf action-v${{ steps.semver.outputs.full }}.tar.gz -C release-assets .
+          mv action-v${{ steps.semver.outputs.full }}.tar.gz release-assets/
+
+      - name: Delete existing releases (cleanup)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get all releases
+          RELEASES=$(gh api repos/${{ github.repository }}/releases --jq '.[].tag_name')
+          
+          # Delete existing releases for this major version
+          MAJOR_TAG="v${{ steps.semver.outputs.major }}"
+          FULL_TAG="v${{ steps.semver.outputs.full }}"
+          
+          for tag in $RELEASES; do
+            if [[ "$tag" == "$MAJOR_TAG" || "$tag" == "$FULL_TAG" ]]; then
+              echo "Deleting existing release: $tag"
+              gh release delete "$tag" --yes || true
+              git push --delete origin "$tag" || true
+            fi
+          done
+
+      - name: Commit built files for tags
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Force add the built dist/ folder to git (override .gitignore)
+          git add -f dist/
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Build dist for release v${{ steps.semver.outputs.full }}"
+          fi
+
+      - name: Create/Update major version tag
+        run: |
+          MAJOR_TAG="v${{ steps.semver.outputs.major }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create or update the major version tag
+          git tag -f "$MAJOR_TAG"
+          git push origin "$MAJOR_TAG" --force
+
+      - name: Create/Update full version tag
+        run: |
+          FULL_TAG="v${{ steps.semver.outputs.full }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create the full version tag if it doesn't exist
+          if ! git rev-parse "$FULL_TAG" >/dev/null 2>&1; then
+            git tag "$FULL_TAG"
+            git push origin "$FULL_TAG"
+          fi
+
+      - name: Create GitHub Release (Major Version)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MAJOR_TAG="v${{ steps.semver.outputs.major }}"
+          FULL_VERSION="${{ steps.semver.outputs.full }}"
+          
+          gh release create "$MAJOR_TAG" \
+            --title "Release $MAJOR_TAG (v$FULL_VERSION)" \
+            --notes "Auto-generated release for major version ${{ steps.semver.outputs.major }} (v$FULL_VERSION)" \
+            --latest \
+            release-assets/action-v$FULL_VERSION.tar.gz
+
+      - name: Create GitHub Release (Full Version)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          FULL_TAG="v${{ steps.semver.outputs.full }}"
+          FULL_VERSION="${{ steps.semver.outputs.full }}"
+          
+          # Only create if this is not a major.0.0 version (to avoid duplicate)
+          if [[ "${{ steps.semver.outputs.minor }}" != "0" || "${{ steps.semver.outputs.patch }}" != "0" ]]; then
+            gh release create "$FULL_TAG" \
+              --title "Release v$FULL_VERSION" \
+              --notes "Release for specific version v$FULL_VERSION" \
+              release-assets/action-v$FULL_VERSION.tar.gz
+          fi
+
+      - name: Update action.yml in release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The built action is now available in the release artifacts
+          echo "Release completed successfully!"
+          echo "Major version tag: v${{ steps.semver.outputs.major }}"
+          echo "Full version tag: v${{ steps.semver.outputs.full }}"
+          echo "Users can reference this action as:"
+          echo "  - uses: ${{ github.repository }}@v${{ steps.semver.outputs.major }}"
+          echo "  - uses: ${{ github.repository }}@v${{ steps.semver.outputs.full }}"
