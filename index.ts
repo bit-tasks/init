@@ -18,8 +18,8 @@ try {
   ) {
     // Keeping backward compatibility for BIT_CONFIG_USER_TOKEN
     throw new Error("BIT_CONFIG_ACCESS_TOKEN environment variable is not set!");
-  } 
-  
+  }
+
   if (!process.env.BIT_CONFIG_USER_TOKEN) {
     process.env.BIT_CONFIG_USER_TOKEN = process.env.BIT_CONFIG_ACCESS_TOKEN;
   }
@@ -86,11 +86,6 @@ try {
     fs.appendFileSync(
       process.env.GITHUB_ENV as string,
       `BIT_DISABLE_CONSOLE=${process.env.BIT_DISABLE_CONSOLE}\n`
-    );
-    // Set Bit spinner env for subsequent steps in GitHub Actions
-    fs.appendFileSync(
-      process.env.GITHUB_ENV as string,
-      `BIT_DISABLE_SPINNER=${process.env.BIT_DISABLE_SPINNER}\n`
     );
 
     // Set Engine output for subsequent jobs in GitHub Actions
