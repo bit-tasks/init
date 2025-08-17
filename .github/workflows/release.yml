@@ -81,12 +81,11 @@ jobs:
           # Get all releases
           RELEASES=$(gh api repos/${{ github.repository }}/releases --jq '.[].tag_name')
           
-          # Delete existing releases for this major version
+          # Delete existing major version release only
           MAJOR_TAG="v${{ steps.semver.outputs.major }}"
-          FULL_TAG="v${{ steps.semver.outputs.full }}"
           
           for tag in $RELEASES; do
-            if [[ "$tag" == "$MAJOR_TAG" || "$tag" == "$FULL_TAG" ]]; then
+            if [[ "$tag" == "$MAJOR_TAG" ]]; then
               echo "Deleting existing release: $tag"
               gh release delete "$tag" --yes || true
               git push --delete origin "$tag" || true
@@ -118,17 +117,9 @@ jobs:
           git tag -f "$MAJOR_TAG"
           git push origin "$MAJOR_TAG" --force
 
-      - name: Create/Update full version tag
-        run: |
-          FULL_TAG="v${{ steps.semver.outputs.full }}"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Create the full version tag if it doesn't exist
-          if ! git rev-parse "$FULL_TAG" >/dev/null 2>&1; then
-            git tag "$FULL_TAG"
-            git push origin "$FULL_TAG"
-          fi
+      # Skip creating full version tags to avoid MODULE_NOT_FOUND errors
+      # Users should only reference the major version tag (e.g., @v3)
+      # which contains the built dist files
 
       - name: Create GitHub Release (Major Version)
         env:
@@ -143,20 +134,8 @@ jobs:
             --latest \
             release-assets/action-v$FULL_VERSION.tar.gz
 
-      - name: Create GitHub Release (Full Version)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          FULL_TAG="v${{ steps.semver.outputs.full }}"
-          FULL_VERSION="${{ steps.semver.outputs.full }}"
-          
-          # Only create if this is not a major.0.0 version (to avoid duplicate)
-          if [[ "${{ steps.semver.outputs.minor }}" != "0" || "${{ steps.semver.outputs.patch }}" != "0" ]]; then
-            gh release create "$FULL_TAG" \
-              --title "Release v$FULL_VERSION" \
-              --notes "Release for specific version v$FULL_VERSION" \
-              release-assets/action-v$FULL_VERSION.tar.gz
-          fi
+      # Skip creating full version releases - only major version releases are created
+      # This prevents users from referencing problematic tags without built files
 
       - name: Update action.yml in release
         env:
@@ -165,7 +144,8 @@ jobs:
           # The built action is now available in the release artifacts
           echo "Release completed successfully!"
           echo "Major version tag: v${{ steps.semver.outputs.major }}"
-          echo "Full version tag: v${{ steps.semver.outputs.full }}"
-          echo "Users can reference this action as:"
+          echo "Users should reference this action as:"
           echo "  - uses: ${{ github.repository }}@v${{ steps.semver.outputs.major }}"
-          echo "  - uses: ${{ github.repository }}@v${{ steps.semver.outputs.full }}"
+          echo ""
+          echo "Note: Full version tags (v${{ steps.semver.outputs.full }}) are not created"
+          echo "to prevent MODULE_NOT_FOUND errors. Always use major version tags."
