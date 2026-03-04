@@ -28,6 +28,10 @@ inputs:
     description: "Log options for bit commands. Options: [trace, debug, info, warn, error, fatal]"
     required: false
     default: ''
+  upload-bit-log:
+    description: "Upload Bit debug log as a GitHub Actions artifact"
+    required: false
+    default: 'false'
   # Deprecated inputs
   docker:
     description: "(Deprecated) Use Docker Container to build components"
@@ -106,3 +110,24 @@ runs:
         SKIP_BIT_INSTALL: ${{ inputs.skip-bit-install }}
         SKIP_DEPS_INSTALL: ${{ inputs.skip-deps-install == 'true' && inputs.skip-deps-install || inputs.skip-install }}
 
+    - name: Propagate upload-bit-log setting
+      if: inputs.upload-bit-log == 'true'
+      shell: bash
+      run: echo "UPLOAD_BIT_LOG=true" >> $GITHUB_ENV
+
+    - name: Get Bit log path
+      if: inputs.upload-bit-log == 'true'
+      id: bit-log
+      shell: bash
+      run: |
+        LOG_PATH=$(bit globals --json | jq -r '."Log file"')
+        echo "path=$LOG_PATH" >> $GITHUB_OUTPUT
+
+    - name: Upload Bit Log
+      if: inputs.upload-bit-log == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: bit-debug-log-init
+        path: ${{ steps.bit-log.outputs.path }}
+        if-no-files-found: ignore
+        retention-days: 5
