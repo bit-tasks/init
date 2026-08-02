@@ -27720,7 +27720,15 @@ const run = (wsdir, skipDepsInstall, skipBitInstall, args) => __awaiter(void 0, 
             core.warning(`WARNING - Bit version ${installedBitVersion} is already installed, however workspace requires the version ${bitEngineVersion}. Installing version ${bitEngineVersion}. This may increase the overall build time.`);
         }
         yield (0, exec_1.exec)("npm", ["i", "-g", "@teambit/bvm"]);
-        yield (0, exec_1.exec)("bvm", ["install", bitEngineVersion, "--use-system-node"]);
+        // Skip bvm's post-install update check (a network call that hangs on egress-restricted
+        // runners) and its shell-profile PATH edit (a no-op in CI, where profiles aren't sourced).
+        yield (0, exec_1.exec)("bvm", [
+            "install",
+            bitEngineVersion,
+            "--use-system-node",
+            "--skip-update-check",
+            "--skip-update-path",
+        ]);
     }
     // sets path for current step
     process.env.PATH = `${process.env.HOME}/bin:` + process.env.PATH;

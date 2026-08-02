@@ -74,7 +74,15 @@ const run = async (
       );
     }
     await exec("npm", ["i", "-g", "@teambit/bvm"]);
-    await exec("bvm", ["install", bitEngineVersion, "--use-system-node"]);
+    // Skip bvm's post-install update check (a network call that hangs on egress-restricted
+    // runners) and its shell-profile PATH edit (a no-op in CI, where profiles aren't sourced).
+    await exec("bvm", [
+      "install",
+      bitEngineVersion,
+      "--use-system-node",
+      "--skip-update-check",
+      "--skip-update-path",
+    ]);
   }
 
   // sets path for current step
